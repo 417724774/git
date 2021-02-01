@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>水平导航-二级菜单</title>
+    <style type="text/css">
+        *{
+            padding:0px;
+            margin: 0px;
+        }
+        .navBar{
+            height: 30px;
+            background-color: #2B383E;
+            text-align: center;
+        }
+        ul{
+            list-style: none;
+        }
+        .nav li{
+            float: left;
+        
+        }
+        .nav li a{
+            display: block;
+            padding: 0 20px;
+            height: 30px;
+            line-height: 30px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .nav li a:hover{
+            background-color: #fff;
+            color: #4DB6E7
+        }
+        .TabMenuCon{
+            clear: both;
+            display: none;
+        }
+        .TabMenuCon li{
+            display: inline-block;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function selectTabMenu(i){
+            switch(i){
+               case 71:     
+                document.getElementById("TabMenuCon71").style.display="block";
+                document.getElementById("TabMenuCon72").style.display="none";
+                document.getElementById("TabMenuCon73").style.display="none";
+                document.getElementById("TabMenuCon74").style.display="none";
+                document.getElementById("TabMenuCon75").style.display="none";
+                document.getElementById("TabMenuCon76").style.display="none";
+                break;
+            case 72:
+                document.getElementById("TabMenuCon71").style.display="none";
+                document.getElementById("TabMenuCon72").style.display="block";
+                document.getElementById("TabMenuCon73").style.display="none";
+                document.getElementById("TabMenuCon74").style.display="none";
+                document.getElementById("TabMenuCon75").style.display="none";
+                document.getElementById("TabMenuCon76").style.display="none";
+                break;
+            case 73:    
+                document.getElementById("TabMenuCon71").style.display="none";
+                document.getElementById("TabMenuCon72").style.display="none";
+                document.getElementById("TabMenuCon73").style.display="block";
+                document.getElementById("TabMenuCon74").style.display="none";
+                document.getElementById("TabMenuCon75").style.display="none";
+                document.getElementById("TabMenuCon76").style.display="none";
+                break;
+            case 74:
+                document.getElementById("TabMenuCon71").style.display="none";
+                document.getElementById("TabMenuCon72").style.display="none";
+                document.getElementById("TabMenuCon73").style.display="none";
+                document.getElementById("TabMenuCon74").style.display="block";
+                document.getElementById("TabMenuCon75").style.display="none";
+                document.getElementById("TabMenuCon76").style.display="none";
+                break; 
+            case 75:
+                document.getElementById("TabMenuCon71").style.display="none";
+                document.getElementById("TabMenuCon72").style.display="none";
+                document.getElementById("TabMenuCon73").style.display="none";
+                document.getElementById("TabMenuCon74").style.display="none";
+                document.getElementById("TabMenuCon75").style.display="block";
+                document.getElementById("TabMenuCon76").style.display="none";
+                break; 
+                case 76:
+                document.getElementById("TabMenuCon71").style.display="none";
+                document.getElementById("TabMenuCon72").style.display="none";
+                document.getElementById("TabMenuCon73").style.display="none";
+                document.getElementById("TabMenuCon74").style.display="none";
+                document.getElementById("TabMenuCon75").style.display="none";
+                document.getElementById("TabMenuCon76").style.display="block";
+                break; 
+           }
+        }
+    </script>
+</head>
+<body>
+    <div class="navBar">
+        <ul class="nav">
+            <li><a href="#" onmouseover="selectTabMenu(71)">首页</a></li>
+            <li><a href="#" onmouseover="selectTabMenu(72)">关于协会</a></li>
+            <li><a href="#" onmouseover="selectTabMenu(73)">协会动态</a></li>
+            <li><a href="#" onmouseover="selectTabMenu(74)">协会活动</a></li>
+            <li><a href="#" onmouseover="selectTabMenu(75)">会员</a></li>
+            <li><a href="#" onmouseover="selectTabMenu(76)">资源空间</a></li>
+        </ul>
+        
+    </div>
+    <div id="TabMenuCon">
+        <ul id="TabMenuCon71" class="TabMenuCon">
+            <li><a href="#">公告</a></li>
+            <li><<a href="#">信息</a></li>
+        </ul>
+        <ul id="TabMenuCon72" class="TabMenuCon">
+            <li>协会简介</li>
+            <li>组织机构</li>
+            <li>协会章程</li>
+        </ul>
+        <ul id="TabMenuCon73" class="TabMenuCon">
+            <li>协会新闻</li>
+            <li>活动预告</li>
+            <li>求职招聘</li>
+        </ul>
+        <ul id="TabMenuCon74" class="TabMenuCon">
+            <li>义务维修月</li>
+            <li>平面设计活动</li>
+            <li>程序设计活动</li>
+            <li>户外拓展</li>
+        </ul>
+        <ul id="TabMenuCon75" class="TabMenuCon">
+            <li>会员登录</li>
+            <li>会员注册</li>
+            <li>缴纳会费</li>
+            <li>会员信息管理</li>
+            <li>修改密码</li>
+        </ul>
+        <ul id="TabMenuCon76" class="TabMenuCon">
+            <li>PS教程</li>
+            <li>前端设计</li>
+            <li>Flash教程</li>
+        </ul>
+    </div>
+</body>
+</html>
