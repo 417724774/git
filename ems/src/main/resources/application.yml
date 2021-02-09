@@ -1,11 +1,23 @@
 # DataSource Config
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/wyu?useUnicode=true&useSSL=false&charaterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: root
-    password: 123456
-mabatis-plus:
-  mapper-locations: classpath*:/mapper/**Mapper.xml
 server:
   port: 8080
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/ems?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+wyu:
+  jwt:
+    # 加密秘钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: token
+
+shiro_redis:
+  enable: true
+  redis_manager:
+    host: 127.0.0.1.6379
