@@ -1,9 +1,9 @@
 package com.wyu.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyu.entity.StudentInfo;
 import com.wyu.mapper.StudentInfoMapper;
 import com.wyu.service.StudentInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

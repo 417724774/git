@@ -1,0 +1,197 @@
+<template>
+
+  <div>
+    <el-container>
+      <el-header style="height: 100px">
+        <img class="hlogo" src="../assets/logo.png" alt="WYU UNIVERSITY!">
+      </el-header>
+      <div style="text-align: right">
+        <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back">返回登录</el-button>
+      </div>
+      <el-main>
+        <h1 class="h1">毕业生就业管理系统</h1>
+
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="用户名" prop="cuserid">
+            <el-input v-model="ruleForm.cuserid"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="cpassword">
+            <el-input type="password" v-model="ruleForm.cpassword"></el-input>
+          </el-form-item>
+          <el-form-item label="姓名" prop="cname">
+            <el-input v-model="ruleForm.cname"></el-input>
+          </el-form-item>
+          <el-form-item label="电话" prop="cphone">
+            <el-input v-model="ruleForm.cphone"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="cemail">
+            <el-input v-model="ruleForm.cemail"></el-input>
+          </el-form-item>
+          <el-form-item label="公司名称" prop="cunit">
+            <el-input v-model="ruleForm.cunit"></el-input>
+          </el-form-item>
+          <el-form-item label="公司性质" prop="cproperty">
+            <el-input v-model="ruleForm.cproperty"></el-input>
+          </el-form-item>
+          <el-form-item label="公司规模" prop="csize">
+            <el-select v-model="ruleForm.csize" placeholder="请选择公司规模">
+              <el-option label="100人" value="100"></el-option>
+              <el-option label="200人" value="200"></el-option>
+              <el-option label="500人" value="500"></el-option>
+              <el-option label="1000人" value="1000"></el-option>
+              <el-option label="5000人" value="5000"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="公司简介" prop="cintroduction">
+            <el-input type="textarea" v-model="ruleForm.cintroduction"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-main>
+      <el-footer>版权所有©五邑大学-梁卓林</el-footer>
+    </el-container>
+  </div>
+
+</template>
+
+<script>
+export default {
+  name: "Login",
+  data() {
+    return {
+      ruleForm: {
+        cuserid:'',
+        cname: '',
+        cpassword: '',
+        cphone: '',
+        cunit: '',
+        cproperty: '',
+        csize: '',
+        cintroduction: '',
+        cemail:'',
+        crtime:this.$store.getters.getDate
+      },
+      rules: {
+        cuserid: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 5, max: 11, message: '长度在 5 到 11 个字符', trigger: 'blur' }
+        ],
+        cname: [
+          { required: true, message: '请输入姓名', trigger: 'blur' },
+          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+        ],
+        cpassword: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        cphone: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度在 11 个字符', trigger: 'blur' }
+        ],
+        cunit: [
+          { required: true, message: '请输入公司名称', trigger: 'blur' }
+        ],
+        cproperty: [
+          { required: true, message: '请输入公司性质', trigger: 'blur' }
+        ],
+        csize: [
+          { required: true, message: '请选择公司规模', trigger: 'change' }
+        ],
+        cintroduction: [
+          { required: true, message: '请填写公司简介', trigger: 'blur' }
+        ],
+        cemail: [
+          { type:'email', required: true, message: '请填写邮箱', trigger: 'blur' }
+        ]
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+
+          const _this = this
+          this.$axios.post('/company/register',this.ruleForm).then(res => {
+            if(res.data.code === 200){
+              alert("申请注册成功！")
+              //跳转
+              _this.$router.push("/login")
+            }else {
+              alert("申请注册失败！请重新注册！")
+            }
+          })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    back(){
+      this.$router.push("/login")
+    }
+
+  }
+}
+</script>
+
+<style scoped>
+
+.el-header{
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+}
+
+.el-footer {
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+  margin-top: 300px;
+}
+
+.el-main {
+  /*background-color: #E9EEF3;*/
+  color: #333;
+  text-align: center;
+}
+
+body > .el-container {
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+  line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+  line-height: 320px;
+}
+
+.hlogo{
+  height: 100%;
+
+}
+
+.demo-ruleForm{
+  max-width: 500px;
+  margin-left: 650px;
+}
+
+.h1{
+  margin-left: 35px;
+}
+.el-footer{
+  margin-top: unset;
+}
+.back{
+}
+
+</style>

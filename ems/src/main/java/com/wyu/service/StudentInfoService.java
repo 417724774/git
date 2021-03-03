@@ -1,7 +1,7 @@
 package com.wyu.service;
 
-import com.wyu.entity.StudentInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wyu.entity.StudentInfo;
 
 /**
  * <p>

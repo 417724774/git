@@ -2,9 +2,7 @@ package com.wyu.config;
 
 import com.wyu.shiro.AccountRealm;
 import com.wyu.shiro.JwtFilter;
-import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
@@ -20,11 +18,11 @@ import org.springframework.context.annotation.Configuration;
 import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
     @Autowired
     JwtFilter jwtFilter;
 
@@ -34,14 +32,14 @@ public class ShiroConfig {
 
         // inject redisSessionDAO
         sessionManager.setSessionDAO(redisSessionDAO);
-
-        // other stuff...
-
         return sessionManager;
     }
 
     @Bean
-    public SessionsSecurityManager securityManager(AccountRealm accountRealm, SessionManager sessionManager, RedisCacheManager redisCacheManager) {
+    public DefaultWebSecurityManager securityManager(AccountRealm accountRealm,
+                                                   SessionManager sessionManager,
+                                                   RedisCacheManager redisCacheManager) {
+
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(accountRealm);
 
         //inject sessionManager
@@ -49,30 +47,34 @@ public class ShiroConfig {
 
         // inject redisCacheManager
         securityManager.setCacheManager(redisCacheManager);
-
-        // other stuff...
-
         return securityManager;
     }
 
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
+
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/**", "jwt"); // 主要通过注解方式校验权限
+
+        filterMap.put("/**", "jwt");
         chainDefinition.addPathDefinitions(filterMap);
         return chainDefinition;
     }
+
     @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager,
                                                          ShiroFilterChainDefinition shiroFilterChainDefinition) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
+
         Map<String, Filter> filters = new HashMap<>();
         filters.put("jwt", jwtFilter);
         shiroFilter.setFilters(filters);
+
         Map<String, String> filterMap = shiroFilterChainDefinition.getFilterChainMap();
+
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         return shiroFilter;
     }
+
 }

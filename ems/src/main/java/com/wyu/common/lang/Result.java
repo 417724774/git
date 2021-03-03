@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class Result implements Serializable {
+
     private int code;//200是正常，非200是异常
     private String msg;
     private Object data;
@@ -34,4 +35,5 @@ public class Result implements Serializable {
         result.setData(data);
         return result;
     }
+
 }

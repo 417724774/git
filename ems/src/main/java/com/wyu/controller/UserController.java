@@ -6,7 +6,9 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wyu.common.dto.LoginDto;
 import com.wyu.common.lang.Result;
+import com.wyu.entity.CompanyInfo;
 import com.wyu.entity.User;
+import com.wyu.service.CompanyInfoService;
 import com.wyu.service.UserService;
 import com.wyu.util.JwtUtils;
 import org.apache.shiro.SecurityUtils;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    CompanyInfoService companyInfoService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -36,12 +40,6 @@ public class UserController {
     @GetMapping("/index")
     public Object index(){
         User user = userService.getById(1L);
-        return Result.success(user);
-    }
-
-    @PostMapping("/save")
-    public Object save(@Validated @RequestBody User user){
-
         return Result.success(user);
     }
 
@@ -57,20 +55,23 @@ public class UserController {
         }
 
         String jwt = jwtUtils.generateToken(user.getId());
-        response.setHeader("Authorization",jwt);
-        response.setHeader("Access-control-expose-Headers","Authorization");
+        response.setHeader("Authorization", jwt);
+        response.setHeader("Access-control-Expose-Headers", "Authorization");
         return Result.success(MapUtil.builder()
                 .put("userId",user.getUserId())
                 .put("username",user.getUsername())
                 .put("type",user.getType())
-                .put("department",user.getDepartment()).map()
+                .put("department",user.getDepartment())
+                .put("avator",user.getAvator()).map()
         );
     }
 
     @RequiresAuthentication
     @GetMapping("/logout")
     public Result logout(){
+        System.out.println("退出前");
         SecurityUtils.getSubject().logout();
+        System.out.println("退出后");
         return Result.success(null);
     }
 }

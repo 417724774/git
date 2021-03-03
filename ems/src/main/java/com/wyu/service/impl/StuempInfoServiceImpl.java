@@ -1,9 +1,9 @@
 package com.wyu.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyu.entity.StuempInfo;
 import com.wyu.mapper.StuempInfoMapper;
 import com.wyu.service.StuempInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

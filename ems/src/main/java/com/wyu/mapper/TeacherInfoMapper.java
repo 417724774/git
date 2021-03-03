@@ -1,7 +1,7 @@
 package com.wyu.mapper;
 
-import com.wyu.entity.TeacherInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wyu.entity.TeacherInfo;
 
 /**
  * <p>

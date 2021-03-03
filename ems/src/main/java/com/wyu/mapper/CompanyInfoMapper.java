@@ -1,7 +1,7 @@
 package com.wyu.mapper;
 
-import com.wyu.entity.CompanyInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wyu.entity.CompanyInfo;
 
 /**
  * <p>

@@ -7,12 +7,12 @@ import java.io.Serializable;
 @Data
 public class AccountProfile implements Serializable {
 
-    private String userId;
+    private Long id;
 
     private String username;
 
-    private String type;
+    private String avatar;
 
-    private String department;
+    private String email;
 
 }
