@@ -29,13 +29,16 @@ public class CompanyInfo implements Serializable {
     @NotBlank(message = "姓名不能为空")
     private String cName;
 
+    @NotBlank(message = "性别不能为空")
+    private String cSex;
+
     @NotBlank(message = "公司名称不能为空")
     private String cUnit;
 
     @NotBlank(message = "密码不能为空")
     private String cPassword;
 
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
 //    @NotBlank(message = "注册时间不能为空")
     private Date cRtime;
 
@@ -51,9 +54,21 @@ public class CompanyInfo implements Serializable {
     @NotBlank(message = "公司简介不能为空")
     private String cIntroduction;
 
+    @NotBlank(message = "公司简介不能为空")
+    private String cAddress;
+
     @NotBlank(message = "邮箱不能为空")
     @Email(message = "邮箱格式错误")
     private String cEmail;
 
     private String cStatus;
+
+    private String cJob;
+
+    private Integer cSalary;
+
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date cUpdate;
+
+    private String cProvince;
 }

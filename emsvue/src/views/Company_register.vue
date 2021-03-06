@@ -21,6 +21,12 @@
           <el-form-item label="姓名" prop="cname">
             <el-input v-model="ruleForm.cname"></el-input>
           </el-form-item>
+          <el-form-item label="性别" prop="csex">
+            <el-select v-model="ruleForm.csex" placeholder="选择性别">
+              <el-option label="男" value="男"></el-option>
+              <el-option label="女" value="女"></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="电话" prop="cphone">
             <el-input v-model="ruleForm.cphone"></el-input>
           </el-form-item>
@@ -29,6 +35,9 @@
           </el-form-item>
           <el-form-item label="公司名称" prop="cunit">
             <el-input v-model="ruleForm.cunit"></el-input>
+          </el-form-item>
+          <el-form-item label="公司地址" prop="cadress">
+            <el-input v-model="ruleForm.cadress"></el-input>
           </el-form-item>
           <el-form-item label="公司性质" prop="cproperty">
             <el-input v-model="ruleForm.cproperty"></el-input>
@@ -43,7 +52,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="公司简介" prop="cintroduction">
-            <el-input type="textarea" v-model="ruleForm.cintroduction"></el-input>
+            <el-input type="textarea" autosize v-model="ruleForm.cintroduction"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -64,6 +73,7 @@ export default {
     return {
       ruleForm: {
         cuserid:'',
+        csex:'',
         cname: '',
         cpassword: '',
         cphone: '',
@@ -72,7 +82,8 @@ export default {
         csize: '',
         cintroduction: '',
         cemail:'',
-        crtime:this.$store.getters.getDate
+        crtime:this.$store.getters.getDate,
+        cadress:''
       },
       rules: {
         cuserid: [
@@ -85,6 +96,9 @@ export default {
         ],
         cpassword: [
           { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        csex: [
+          { required: true, message: '请选择性别', trigger: 'blur' }
         ],
         cphone: [
           { required: true, message: '请输入联系电话', trigger: 'blur' },
@@ -104,6 +118,9 @@ export default {
         ],
         cemail: [
           { type:'email', required: true, message: '请填写邮箱', trigger: 'blur' }
+        ],
+        cadress: [
+          {  required: true, message: '请填写公司地址', trigger: 'blur' }
         ]
       }
     };
@@ -120,7 +137,7 @@ export default {
               //跳转
               _this.$router.push("/login")
             }else {
-              alert("申请注册失败！请重新注册！")
+              alert("申请注册失败！请再次尝试！")
             }
           })
         } else {
@@ -183,6 +200,7 @@ body > .el-container {
 .demo-ruleForm{
   max-width: 500px;
   margin-left: 650px;
+  max-height: 659px;
 }
 
 .h1{

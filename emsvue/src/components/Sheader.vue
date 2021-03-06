@@ -15,7 +15,8 @@
         </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click.native="person">个人中心</el-dropdown-item>
+              <el-dropdown-item @click.native="choose('student_detail1')" >个人中心</el-dropdown-item>
+              <el-dropdown-item @click.native="choose('student_uppwd')">修改密码</el-dropdown-item>
               <el-dropdown-item @click.native="logout">注销</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -28,7 +29,7 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "Sheader",
   props:{
 
   },
@@ -55,8 +56,8 @@ export default {
         console.log(e.toString())
       });
     },
-    person(){
-      this.$emit("persondis",this.persondis)
+    choose(data){
+      this.$emit('choose',data)
     }
   },
     created(){

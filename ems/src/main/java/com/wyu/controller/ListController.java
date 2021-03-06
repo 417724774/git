@@ -27,7 +27,9 @@ public class ListController {
 
     @Autowired
     StudentInfoService studentInfoService;
+    @Autowired
     TeacherInfoService teacherInfoService;
+    @Autowired
     CompanyInfoService companyInfoService;
 
     @GetMapping("/studentlist")
@@ -36,16 +38,26 @@ public class ListController {
         Page page = new Page(currentPage,5);
         IPage pageData = studentInfoService.page(page,new QueryWrapper<StudentInfo>().orderByDesc("s_userid"));
 
-        return Result.success(pageData);
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
     }
 
     @GetMapping("/companylist")
     public Result companyList(@RequestParam(defaultValue = "1") Integer currentPage){
 
         Page page = new Page(currentPage,5);
-        IPage pageData = companyInfoService.page(page,new QueryWrapper<CompanyInfo>());
+        IPage pageData = companyInfoService.page(page,new QueryWrapper<CompanyInfo>().eq("c_status","已审核"));
 
-        return Result.success(pageData);
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+        
+
     }
 
     @GetMapping("/teacherlist")
@@ -54,7 +66,11 @@ public class ListController {
         Page page = new Page(currentPage,5);
         IPage pageData = teacherInfoService.page(page,new QueryWrapper<TeacherInfo>().orderByDesc("t_userid"));
 
-        return Result.success(pageData);
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
     }
 
 }

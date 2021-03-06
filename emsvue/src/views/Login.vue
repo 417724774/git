@@ -9,8 +9,8 @@
         <h1 class="h1">毕业生就业管理系统</h1>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item prop="radio1">
-            <el-radio-group v-model="ruleForm.radio1"  class="radio1">
-              <el-radio-button label="学生"@click.native="choose1"></el-radio-button>
+            <el-radio-group v-model="ruleForm.radio1"  class="radio1" >
+              <el-radio-button label="学生" @click.native="choose1"></el-radio-button>
               <el-radio-button label="教师"@click.native="choose2"></el-radio-button>
               <el-radio-button label="企业" @click.native="choose3"></el-radio-button>
             </el-radio-group>
@@ -24,7 +24,7 @@
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
-            <el-link class="register" v-show="!dis" href="/register">注册</el-link>
+            <el-link class="register" v-show="!dis" href="/company_register">注册</el-link>
           </el-form-item>
         </el-form>
       </el-main>
@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       ruleForm: {
-        userId: '311700',
-        password: '123456',
+        userId: '777700',
+        password: '10086',
         radio1:''
       },
       rules: {
@@ -78,7 +78,19 @@ export default {
             //console.log(_this.$store.getters.getUserInfo)
 
             //跳转
-            _this.$router.push("/student")
+            switch (_this.ruleForm.radio1) {
+              case "学生": {
+                _this.$router.push("/student");
+                break;
+              }
+
+
+              case "企业": {
+                _this.$router.push("/company");
+                break;
+              }
+            }
+
           })
         } else {
           console.log('error submit!!');

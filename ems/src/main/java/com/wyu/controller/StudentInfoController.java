@@ -1,6 +1,7 @@
 package com.wyu.controller;
 
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wyu.common.dto.LoginDto;
@@ -29,7 +30,32 @@ public class StudentInfoController {
     public Result studentInfo(@RequestBody StudentInfo id) {
         StudentInfo studentInfo = studentInfoService.getById(id.getSUserid());
         studentInfo.setSPassword("");
-        System.out.println(studentInfo);
-        return Result.success(studentInfo);
+        if(studentInfo != null){
+            return Result.success(studentInfo);
+        }else {
+            return Result.fail("查询错误！");
+        }
+    }
+
+    @PostMapping("/studentuppwd")
+    public Result studentuppwd(@RequestBody StudentInfo student) {
+        student.setSPassword(SecureUtil.md5(student.getSPassword()));
+        Boolean res = studentInfoService.updateById(student);
+        if(res){
+            return Result.success(res);
+        }else {
+            return Result.fail(res.toString());
+        }
+    }
+
+    @PostMapping("/studentupper")
+    public Result studentupper(@RequestBody StudentInfo student) {
+        Boolean res = studentInfoService.updateById(student);
+        if(res){
+            return Result.success(res);
+        }else {
+            return Result.fail(res.toString());
+        }
+
     }
 }

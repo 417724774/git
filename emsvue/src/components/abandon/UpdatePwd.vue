@@ -3,11 +3,11 @@
     <el-container>
       <el-main>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="密码" prop="spassword">
+          <el-form-item label="新密码" prop="spassword">
             <el-input type="password" v-model="ruleForm.spassword"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="spassword1">
-            <el-input type="password" v-model="ruleForm.spassword1"></el-input>
+          <el-form-item :rules="rules" label="确认新密码" prop="spassword1">
+            <el-input type="password" v-model="spassword1"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
@@ -27,9 +27,10 @@ export default {
     return {
       ruleForm: {
         spassword: '',
-        spassword1:''
+        suserid:this.$store.getters.getUser.userId
       },
-
+      back:true,
+      spassword1:'',
       rules: {
         spassword: [
           { required: true, message: '请输入密码', trigger: 'blur' }
@@ -38,30 +39,27 @@ export default {
           { required: true, message: '请再次输入密码', trigger: 'blur' },
           { }
         ]
-      },
-      back:true
+      }
     };
   },
   methods:{
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if(this.ruleForm.spassword !==this.ruleForm.spassword1){
+          if(this.ruleForm.spassword !==this.spassword1){
             alert("两次密码不相同！")
             return false
           }else {
-            alert("两次密码相同！")
+            const _this = this
+            this.$axios.post('/student/studentuppwd',this.ruleForm).then(res => {
+              if(res.data.code === 200){
+                alert("修改密码成功！")
+              }else {
+                alert("修改密码失败！请重新修改！")
+              }
+            })
           }
-          // const _this = this
-          // this.$axios.post('/company/register',this.ruleForm).then(res => {
-          //   if(res.data.code === 200){
-          //     alert("申请注册成功！")
-          //     //跳转
-          //     _this.$router.push("/login")
-          //   }else {
-          //     alert("申请注册失败！请重新注册！")
-          //   }
-          // })
+
         } else {
           console.log('error submit!!');
           return false;
@@ -70,6 +68,10 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.spassword1 = '';
+    },
+    backindex(){
+      this.$emit("back",this.back)
     }
   }
 }

@@ -4,12 +4,6 @@
     <el-container>
       <el-main>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="用户名" prop="suserid">
-            <el-input v-model="ruleForm.suserid"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="spassword">
-            <el-input type="password" v-model="ruleForm.spassword"></el-input>
-          </el-form-item>
           <el-form-item label="姓名" prop="sname">
             <el-input v-model="ruleForm.sname"></el-input>
           </el-form-item>
@@ -35,7 +29,7 @@
             <el-input  v-model="ruleForm.syog"></el-input >
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
             <el-button @click="backindex">返回</el-button>
           </el-form-item>
@@ -52,28 +46,20 @@ export default {
   data() {
     return {
       ruleForm: {
-        suserid:'',
         sname: '',
-        spassword: '',
         smajor: '',
         ssex: '',
         ses: '',
         sclass: '',
         scollege: '',
-        syog:''
+        syog:'',
+        suserid:this.$store.getters.getUser.userId
       },
 
       rules: {
-        suserid: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 5, max: 11, message: '长度在 5 到 11 个字符', trigger: 'blur' }
-        ],
         sname: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
           { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
-        ],
-        spassword: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         smajor: [
           { required: true, message: '请输入专业电话', trigger: 'blur' },
@@ -100,13 +86,11 @@ export default {
         if (valid) {
 
           const _this = this
-          this.$axios.post('/company/register',this.ruleForm).then(res => {
+          this.$axios.post('/student/studentuppwd',this.ruleForm).then(res => {
             if(res.data.code === 200){
-              alert("申请注册成功！")
-              //跳转
-              _this.$router.push("/login")
+              alert("修改个人信息成功！")
             }else {
-              alert("申请注册失败！请重新注册！")
+              alert("修改个人信息失败！请重新修改！")
             }
           })
         } else {
@@ -128,7 +112,6 @@ export default {
     this.$axios.post("/student/studentinfo",{"suserid":sid}).then(res=>{
       this.ruleForm = res.data.data
       this.ruleForm.syog = res.data.data.sYog
-      this.ruleForm.spassword = 'e10adc3949ba59abbe56e057f20f883e'
     })
   }
 }
