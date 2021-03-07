@@ -13,21 +13,24 @@
                  margin: 10px">
         <el-table-column type="expand">
           <template #default="props" >
-            <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="公司名称">
+            <el-form label-position="left"  inline class="demo-table-expand">
+              <el-form-item label="公司名称" style="width: 30%">
                 <span>{{ props.row.cunit }}</span>
               </el-form-item>
-              <el-form-item label="公司性质">
-                <span>{{ props.row.cproperty }}</span>
+              <el-form-item label="招聘岗位" style="width: 40%">
+                <span>{{ props.row.cjType }}</span>
               </el-form-item>
-              <el-form-item label="公司规模">
-                <span>{{ props.row.csize }}</span>
+              <el-form-item label="基本要求" style="width: 30%">
+                <span>{{ props.row.cjDemand }}</span>
               </el-form-item>
-              <el-form-item label="公司地址">
-                <span>{{ props.row.caddress }}</span>
+              <el-form-item label="职位类型"style="width: 40%">
+                <span>{{ props.row.cjProperty }}</span>
               </el-form-item>
-              <el-form-item label="公司简介">
-                <span>{{ props.row.cintroduction }}</span>
+              <el-form-item label="工作地点" style="width: 30%">
+                <span>{{ props.row.cjAdress }}</span>
+              </el-form-item>
+              <el-form-item label="职位描述"style="width: auto">
+                <span>{{ props.row.cjDescription }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -37,14 +40,18 @@
             prop="cunit" >
         </el-table-column>
         <el-table-column
-            label="公司规模"
-            prop="csize" >
+            label="招聘岗位"
+            prop="cjType" >
+        </el-table-column>
+        <el-table-column
+            label="薪资"
+            prop="cjSalary" >
         </el-table-column>
         <el-table-column
             label="操作"
             prop="desc" align="center" >
           <template slot-scope="scope">
-            <el-button id="btu" @click="po(scope.row.cuserid)" >{{filter(scope.row.cuserid)}}</el-button>
+            <el-button id="btu" @click="po(scope.row.cjId,scope.row.cuserid)" >{{filter(scope.row.cuserid)}}</el-button>
           </template>
 
         </el-table-column>
@@ -69,7 +76,6 @@
 import StuDelivery from "@/components/abandon/StuDelivery";
 export default {
   name: "Student_delivery",
-  inject: ["reload"],
   components: {
     StuDelivery
   },
@@ -79,14 +85,15 @@ export default {
       currentPage: 1,
       total: 0,
       pageSize: 5,
-      filtedCpy:[]
+      filtedCpy:[],
+      resumeexist:''
 
     }
   },
   methods:{
     page(currentPage){
       const _this = this;
-      _this.$axios.get("/companylist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/stuempinfo/comjoblist?currentPage="+currentPage).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
@@ -108,20 +115,26 @@ export default {
     close(){
       this.$router.push('/student_index')
     },
-    po(cuserid) {
+    po(cjId,cuserid) {
       let res = false
       for (const dataKey in this.filtedCpy) {
         if (cuserid === this.filtedCpy[dataKey]) {
           res = true
         }
       }
+      if(!this.resumeexist){
+        alert('你还未完善简历！请完善简历在进行投递！')
+        this.$router.push('student_resume')
+      }else {
       if (!res) {
         const date = {
-          crCid: cuserid,
-          crStuid: this.$store.getters.getUser.userId
+          crCuserid:cuserid,
+          crCjid:cjId,
+          crStuid: this.$store.getters.getUser.userId,
+          crTime: new Date().getTime()
         }
         const _this= this
-        this.$axios.post('/company-remsg/save', date).then(res => {
+        this.$axios.post('/company_remsg/save', date).then(res => {
           if (res.data.code === 200) {
             // _this.reload()
             alert("投递成功！")
@@ -131,15 +144,25 @@ export default {
             alert("投递失败！请再次尝试！")
           }
         })
-
       }
+     }
     },
     get(){
       const sid = this.$store.getters.getUser.userId
-      this.$axios.post('/company-remsg/filter',{crStuid:sid}).then(res=>{
-        if(res !== null)
+      const _this = this
+      this.$axios.post('/company_remsg/filter',{crStuid:sid}).then(res=>{
+        if(res.data.data !== null)
         this.filtedCpy = res.data.data
+      }).finally(()=>{
+        _this.$axios.post('/stuempinfo/studentresume',{seStuid:sid}).then(res=>{
+          if(res.data.code !== 200){
+            _this.resumeexist = false
+          }else {
+            _this.resumeexist = true
+          }
+        })
       })
+
     }
   },
   created() {

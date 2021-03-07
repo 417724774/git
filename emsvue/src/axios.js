@@ -12,7 +12,9 @@ axios.interceptors.response.use(response => {
       // 当结果的code是否为200的情况
       if (res.code === 200) {
         return response
-      } else {
+      } if (res.code === 400){
+        return   response
+        } else {
         // 弹窗异常信息
         // Element.Message({
         //   message: response.data.msg,

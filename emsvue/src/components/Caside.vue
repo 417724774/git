@@ -15,8 +15,8 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-1" @click.native="choose('company_job')" >招聘信息</el-menu-item>
-            <el-menu-item index="1-2" @click.native="choose('student_delivery')" >简历信箱</el-menu-item>
-            <el-menu-item index="1-3" @click.native="choose('student_delivery')" >招聘会信息</el-menu-item>
+            <el-menu-item index="1-2" @click.native="choose('company_resume')" >简历信箱</el-menu-item>
+            <el-menu-item index="1-3" @click.native="choose('')" >招聘会信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -25,8 +25,8 @@
             <span>查询学生</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="2-1" @click.native="choose('student_company')" >学生信息</el-menu-item>
-            <el-menu-item index="2-2" @click.native="choose('student_policy')" >学生统计</el-menu-item>
+            <el-menu-item index="2-1" @click.native="choose('')" >学生信息</el-menu-item>
+            <el-menu-item index="2-2" @click.native="choose('')" >学生统计</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

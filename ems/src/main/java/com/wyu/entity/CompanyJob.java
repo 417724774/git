@@ -2,6 +2,11 @@ package com.wyu.entity;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -18,6 +23,12 @@ public class CompanyJob implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "cj_id", type = IdType.AUTO)
+    /**
+     * id
+     */
+    private Integer cjId;
+
     /**
      * 企业用户名
      */
@@ -31,12 +42,14 @@ public class CompanyJob implements Serializable {
     /**
      * 发布时间
      */
-    private LocalDate cjPtime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date cjPtime;
 
     /**
      * 有效时间
      */
-    private LocalDate cjDeadline;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date cjDeadline;
 
     /**
      * 工作地点
@@ -63,5 +76,9 @@ public class CompanyJob implements Serializable {
      */
     private String cjDemand;
 
+    /**
+     * 职位性质
+     */
+    private String cjProperty;
 
 }

@@ -48,7 +48,7 @@ public class Policy implements Serializable {
 
     private String pMan;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(locale = "zh",pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date pUpdate;
 
     private String pSource;

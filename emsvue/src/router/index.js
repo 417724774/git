@@ -18,6 +18,9 @@ import Company from "../views/Company";
 import Company_detail from "../views/Company_detail";
 import Company_uppwd from "../views/Company_uppwd";
 import Company_job from "@/views/Company_job";
+import Company_job_detail from "../views/Company_job_detail";
+import Company_resume from "../views/Company_resume";
+import Company_resume_detail from "../views/Company_resume_detail";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -101,11 +104,22 @@ const routes = [
         path: '/company_uppwd',
         name: 'Company_uppwd',
         component: Company_uppwd
-      }
-      ,{
+      },{
         path: '/company_job',
         name: 'Company_job',
         component: Company_job
+      },{
+        path: '/company_job_detail',
+        name: 'Company_job_detail',
+        component: Company_job_detail
+      },{
+        path: '/company_resume',
+        name: 'Company_resume',
+        component: Company_resume
+      },{
+        path: '/company_resume_detail',
+        name: 'Company_resume_detail',
+        component: Company_resume_detail
       }
     ]
   }

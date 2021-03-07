@@ -36,7 +36,6 @@ export default {
   created(){
     const _this = this;
     _this.$axios.get('student_policylist').then(res =>{
-      console.log(res)
       _this.policys = res.data.data.records
 
 

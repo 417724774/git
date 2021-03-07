@@ -12,7 +12,7 @@
                   </div>
                   <div align="center">
                   <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm" style="margin: 10px" >
-                    <el-form-item label="公司名称" prop="cunit">
+                    <el-form-item label="公司名称" prop="cunit" >
                       <el-input readonly  v-model="ruleForm.cunit"></el-input>
                     </el-form-item>
                     <el-form-item label="公司性质" prop="cproperty">
@@ -33,11 +33,12 @@
                     <el-form-item label="人事姓名" prop="cname">
                       <el-input readonly v-model="ruleForm.cname"></el-input >
                     </el-form-item>
-                    <el-form-item label="招聘信息" prop="cjob">
-                      <el-input type="textarea" readonly autosize v-model="ruleForm.cjob"></el-input >
+                    <el-form-item label="招聘信息" prop="job">
+                      <el-input type="textarea" readonly autosize v-model="job"></el-input >
                     </el-form-item>
                   </el-form>
-                    <el-button type="info" round  align="center" @click="po(ruleForm.cuserid)"><el-icon class="el-icon-s-promotion" ></el-icon>{{filter(ruleForm.cuserid)}}</el-button>
+                    <el-button v-if="dis" style="background-color: #49e363;border: none" type="info" round align="center" @click="po(ruleForm.cuserid)"><el-icon class="el-icon-s-promotion" ></el-icon>{{filter(ruleForm.cuserid)}}</el-button>
+                    <el-button v-if="!dis" style="border: none" type="info" round align="center" @click="po(ruleForm.cuserid)"><el-icon class="el-icon-s-promotion" ></el-icon>{{filter(ruleForm.cuserid)}}</el-button>
                   </div>
                 </el-main>
               </el-container>
@@ -54,7 +55,10 @@ export default {
   data() {
     return {
       ruleForm: {},
-      filtedCpy:[]
+      filtedCpy:[],
+      resumeexist:'',
+      dis:'',
+      job:''
     };
   },
   methods: {
@@ -67,9 +71,11 @@ export default {
     filter(data){
       for (const dataKey in this.filtedCpy) {
         if( data === this.filtedCpy[dataKey]){
+          this.dis = false
           return "已投递"
         }
       }
+      this.dis = true
       return "投递简历"
     },
     po(cuserid) {
@@ -79,13 +85,18 @@ export default {
           res = true
         }
       }
+      if(!this.resumeexist){
+        alert('你还未完善简历！请完善简历在进行投递！')
+        this.$router.push('/student_resume')
+      }else {
       if (!res) {
         const date = {
-          crCid: cuserid,
-          crStuid: this.$store.getters.getUser.userId
+          crCuserid: cuserid,
+          crStuid: this.$store.getters.getUser.userId,
+          crTime: new Date().getTime()
         }
         const _this= this
-        this.$axios.post('/company-remsg/save', date).then(res => {
+        this.$axios.post('/company_remsg/save', date).then(res => {
           if (res.data.code === 200) {
             // _this.reload()
             alert("投递成功！")
@@ -96,6 +107,7 @@ export default {
           }
         })
       }
+      }
     },
     get(){
       let sid = this.$route.params.cuserid
@@ -105,9 +117,27 @@ export default {
       })
       //获取已投递列表
       sid = this.$store.getters.getUser.userId
-      this.$axios.post('/company-remsg/filter',{crStuid:sid}).then(res=>{
-        if(res !== null)
+      this.$axios.post('/company_remsg/filter',{crStuid:sid}).then(res=>{
+        if(res.data.data !== null)
           _this.filtedCpy = res.data.data
+      })
+      //获取简历完善信息
+      this.$axios.post('/stuempinfo/studentresume',{seStuid:sid}).then(res=>{
+
+        if(res.data.code !== 200){
+          _this.resumeexist = false
+        }else {
+          _this.resumeexist = true
+        }
+      })
+      sid = this.$route.params.cuserid
+      this.$axios.get('/stuempinfo/companydetailjoblist?cuserid='+sid).then(res=>{
+        if(res.data.data !== ''){
+          _this.job = res.data.data
+        }else {
+          _this.job = '无'
+        }
+
       })
     }
 
@@ -122,7 +152,7 @@ export default {
 
 <style scoped>
 .el-main {
-  background-color: #E9EEF3;
+  background-color: #e9eef3;
   color: #333;
   /*line-height: 160px;*/
   height: 688px;
@@ -143,7 +173,6 @@ body > .el-container {
   max-width: 500px;
 }
 .el-input{
-  background: white;
 
 }
 

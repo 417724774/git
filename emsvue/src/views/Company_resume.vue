@@ -15,21 +15,27 @@
           style="width: auto;
                  margin: 10px">
         <el-table-column
-            prop="cjPtime"
-            label="发布日期"
+            prop="crTime"
+            label="时间"
             sortable
             width="180"
             column-key="date"
         >
         </el-table-column>
         <el-table-column
-            prop="cjType"
-            label="职位类型"
+            prop="sname"
+            label="姓名"
             width="auto">
         </el-table-column>
         <el-table-column
-            prop="cjSalary"
-            label="平均薪酬">
+            prop="scollege"
+            label="学部"
+            width="auto">
+        </el-table-column>
+        <el-table-column
+            label="状态"
+            prop="crStatus"
+            width="auto">
         </el-table-column>
         <el-table-column
             prop=""
@@ -37,7 +43,7 @@
             width="100"
             align="center">
           <template slot-scope="scope" >
-            <router-link tag="el-button" :to="{ name:'Company_job_detail',params:{id:scope.row.cjId} }">查看</router-link>
+            <router-link tag="el-button" :to="{ name:'Company_resume_detail',params:{id:scope.row.crStuid} }" @click.native="changeStatus(scope.row.crId,scope.row)">查看</router-link>
           </template>
         </el-table-column>
       </el-table>
@@ -66,7 +72,8 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 5,
+      sta:'新投递'
     }
   },
   methods: {
@@ -84,12 +91,21 @@ export default {
     },
     page(currentPage){
       const _this = this;
-      const id = _this.$store.getters.getUser.userId
-      _this.$axios.get("/company/joblist?currentPage="+currentPage+"&id="+id).then(res=>{
+      const cid = _this.$store.getters.getUser.userId
+      _this.$axios.get("/company_remsg/resumelist?currentPage="+currentPage+"&cid="+cid).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
+      })
+    },
+    changeStatus(crid,row){
+      this.$axios.get('/company_remsg/resumeupstatus?crid='+crid).then(res=>{
+        if(res.data.code === 200){
+          row.crStatus = '已阅过'
+        }else {
+          console.log(res.data.data)
+        }
       })
     }
   },

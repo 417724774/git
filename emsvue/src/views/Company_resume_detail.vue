@@ -71,7 +71,7 @@
 
 <script>
 export default {
-  name: "Student_resume",
+  name: "Company_resume_detail",
   components: {
   },
   data() {
@@ -161,19 +161,15 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/company_index')
     }
 
   },
   created() {
-    const sid = this.$store.getters.getUser.userId
+    const sid = this.$route.params.id
     this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid}).then(res=>{
       //console.log(res.data.data)
-      if(res.data.code === 200){
-        this.ruleForm = res.data.data
-      }else {
-        console.log(res.data.data)
-      }
+      this.ruleForm = res.data.data
     })
   }
 }

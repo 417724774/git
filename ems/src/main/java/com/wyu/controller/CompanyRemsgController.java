@@ -1,16 +1,16 @@
 package com.wyu.controller;
 
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.common.lang.Result;
 import com.wyu.entity.CompanyRemsg;
+import com.wyu.entity.TeacherInfo;
 import com.wyu.service.CompanyRemsgService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * </p>
  */
 @RestController
-@RequestMapping("/company-remsg")
+@RequestMapping("/company_remsg")
 public class CompanyRemsgController {
     @Autowired
     CompanyRemsgService companyRemsgService;
@@ -47,12 +47,42 @@ public class CompanyRemsgController {
             List<String> list = new ArrayList<String>();
             for ( CompanyRemsg companyRemsg: res
             ) {
-                list.add(companyRemsg.getCrCid());
+                list.add(companyRemsg.getCrCuserid());
             }
             return Result.success(list);
         }else {
             return Result.fail(res.toString());
         }
     }
+
+    @GetMapping("/resumelist")
+    public Result resumeList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String cid){
+
+        Page page = new Page(currentPage,5);
+
+        IPage pageData = companyRemsgService.resumeList(page,cid);
+
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @GetMapping("resumeupstatus")
+    public Result resumeUpStatus(@RequestParam Integer crid){
+
+        CompanyRemsg companyRemsg = new CompanyRemsg().setCrStatus("已阅过").setCrId(crid);
+        Boolean res = companyRemsgService.updateById(companyRemsg);
+        if(res){
+            return Result.success(res);
+        }else {
+            return Result.fail(res.toString());
+        }
+
+    }
+
+
 
 }

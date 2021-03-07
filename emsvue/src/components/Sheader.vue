@@ -15,7 +15,7 @@
         </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click.native="choose('student_detail1')" >个人中心</el-dropdown-item>
+              <el-dropdown-item @click.native="choose('student_detail')" >个人中心</el-dropdown-item>
               <el-dropdown-item @click.native="choose('student_uppwd')">修改密码</el-dropdown-item>
               <el-dropdown-item @click.native="logout">注销</el-dropdown-item>
             </el-dropdown-menu>
@@ -64,7 +64,6 @@ export default {
       if(this.$store.getters.getUser.username !== null){
         this.user.username = this.$store.getters.getUser.username
         this.user.avator = this.$store.getters.getUser.avator
-        console.log(this.$store.getters.getUser)
       }
     }
 
