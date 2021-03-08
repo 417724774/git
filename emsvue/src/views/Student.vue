@@ -7,7 +7,7 @@
       <Saside v-on:choose="choose"></Saside>
       <el-container class="containor">
         <Logs></Logs>
-        <el-main>
+        <el-main style="height: 650px">
           <div id="app">
             <router-view></router-view>
 
@@ -57,8 +57,6 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
   padding: unset;
   margin-top: 16px;
 }
@@ -80,7 +78,6 @@ body > .el-container {
   color: #333;
   text-align: center;
   line-height: 34px;
-  /*margin-top: 16px;*/
   max-height: 34px;
 }
 

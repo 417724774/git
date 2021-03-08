@@ -7,7 +7,7 @@
                 <el-main>
                   <div style="width: auto" >
 
-                    <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 1580px; background-color: #6c6c6c"></el-button>
+                    <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
                     <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
                   </div>
                   <div align="center">
@@ -155,8 +155,7 @@ export default {
   background-color: #e9eef3;
   color: #333;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height:auto;
   padding: unset;
 }
 body > .el-container {

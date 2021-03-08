@@ -9,31 +9,41 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/CompanyJobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/CompanyJobController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/CompanyRemsgController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/CompanyRemsgController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/ListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/ListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StudentWorkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StudentWorkController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StuempInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StuempInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/CompanyJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/CompanyJob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/CompanyRemsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/CompanyRemsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/Policy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/Policy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/mapper/CompanyRemsgMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/mapper/CompanyRemsgMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/service/CompanyRemsgService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/service/CompanyRemsgService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/service/impl/CompanyRemsgServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/service/impl/CompanyRemsgServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/CompanyRemsgMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/CompanyRemsgMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/TeacherInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/TeacherInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/StuempInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/StuempInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/TeacherInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/TeacherInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/CompanyJobController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/CompanyJobController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/CompanyRemsgController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/CompanyRemsgController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/ListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/ListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/StudentWorkController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/StudentWorkController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/StuempInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/StuempInfoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/entity/CompanyRemsg.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/entity/CompanyRemsg.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/entity/Policy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/entity/Policy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/mapper/CompanyRemsgMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/mapper/CompanyRemsgMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/service/CompanyRemsgService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/service/CompanyRemsgService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/service/impl/CompanyRemsgServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/service/impl/CompanyRemsgServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/CompanyRemsgMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/CompanyRemsgMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/TeacherInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/TeacherInfoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/entity/StuempInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/entity/StuempInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/axios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/components/Caside.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/components/Caside.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../emsvue/src/components/Sheader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/components/Sheader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/components/Saside.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/components/Saside.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_job.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_job_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_job.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_job.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_job_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_job_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_resume.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_resume.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_uppwd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_uppwd.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_company.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_company.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_company_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_company_detail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_delivery.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_delivery.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_detail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_policy.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_policy.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_policy_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_policy_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_register.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_resume.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_resume.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_uppwd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_uppwd.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +86,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -101,6 +112,17 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -283,6 +305,8 @@
       <workItem from="1614996612641" duration="9258000" />
       <workItem from="1615079698548" duration="31503000" />
       <workItem from="1615128615714" duration="5405000" />
+      <workItem from="1615167630059" duration="18246000" />
+      <workItem from="1615210555883" duration="10123000" />
     </task>
     <servers />
   </component>

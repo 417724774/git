@@ -5,7 +5,8 @@
 
     <template>
       <div style="width: 100%" >
-        <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 1600px; background-color: #6c6c6c"></el-button>
+        <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 45.5%; background-color: #6c6c6c"></el-button>
+        <el-button class="back" type="primary" size="mini" icon="el-icon-plus" @click="add" style="margin-right: 45%; background-color: #6c6c6c"></el-button>
         <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
       </div>
       <el-table
@@ -34,10 +35,11 @@
         <el-table-column
             prop=""
             label="操作"
-            width="100"
+            width="200"
             align="center">
           <template slot-scope="scope" >
-            <router-link tag="el-button" :to="{ name:'Company_job_detail',params:{id:scope.row.cjId} }">查看</router-link>
+            <router-link tag="el-button" class="el-button--mini" :to="{ name:'Company_job_detail',params:{id:scope.row.cjId} }">查看</router-link>
+            <el-button class="el-button--mini" @click="deljob(scope.row.cjId)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -59,6 +61,7 @@
 <script>
 export default {
   name: "Company_job",
+  inject:['reload'],
   components: {
   },
   data() {
@@ -81,6 +84,22 @@ export default {
     },
     close(){
       this.$router.push('/company_index')
+    },
+    add(){
+    // :to="{ name:'Company_job_detail',params:{id:scope.row.cjId} }"
+      this.$router.push('/company_job_add')
+    },
+    deljob(data){
+      this.$axios.get('/company/jobdelete?cjid='+data).then(res=>{
+        if(res.data.code === 200){
+          alert("删除成功！")
+          // this.$router.go(0)
+          this.reload()
+        }else {
+          alert("删除失败！请重新尝试！")
+        }
+
+      })
     },
     page(currentPage){
       const _this = this;

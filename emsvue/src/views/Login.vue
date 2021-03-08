@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       ruleForm: {
-        userId: '777700',
-        password: '10086',
+        userId: '202100',
+        password: '10010',
         radio1:''
       },
       rules: {
@@ -84,9 +84,13 @@ export default {
                 break;
               }
 
-
               case "企业": {
                 _this.$router.push("/company");
+                break;
+              }
+
+              case "教师": {
+                _this.$router.push("/Teacher");
                 break;
               }
             }

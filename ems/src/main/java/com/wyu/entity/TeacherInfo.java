@@ -1,5 +1,6 @@
 package com.wyu.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,6 +22,7 @@ public class TeacherInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "t_userid")
     private String tUserid;
 
     private String tName;
@@ -30,6 +32,8 @@ public class TeacherInfo implements Serializable {
     private String tPassword;
 
     private String tCollege;
+
+    private String tPhone;
 
 
 }

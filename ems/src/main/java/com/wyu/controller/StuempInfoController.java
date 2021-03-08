@@ -50,7 +50,8 @@ public class StuempInfoController {
 
     @PostMapping("/stuemupdate")
     public Result stuemupdate(@RequestBody StuempInfo stures) {
-        Boolean res = stuempInfoService.update(stures,new UpdateWrapper<StuempInfo>().eq("se_stuid",stures.getSeStuid()));
+        System.out.println(stures);
+        Boolean res = stuempInfoService.saveOrUpdate(stures,new UpdateWrapper<StuempInfo>().eq("se_stuid",stures.getSeStuid()));
         if(res){
             return Result.success(res);
         }else {
@@ -79,8 +80,7 @@ public class StuempInfoController {
         if(res != null){
             String strList ="";
 
-            for (CompanyJob cj: res
-            ) {
+            for (CompanyJob cj: res) {
                 String str = "招聘岗位："+cj.getCjType()+" \n"+
                         "有效时间："+new SimpleDateFormat("yyyy-MM-dd").format(cj.getCjDeadline()) +"\n"+
                         "工作地点："+cj.getCjAdress()+"\n"+

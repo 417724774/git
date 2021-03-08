@@ -5,7 +5,7 @@
     <el-container>
       <el-main>
         <div style="width: 100%" >
-          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 1600px; background-color: #6c6c6c"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
         </div>
         <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -64,7 +64,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
             const _this = this
-            this.$axios.post('/studentworkupdate',this.ruleForm).then(res => {
+          _this.ruleForm.swStuid = _this.$store.getters.getUser.userId
+            this.$axios.post('/studentworkupdate',_this.ruleForm).then(res => {
               if(res.data.code === 200){
                 alert("登记成功！")
               }else {
@@ -91,7 +92,11 @@ export default {
   created(){
     const sid = this.$store.getters.getUser.userId
     this.$axios.post('/studentworkinfo',{swStuid:sid}).then(res => {
-      this.ruleForm = res.data.data
+      if(res.data.code === 200) {
+        this.ruleForm = res.data.data
+      }else {
+        alert('无数据')
+      }
     })
   }
 

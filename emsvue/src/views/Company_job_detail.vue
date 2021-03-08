@@ -5,21 +5,21 @@
     <el-container>
       <el-main>
         <div style="width: 100%" >
-          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 1580px; background-color: #6c6c6c"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
         </div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
-          <el-form-item label="职位类型" prop="cjType">
+          <el-form-item label="职位类型：" prop="cjType">
             <el-input v-model="ruleForm.cjType"></el-input>
           </el-form-item>
-          <el-form-item label="职位性质" prop="cjProperty">
+          <el-form-item label="职位性质：" prop="cjProperty">
             <el-select v-model="ruleForm.cjProperty" placeholder="选择性质">
               <el-option label="全职" value="全职"></el-option>
               <el-option label="实习" value="实习"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="有效时间" prop="cjDeadline">
+          <el-form-item label="有效时间：" prop="cjDeadline">
             <div class="block">
               <el-date-picker
                   v-model="ruleForm.cjDeadline"
@@ -28,20 +28,20 @@
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-form-item label="工作地点" prop="cjAdress">
+          <el-form-item label="工作地点：" prop="cjAdress">
             <el-input v-model="ruleForm.cjAdress"></el-input>
           </el-form-item>
-          <el-form-item label="薪酬" prop="cjSalary">
+          <el-form-item label="薪酬：" prop="cjSalary">
             <el-input v-model="ruleForm.cjSalary"></el-input>
           </el-form-item>
-          <el-form-item label="年龄要求" prop="cjAge">
-            <el-input v-model="ruleForm.cjAge"></el-input>
+          <el-form-item  label="年龄要求：" prop="cjAge">
+            <el-input style="width: 80px;margin-right: 2%" v-model="ruleForm.cjAge"></el-input> 岁以上
           </el-form-item>
-          <el-form-item label="职位描述" prop="cjDescription">
-            <el-input autosize type="textarea" style="width: 700px" v-model="ruleForm.cjDescription"></el-input >
+          <el-form-item label="职位描述：" prop="cjDescription">
+            <el-input autosize type="textarea" style="width: 600px" v-model="ruleForm.cjDescription"></el-input >
           </el-form-item>
-          <el-form-item label="基本要求" prop="cjDemand">
-            <el-input autosize type="textarea" style="width: 700px" v-model="ruleForm.cjDemand"></el-input >
+          <el-form-item label="基本要求：" prop="cjDemand">
+            <el-input autosize type="textarea" style="width: 600px" v-model="ruleForm.cjDemand"></el-input >
           </el-form-item>
 
 
@@ -106,9 +106,9 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-
           const _this = this
-          this.$axios.post('/company/jobupdate',this.ruleForm).then(res => {
+          _this.ruleForm.cjPtime = _this.$store.getters.getDate
+          this.$axios.post('/company/jobsaveorupdate',this.ruleForm).then(res => {
             if(res.data.code === 200){
               alert("完善招聘信息成功！")
             }else {

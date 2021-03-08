@@ -7,9 +7,9 @@
       <Caside v-on:choose="choose"></Caside>
       <el-container class="containor">
         <Logs></Logs>
-        <el-main>
+        <el-main style="height: 650px">
           <div id="app">
-            <router-view></router-view>
+            <router-view v-if="isRouterAlive"></router-view>
 
           </div>
         </el-main>
@@ -28,6 +28,11 @@ import Caside from "../components/Caside";
 import Logs from "../components/Logs";
 export default {
   name: "Company",
+  provide (){
+    return {
+      reload:this.reload
+    }
+  },
   components: { Cheader,Caside,Logs
   },
   data(){
@@ -42,6 +47,12 @@ export default {
   methods: {
     choose(data){
       this.$router.push('/'+data)
+    },
+    reload (){
+      this.isRouterAlive = false
+      this.$nextTick(function(){
+        this.isRouterAlive = true
+      })
     }
   }
 }
@@ -53,8 +64,6 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
   padding: unset;
   margin-top: 16px;
 }
@@ -76,7 +85,6 @@ body > .el-container {
   color: #333;
   text-align: center;
   line-height: 34px;
-  /*margin-top: 16px;*/
   max-height: 34px;
 }
 

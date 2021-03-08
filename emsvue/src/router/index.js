@@ -21,6 +21,17 @@ import Company_job from "@/views/Company_job";
 import Company_job_detail from "../views/Company_job_detail";
 import Company_resume from "../views/Company_resume";
 import Company_resume_detail from "../views/Company_resume_detail";
+import Company_jion from "../views/Company_jion";
+import Company_student from "../views/Company_student"
+import Company_student_detail from "../views/Company_student_detail";
+import Company_statistic from "../views/Company_statistic";
+import Company_job_add from "../views/Company_job_add";
+import Teacher from "../views/Teacher";
+import Teacher_detail from "../views/Teacher_detail";
+import Teacher_uppwd from "../views/Teacher_uppwd";
+import Teacher_jobfair from "../views/Teacher_jobfair";
+import Teacher_jobfair_add from "../views/Teacher_jobfair_add";
+import Teacher_jobfair_detail from "../views/Teacher_jobfair_detail";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -45,7 +56,8 @@ const routes = [
     path: '/student',
     name: 'Student',
     component: Student,
-    children:[{
+    children:[
+    {
       path: '/student_detail',
       name: 'Student_detail',
       component: Student_detail
@@ -109,6 +121,10 @@ const routes = [
         name: 'Company_job',
         component: Company_job
       },{
+        path: '/company_job_add',
+        name: 'Company_job_add',
+        component: Company_job_add
+      },{
         path: '/company_job_detail',
         name: 'Company_job_detail',
         component: Company_job_detail
@@ -120,10 +136,57 @@ const routes = [
         path: '/company_resume_detail',
         name: 'Company_resume_detail',
         component: Company_resume_detail
+      },{
+        path: '/company_jion',
+        name: 'Company_jion',
+        component: Company_jion
+      },{
+        path: '/company_student',
+        name: 'Company_student',
+        component: Company_student
+      },{
+        path: '/company_student_detail',
+        name: 'Company_student_detail',
+        component: Company_student_detail
+      },{
+        path: '/company_statistic',
+        name: 'Company_statistic',
+        component: Company_statistic
       }
     ]
-  }
-  ,
+  },
+  {
+    path: '/teacher',
+    name: 'Teacher',
+    component: Teacher,
+    children: [
+      {
+        path: '/teacher_detail',
+        name: 'Teacher_detail',
+        component: Teacher_detail
+      },{
+        path: '/teacher_index',
+        name: 'Teacher_index',
+        component: Index
+      },{
+        path: '/teacher_uppwd',
+        name: 'Teacher_uppwd',
+        component: Teacher_uppwd
+      },{
+        path: '/teacher_jobfair',
+        name: 'Teacher_jobfair',
+        component: Teacher_jobfair
+      },{
+        path: '/teacher_jobfair_add',
+        name: 'Teacher_jobfair_add',
+        component: Teacher_jobfair_add
+      },{
+        path: '/teacher_jobfair_detail',
+        name: 'Teacher_jobfair_detail',
+        component: Teacher_jobfair_detail
+      }
+    ]
+  },
   {
     path: '/test',
     name: 'Test',

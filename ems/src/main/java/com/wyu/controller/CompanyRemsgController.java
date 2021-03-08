@@ -70,7 +70,7 @@ public class CompanyRemsgController {
         }
     }
 
-    @GetMapping("resumeupstatus")
+    @GetMapping("/resumeupstatus")
     public Result resumeUpStatus(@RequestParam Integer crid){
 
         CompanyRemsg companyRemsg = new CompanyRemsg().setCrStatus("已阅过").setCrId(crid);
@@ -83,6 +83,20 @@ public class CompanyRemsgController {
 
     }
 
+    @PostMapping("/resumecount")
+    public Result resumeCount(@RequestBody List<Integer> list){
 
+        System.out.println(list);
+        List<Integer> res = new ArrayList<Integer>();
+//       List<CompanyRemsg> res = companyRemsgService.list(new QueryWrapper<CompanyRemsg>().eq("cr_cuserid",companyRemsg.getCrCuserid()).eq("cr_cjid",companyRemsg.getCrCjid()));
+
+        for (int i=0;i<list.size();i++){
+
+            int count = companyRemsgService.count(new QueryWrapper<CompanyRemsg>().eq("cr_cjid",list.get(i)));
+            res.add(count);
+
+        }
+        return Result.success(res);
+    }
 
 }

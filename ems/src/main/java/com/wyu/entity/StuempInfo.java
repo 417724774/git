@@ -23,18 +23,16 @@ public class StuempInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "se_stuid")
+    @TableId(value = "se_stuid",type = IdType.AUTO)
     private Integer seId;
 
     private String seStuid;
 
     private String seName;
 
-    private String seAddress;
-
     private String seLocation;
 
-    private String sePostcode;
+    private String seMajor;
 
     private String sePhone;
 

@@ -16,7 +16,7 @@
           <el-menu-item-group>
             <el-menu-item index="1-1" @click.native="choose('company_job')" >招聘信息</el-menu-item>
             <el-menu-item index="1-2" @click.native="choose('company_resume')" >简历信箱</el-menu-item>
-            <el-menu-item index="1-3" @click.native="choose('')" >招聘会信息</el-menu-item>
+            <el-menu-item index="1-3" @click.native="choose('company_jion')" >招聘会信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -25,8 +25,8 @@
             <span>查询学生</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="2-1" @click.native="choose('')" >学生信息</el-menu-item>
-            <el-menu-item index="2-2" @click.native="choose('')" >学生统计</el-menu-item>
+            <el-menu-item index="2-1" @click.native="choose('company_student')" >学生信息</el-menu-item>
+            <el-menu-item index="2-2" @click.native="choose('company_statistic')" >学生统计</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -48,21 +48,15 @@ export default {
 
 <style scoped>
 .el-aside {
-  /*background-color: #D3DCE6;*/
+  background-color: #545c64;
   color: #333;
   text-align: center;
   line-height: 200px;
+  max-width: 100%;
 }
 .el-menu-vertical-demo{
   width: 199px;
-  height: 808px;
-  max-height: 808px;
-  text-align: left;
-}
-.el-menu-vertical-demo{
-  width: 199px;
-  height: 808px;
-  max-height: 808px;
+  height: auto;
   text-align: left;
 }
 </style>

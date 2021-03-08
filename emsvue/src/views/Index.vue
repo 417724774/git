@@ -27,8 +27,8 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height: 650px;
+  max-height: 650px;
   padding: unset;
 }
 

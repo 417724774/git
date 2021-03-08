@@ -35,7 +35,8 @@ public class StudentWorkController {
 
     @PostMapping("/studentworkupdate")
     public Result studentWorkUpdate(@RequestBody StudentWork id) {
-        Boolean res = studentWorkService.updateById(id);
+        System.out.println(id);
+        Boolean res = studentWorkService.saveOrUpdate(id);
 
         if(res){
             return Result.success(res);

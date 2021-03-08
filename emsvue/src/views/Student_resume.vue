@@ -5,7 +5,7 @@
     <el-container>
       <el-main>
         <div style="width: 100%" >
-          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 1580px; background-color: #6c6c6c"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
         </div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -25,14 +25,8 @@
           <el-form-item label="目标岗位" prop="seIntention">
             <el-input  v-model="ruleForm.seIntention"></el-input >
           </el-form-item>
-          <el-form-item label="居住地" prop="seAddress">
-            <el-input v-model="ruleForm.seAddress"></el-input>
-          </el-form-item>
           <el-form-item label="联系地址" prop="seLocation">
             <el-input v-model="ruleForm.seLocation"></el-input>
-          </el-form-item>
-          <el-form-item label="邮编" prop="sePostcode">
-            <el-input v-model="ruleForm.sePostcode"></el-input>
           </el-form-item>
           <el-form-item label="联系电话" prop="sePhone">
             <el-input v-model="ruleForm.sePhone"></el-input>
@@ -80,7 +74,6 @@ export default {
         seName:'',
         seSex: '',
         seEmail:'',
-        seAddress: '',
         seLocation: '',
         sePostcode: '',
         seIntroduction:'',
@@ -89,7 +82,8 @@ export default {
         seTrain: '',
         seCerdificate:'',
         seIntention:'',
-        seSchool:''
+        seSchool:'',
+        seStuid:''
       },
 
       rules: {
@@ -101,17 +95,11 @@ export default {
           { required: true, message: '请选择性别', trigger: 'blur' },
 
         ],
-        seAddress: [
-          { required: true, message: '请输入居住地', trigger: 'blur' }
-        ],
         seEmail: [
           { type:'email', required: true, message: '请输入邮箱', trigger: 'blur' }
         ],
         seLocation: [
           { required: true, message: '请输入联系地址', trigger: 'blur' },
-        ],
-        sePostcode: [
-          { required: true, message: '请输入邮编', trigger: 'blur' }
         ],
         seExprience: [
           { required: true, message: '请输入工作经历', trigger: 'blur' }
@@ -141,6 +129,8 @@ export default {
         if (valid) {
 
           const _this = this
+          _this.ruleForm.seStuid = _this.$store.getters.getUser.userId
+          console.log(_this.ruleForm)
           this.$axios.post('/stuempinfo/stuemupdate',this.ruleForm).then(res => {
             if(res.data.code === 200){
               alert("完善简历成功！")
@@ -185,8 +175,7 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height: auto;
   padding: unset;
 }
 body > .el-container {

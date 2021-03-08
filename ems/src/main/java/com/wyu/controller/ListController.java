@@ -36,7 +36,7 @@ public class ListController {
     public Result studentList(@RequestParam(defaultValue = "1") Integer currentPage){
 
         Page page = new Page(currentPage,5);
-        IPage pageData = studentInfoService.page(page,new QueryWrapper<StudentInfo>().orderByDesc("s_userid"));
+        IPage pageData = studentInfoService.page(page,new QueryWrapper<StudentInfo>().select("s_userid","s_name","s_college","s_major").orderByDesc("s_userid"));
 
         if(pageData.getTotal() >= 1){
             return Result.success(pageData);

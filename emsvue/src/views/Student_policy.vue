@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="width: 100%" >
-      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 1585px; background-color: #6c6c6c"></el-button>
+      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
       <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
     </div>
     <div class="block" style="margin-right: 45px">
