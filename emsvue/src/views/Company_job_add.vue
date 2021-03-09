@@ -23,6 +23,7 @@
             <div class="block">
               <el-date-picker
                   v-model="ruleForm.cjDeadline"
+                  value-format="yyyy-MM-dd"
                   type="date"
                   placeholder="选择日期">
               </el-date-picker>

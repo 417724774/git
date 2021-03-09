@@ -8,35 +8,30 @@
           <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
         </div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" class="demo-ruleForm">
 
-          <el-form-item label="招聘会标题：" prop="jfTitle">
-            <el-input  v-model="ruleForm.jfTitle"></el-input>
+          <el-form-item label="标题：" prop="ptitle">
+            <el-input autosize style="width: 500px" type="textarea" v-model="ruleForm.ptitle"></el-input>
           </el-form-item>
-          <el-form-item label="举办日期：" prop="jfDate">
+          <el-form-item label="发布时间：" prop="pdate">
             <div class="block">
               <el-date-picker
-                  v-model="ruleForm.jfDate"
-                  value-format="yyyy-MM-dd"
+                  v-model="ruleForm.pdate"
                   type="date"
                   placeholder="选择日期">
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-form-item label="联系人：" prop="jfMan">
-            <el-input v-model="ruleForm.jfMan"></el-input>
+          <el-form-item label="来源：" prop="psource">
+            <el-input style="width: 500px" v-model="ruleForm.psource"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话：" prop="jfPhone">
-            <el-input v-model="ruleForm.jfPhone"></el-input>
+          <el-form-item label="正文：" prop="pcontent">
+            <el-input autosize style="width: 500px" type="textarea" v-model="ruleForm.pcontent"></el-input>
           </el-form-item>
-          <el-form-item label="举办地点：" prop="jfAdress">
-            <el-input v-model="ruleForm.jfAdress"></el-input>
+          <el-form-item >
+            <el-button v-if="!dis" type="primary" @click="submitForm('ruleForm')">修改</el-button>
+            <el-button v-if="!dis" @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
-          <el-form-item label="正文：" prop="jfBody">
-            <el-input autosize type="textarea" v-model="ruleForm.jfBody"></el-input>
-          </el-form-item>
-          <el-button v-if="!dis" type="primary" @click="submitForm('ruleForm')">修改</el-button>
-          <el-button v-if="!dis" @click="resetForm('ruleForm')">重置</el-button>
         </el-form>
       </el-main>
     </el-container>
@@ -47,7 +42,7 @@
 
 <script>
 export default {
-  name: "Teacher_jobfair_detail",
+  name: "Teacher_policy_detail",
   components: {
   },
   data() {
@@ -56,27 +51,26 @@ export default {
         return time.getTime() > Date.now()
       },
       ruleForm: {
+        ptitle:'',
+        pdate:'',
+        psource:'',
+        pcontent:'',
+        pman: this.$store.getters.getUser.username,
+        pupdate: this.$store.getters.getDate
       },
       rules: {
-        jfTitle: [
-          { required: true, message: '请输入招聘会标题', trigger: 'blur' },
-          { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+        ptitle: [
+          { required: true, message: '请输入政策标题', trigger: 'blur' },
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ],
-        jfDate: [
-          { required: true, message: '请选择举办日期', trigger: 'blur' },
+        pdate: [
+          { required: true, message: '请选择发布日期', trigger: 'blur' },
 
         ],
-        jfAdress: [
-          { required: true, message: '请输入举办地点', trigger: 'blur' }
+        psource: [
+          { required: true, message: '请输入来源', trigger: 'blur' }
         ],
-        jfMan: [
-          { required: true, message: '请输入联系人', trigger: 'blur' }
-        ],
-        jfPhone: [
-          { required: true, message: '请输入联系电话', trigger: 'blur' },
-          { min: 1, max: 11, message: '长度在 1 到 20 个字符', trigger: 'blur' }
-        ],
-        jfBody: [
+        pcontent: [
           { required: true, message: '请输入正文', trigger: 'blur' }
         ]
       },
@@ -90,11 +84,11 @@ export default {
         if (valid) {
 
           const _this = this
-          _this.$axios.post('/teacher/jobfairsaveupadate',this.ruleForm).then(res => {
+          this.$axios.post('/teacher/policyupdate',this.ruleForm).then(res => {
             if(res.data.code === 200){
               alert("修改成功！")
             }else {
-              alert("完善失败！请再次尝试！")
+              alert("修改失败！请再次尝试！")
             }
           })
         } else {
@@ -106,14 +100,20 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    back(){
+      this.$router.back()
+    },
+    close(){
+      this.$router.push('/teacher_index')
+    },
     filter(){
       const _this = this
-      const jfid = _this.$route.params.id
-      const jftuserid = _this.$store.getters.getUser.userId
-      _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:jftuserid}).then(res=>{
+      const pid = _this.$route.params.pid
+      const pman = _this.$store.getters.getUser.username
+      _this.$axios.post('/teacher/policyfilter',{pman:pman}).then(res=>{
         _this.filtedjf = res.data.data
         for (const resKey in _this.filtedjf) {
-          if(jfid === _this.filtedjf[resKey]){
+          if(pid === _this.filtedjf[resKey]){
             _this.dis = false
             return
           }
@@ -122,25 +122,15 @@ export default {
 
       })
     },
-    back(){
-      this.$router.back()
-    },
-    close(){
-      this.$router.push('/teacher_index')
-    },
     get(){
       const _this = this
-      const jfid = _this.$route.params.id
-      _this.$axios.get("/teacher/jobfairdetail?jfid="+jfid).then(res=>{
-
+      const pid = _this.$route.params.pid
+      _this.$axios.get('/teacher/policydetail?pid='+pid).then(res=>{
         if(res.data.code === 200){
-
           _this.ruleForm = res.data.data
-
         }else {
           alert("查询失败！")
         }
-
       })
     }
   },
@@ -157,8 +147,7 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height: auto;
   padding: unset;
 }
 body > .el-container {

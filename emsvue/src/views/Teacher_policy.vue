@@ -16,17 +16,23 @@
           style="width: auto;
                  margin: 10px">
         <el-table-column
-            prop="jfDate"
-            label="时间"
+            prop="pUpdate"
+            label="上传时间"
             sortable
             width="180"
             column-key="date"
         >
         </el-table-column>
         <el-table-column
-            prop="jfTitle"
+            prop="pman"
+            label="上传者"
+            width="100px">
+        </el-table-column>
+        <el-table-column
+            prop="ptitle"
             label="标题"
-            width="auto">
+            width="auto"
+            align="center">
         </el-table-column>
         <el-table-column
             prop=""
@@ -34,8 +40,8 @@
             width="200"
             align="center">
           <template slot-scope="scope" >
-            <router-link tag="el-button" class="el-button--mini" :to="{ name:'Teacher_jobfair_detail',params:{id:scope.row.jfId} }">查看</router-link>
-            <el-button v-if="jffilter(scope.row.jfId)" class="el-button--mini" @click="deljobfair(scope.row.jfId)">删除</el-button>
+            <router-link tag="el-button" class="el-button--mini" :to="{ name:'Teacher_policy_detail',params:{pid:scope.row.pid} }">查看</router-link>
+            <el-button v-show="plyfilter(scope.row.pid)" class="el-button--mini" @click="delpolicy(scope.row.pid,scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,18 +62,18 @@
 
 <script>
 export default {
-  name: "Teacher_jobfair",
+  name: "Teacher_policy",
   inject:['reload'],
   components: {
   },
   data() {
     return {
       tableData: [],
-      currentPage: 1,
+      currentPage:1,
       total: 0,
       pageSize: 5,
       dis:'',
-      filtedjf:[]
+      filtedply:[]
     }
   },
   methods: {
@@ -84,49 +90,74 @@ export default {
       this.$router.push('/teacher_index')
     },
     add(){
-      this.$router.push('/teacher_jobfair_add')
+      this.$router.push('/teacher_policy_add')
     },
-    jffilter(data){
-      for (const dataKey in this.filtedjf) {
-        if( data === this.filtedjf[dataKey]){
+    plyfilter(data){
+      for (const dataKey in this.filtedply) {
+        if( data === this.filtedply[dataKey]){
           return true
         }
       }
       return false
     },
-    deljobfair(data){
+    delpolicy(data,data1){
       const _this = this
-      this.$axios.get('/teacher/jobfairdelete?jfid='+data).then(res=>{
+      this.$axios.get('/teacher/policydelete?pid='+data).then(res=>{
         if(res.data.code === 200){
           alert("删除成功！")
           // this.$router.go(0)
-          _this.reload()
+          // _this.reload()
         }else {
           alert("删除失败！请重新尝试！")
         }
 
+      }).finally(()=>{
+      // console.log(_this.tableData.length)
+        const index = _this.tableData.indexOf(data1)
+        _this.tableData.splice(index,1)
+        if(_this.tableData.length === 0&&_this.currentPage!==1){
+          _this.currentPage = _this.currentPage - 1
+          this.page(_this.currentPage)
+        }else {
+          _this.currentPage = _this.currentPage
+
+        }
+        // console.log(_this.total)
+        // _this.total -= 1
       })
+
     },
     page(currentPage){
       const _this = this;
       const id = _this.$store.getters.getUser.userId
-      _this.$axios.get("/teacher/jobfairlist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/teacher/policylist?currentPage="+currentPage).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
 
-        const tuserid = _this.$store.getters.getUser.userId
-        _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:tuserid}).then(res=>{
-          if(res.data.data !== null)
-            this.filtedjf = res.data.data
-        })
+        // const tusername = _this.$store.getters.getUser.username
+        // _this.$axios.post('/teacher/policyfilter',{pman:tusername}).then(res=>{
+        //   if(res.data.data !== null)
+        //     _this.filtedply = res.data.data
+        // })
 
       })
     }
   },
   created() {
-    this.page(1)
+    const _this = this
+    _this.$axios.get('/teacher/policy').then(res=>{
+
+      _this.tableData = res.data.data.records
+      _this.total = res.data.data.total
+      _this.pageSize = res.data.data.size
+    })
+    const tusername = _this.$store.getters.getUser.username
+    _this.$axios.post('/teacher/policyfilter',{pman:tusername}).then(res=>{
+      if(res.data.data !== null)
+        this.filtedply = res.data.data
+    })
   }
 }
 </script>

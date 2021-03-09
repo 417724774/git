@@ -34,10 +34,4 @@ public class User implements Serializable {
     private String password;
 
     private String type;
-
-    private String department;
-
-    private String remark;
-
-    private String avator;
 }

@@ -8,31 +8,25 @@
           <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
         </div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" class="demo-ruleForm">
 
-          <el-form-item label="招聘会标题：" prop="jfTitle">
-            <el-input v-model="ruleForm.jfTitle"></el-input>
+          <el-form-item label="标题：" prop="ptitle">
+            <el-input style="width: 500px" v-model="ruleForm.ptitle"></el-input>
           </el-form-item>
-          <el-form-item label="举办日期：" prop="jfDate">
+          <el-form-item label="发布时间：" prop="pdate">
             <div class="block">
               <el-date-picker
-                  v-model="ruleForm.jfDate"
+                  v-model="ruleForm.pdate"
                   type="date"
                   placeholder="选择日期">
               </el-date-picker>
             </div>
           </el-form-item>
-          <el-form-item label="联系人：" prop="jfMan">
-            <el-input v-model="ruleForm.jfMan"></el-input>
+          <el-form-item label="来源：" prop="psource">
+            <el-input style="width: 500px" v-model="ruleForm.psource"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话：" prop="jfPhone">
-            <el-input v-model="ruleForm.jfPhone"></el-input>
-          </el-form-item>
-          <el-form-item label="举办地点：" prop="jfAdress">
-            <el-input v-model="ruleForm.jfAdress"></el-input>
-          </el-form-item>
-          <el-form-item label="正文：" prop="jfBody">
-            <el-input autosize type="textarea" v-model="ruleForm.jfBody"></el-input>
+          <el-form-item label="正文：" prop="pcontent">
+            <el-input autosize style="width: 500px" type="textarea" v-model="ruleForm.pcontent"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
@@ -48,7 +42,7 @@
 
 <script>
 export default {
-  name: "Teacher_jobfair_add",
+  name: "Teacher_policy_add",
   components: {
   },
   data() {
@@ -57,27 +51,25 @@ export default {
         return time.getTime() > Date.now()
       },
       ruleForm: {
+        ptitle:'',
+        pdate:'',
+        psource:'',
+        pcontent:'',
+        pman: this.$store.getters.getUser.username
       },
       rules: {
-        jfTitle: [
-          { required: true, message: '请输入招聘会标题', trigger: 'blur' },
-          { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+        ptitle: [
+          { required: true, message: '请输入政策标题', trigger: 'blur' },
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ],
-        jfDate: [
-          { required: true, message: '请选择举办日期', trigger: 'blur' },
+        pdate: [
+          { required: true, message: '请选择发布日期', trigger: 'blur' },
 
         ],
-        jfAdress: [
-          { required: true, message: '请输入举办地点', trigger: 'blur' }
+        psource: [
+          { required: true, message: '请输入来源', trigger: 'blur' }
         ],
-        jfMan: [
-          { required: true, message: '请输入联系人', trigger: 'blur' }
-        ],
-        jfPhone: [
-          { required: true, message: '请输入联系电话', trigger: 'blur' },
-          { min: 1, max: 11, message: '长度在 1 到 20 个字符', trigger: 'blur' }
-        ],
-        jfBody: [
+        pcontent: [
           { required: true, message: '请输入正文', trigger: 'blur' }
         ]
       },
@@ -92,8 +84,7 @@ export default {
         if (valid) {
 
           const _this = this
-          _this.ruleForm.jfTuserid = _this.$store.getters.getUser.userId
-          this.$axios.post('/teacher/jobfairsaveupadate',this.ruleForm).then(res => {
+          _this.$axios.post('/teacher/policyadd',_this.ruleForm).then(res => {
             if(res.data.code === 200){
               alert("添加成功！")
             }else {
@@ -127,8 +118,7 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height: auto;
   padding: unset;
 }
 body > .el-container {

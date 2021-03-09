@@ -17,20 +17,26 @@
               <el-form-item label="公司名称" style="width: 30%">
                 <span>{{ props.row.cunit }}</span>
               </el-form-item>
-              <el-form-item label="招聘岗位" style="width: 40%">
-                <span>{{ props.row.cjType }}</span>
+              <el-form-item label="申请人" style="width: 30%">
+                <span>{{ props.row.cname }}</span>
               </el-form-item>
-              <el-form-item label="基本要求" style="width: 30%">
-                <span>{{ props.row.cjDemand }}</span>
+              <el-form-item label="联系电话"style="width: 30%">
+                <span>{{ props.row.cphone }}</span>
               </el-form-item>
-              <el-form-item label="职位类型"style="width: 40%">
-                <span>{{ props.row.cjProperty }}</span>
+              <el-form-item label="邮箱" style="width: 30%">
+                <span>{{ props.row.cemail }}</span>
               </el-form-item>
-              <el-form-item label="工作地点" style="width: 30%">
-                <span>{{ props.row.cjAdress }}</span>
+              <el-form-item label="公司规模" style="width: 30%">
+                <span>{{ props.row.csize }}</span>
               </el-form-item>
-              <el-form-item label="职位描述"style="width: auto">
-                <span>{{ props.row.cjDescription }}</span>
+              <el-form-item label="公司性质" style="width: 30%">
+                <span>{{ props.row.cproperty }}</span>
+              </el-form-item>
+              <el-form-item label="公司地址" style="width: 30%">
+                <span>{{ props.row.caddress }}</span>
+              </el-form-item>
+              <el-form-item label="公司简介"style="width: auto">
+                <span>{{ props.row.cintroduction }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -40,18 +46,20 @@
             prop="cunit" >
         </el-table-column>
         <el-table-column
-            label="招聘岗位"
-            prop="cjType" >
+            label="注册时间"
+            prop="cRtime" >
         </el-table-column>
         <el-table-column
-            label="薪资"
-            prop="cjSalary" >
+            label="账户状态" >
+          <template slot-scope="scope">
+          {{filterStatus(scope.row.cuserid)}}
+          </template>
         </el-table-column>
         <el-table-column
             label="操作"
             prop="desc" align="center" >
           <template slot-scope="scope">
-            <el-button id="btu" @click="po(scope.row.cjId,scope.row.cuserid)" >{{filter(scope.row.cuserid)}}</el-button>
+            <el-button id="btu" @click="po(scope.row.cuserid)" >{{filter(scope.row.cuserid)}}</el-button>
           </template>
 
         </el-table-column>
@@ -74,7 +82,7 @@
 
 <script>
 export default {
-  name: "Student_delivery",
+  name: "teacher_company",
   data() {
     return {
       tableData: [],
@@ -89,74 +97,71 @@ export default {
   methods:{
     page(currentPage){
       const _this = this;
-      _this.$axios.get("/stuempinfo/comjoblist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/company/companylist?currentPage="+currentPage).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
       })
     },
+    filterStatus(data){
+      for (const dataKey in this.filtedCpy) {
+        if( data === this.filtedCpy[dataKey]){
+          return "已审核"
+        }
+      }
+      return "未审核"
+    },
     filter(data){
       for (const dataKey in this.filtedCpy) {
           if( data === this.filtedCpy[dataKey]){
-            return "已投递"
+            return "冻结"
           }
       }
-      return "投递"
+      return "通过"
     }
     ,
     back(){
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/teacher_index')
     },
-    po(cjId,cuserid) {
-      let res = false
-      for (const dataKey in this.filtedCpy) {
-        if (cuserid === this.filtedCpy[dataKey]) {
-          res = true
+    po(cuserid) {
+      let boolean = true
+      for (const dataKey in this.filtedCpy){
+        if( cuserid === this.filtedCpy[dataKey]){
+          boolean = false
         }
       }
-      if(!this.resumeexist){
-        alert('你还未完善简历！请完善简历在进行投递！')
-        this.$router.push('student_resume')
-      }else {
-      if (!res) {
         const date = {
-          crCuserid:cuserid,
-          crCjid:cjId,
-          crStuid: this.$store.getters.getUser.userId,
-          crTime: new Date().getTime()
+          cuserid:cuserid
         }
         const _this= this
-        this.$axios.post('/company_remsg/save', date).then(res => {
+        this.$axios.post('/company/companycheck', date).then(res => {
           if (res.data.code === 200) {
             // _this.reload()
-            alert("投递成功！")
-            _this.filtedCpy.push(cuserid)
+            alert("操作成功！")
+            if(boolean)
+             _this.filtedCpy.push(cuserid)
+            else {
+              let index = _this.filtedCpy.indexOf(cuserid)
+              _this.filtedCpy.splice(index,1)
+            }
             return;
           } else {
-            alert("投递失败！请再次尝试！")
+            alert("操作失败！请再次尝试！")
           }
         })
-      }
-     }
+
+
     },
     get(){
       const sid = this.$store.getters.getUser.userId
       const _this = this
-      this.$axios.post('/company_remsg/filter',{crStuid:sid}).then(res=>{
+      this.$axios.get('/company/companyfilter').then(res=>{
         if(res.data.data !== null)
         this.filtedCpy = res.data.data
-      }).finally(()=>{
-        _this.$axios.post('/stuempinfo/studentresume',{seStuid:sid}).then(res=>{
-          if(res.data.code !== 200){
-            _this.resumeexist = false
-          }else {
-            _this.resumeexist = true
-          }
-        })
       })
 
     }

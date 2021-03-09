@@ -38,8 +38,9 @@ public class CompanyInfo implements Serializable {
     @NotBlank(message = "密码不能为空")
     private String cPassword;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+
 //    @NotBlank(message = "注册时间不能为空")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date cRtime;
 
     @NotBlank(message = "公司性质不能为空")

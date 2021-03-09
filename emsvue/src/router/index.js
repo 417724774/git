@@ -32,6 +32,10 @@ import Teacher_uppwd from "../views/Teacher_uppwd";
 import Teacher_jobfair from "../views/Teacher_jobfair";
 import Teacher_jobfair_add from "../views/Teacher_jobfair_add";
 import Teacher_jobfair_detail from "../views/Teacher_jobfair_detail";
+import Teacher_company from "../views/Teacher_company";
+import Teacher_policy from "../views/Teacher_policy";
+import Teacher_policy_add from "../views/Teacher_policy_add";
+import Teacher_policy_detail from "../views/Teacher_policy_detail";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -125,7 +129,7 @@ const routes = [
         name: 'Company_job_add',
         component: Company_job_add
       },{
-        path: '/company_job_detail',
+        path: '/company_job_detail/:id',
         name: 'Company_job_detail',
         component: Company_job_detail
       },{
@@ -133,7 +137,7 @@ const routes = [
         name: 'Company_resume',
         component: Company_resume
       },{
-        path: '/company_resume_detail',
+        path: '/company_resume_detail/:id',
         name: 'Company_resume_detail',
         component: Company_resume_detail
       },{
@@ -145,7 +149,7 @@ const routes = [
         name: 'Company_student',
         component: Company_student
       },{
-        path: '/company_student_detail',
+        path: '/company_student_detail/:id',
         name: 'Company_student_detail',
         component: Company_student_detail
       },{
@@ -181,9 +185,25 @@ const routes = [
         name: 'Teacher_jobfair_add',
         component: Teacher_jobfair_add
       },{
-        path: '/teacher_jobfair_detail',
+        path: '/teacher_jobfair_detail/:id',
         name: 'Teacher_jobfair_detail',
         component: Teacher_jobfair_detail
+      },{
+        path: '/teacher_company',
+        name: 'Teacher_company',
+        component: Teacher_company
+      },{
+        path: '/teacher_policy',
+        name: 'Teacher_policy',
+        component: Teacher_policy
+      },{
+        path: '/teacher_policy_add',
+        name: 'Teacher_policy_add',
+        component: Teacher_policy_add
+      },{
+        path: '/teacher_policy_detail/:pid',
+        name: 'Teacher_policy_detail',
+        component: Teacher_policy_detail
       }
     ]
   },

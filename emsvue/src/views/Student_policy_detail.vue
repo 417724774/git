@@ -39,7 +39,7 @@ export default {
   },
   created() {
     const pid = this.$route.params.pid
-    this.$axios.post("/student_policy_detail",{"pid":pid}).then(res=>{
+    this.$axios.post("/student/policy_detail",{"pid":pid}).then(res=>{
       this.detail = res.data.data
     })
   }

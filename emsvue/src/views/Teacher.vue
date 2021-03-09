@@ -28,6 +28,11 @@ import Taside from "../components/Taside";
 import Logs from "../components/Logs";
 export default {
   name: "Teacher",
+  provide (){
+    return {
+      reload:this.reload
+    }
+  },
   components: { Theader,Taside,Logs
   },
   data(){

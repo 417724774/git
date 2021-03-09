@@ -60,9 +60,7 @@ public class UserController {
         return Result.success(MapUtil.builder()
                 .put("userId",user.getUserId())
                 .put("username",user.getUsername())
-                .put("type",user.getType())
-                .put("department",user.getDepartment())
-                .put("avator",user.getAvator()).map()
+                .put("type",user.getType()).map()
         );
     }
 

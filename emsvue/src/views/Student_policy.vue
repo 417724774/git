@@ -35,7 +35,7 @@ export default {
   },
   created(){
     const _this = this;
-    _this.$axios.get('student_policylist').then(res =>{
+    _this.$axios.get('/student/policylist').then(res =>{
       _this.policys = res.data.data.records
 
 

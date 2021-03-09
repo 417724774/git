@@ -11,7 +11,7 @@
       <el-main>
         <h1 class="h1">毕业生就业管理系统</h1>
 
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
           <el-form-item label="用户名" prop="cuserid">
             <el-input v-model="ruleForm.cuserid"></el-input>
           </el-form-item>
@@ -60,8 +60,8 @@
           </el-form-item>
         </el-form>
       </el-main>
-      <el-footer>版权所有©五邑大学-梁卓林</el-footer>
     </el-container>
+      <el-footer>版权所有©五邑大学-梁卓林</el-footer>
   </div>
 
 </template>
@@ -133,11 +133,11 @@ export default {
           const _this = this
           this.$axios.post('/company/register',this.ruleForm).then(res => {
             if(res.data.code === 200){
-              alert("申请注册成功！")
+              alert("申请注册成功！请等待审核通过方可登录！")
               //跳转
               _this.$router.push("/login")
             }else {
-              alert("申请注册失败！请再次尝试！")
+              alert("申请注册失败！请再次尝试！"+res.data.data)
             }
           })
         } else {
@@ -171,25 +171,18 @@ export default {
   color: #333;
   text-align: center;
   line-height: 60px;
-  margin-top: 300px;
+  height: 50px;
 }
 
 .el-main {
   /*background-color: #E9EEF3;*/
   color: #333;
   text-align: center;
+  height: 732px;
 }
 
-body > .el-container {
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
+.el-container {
+  margin: unset;
 }
 
 .hlogo{
@@ -199,8 +192,7 @@ body > .el-container {
 
 .demo-ruleForm{
   max-width: 500px;
-  margin-left: 650px;
-  max-height: 659px;
+  margin-left: 35%;
 }
 
 .h1{

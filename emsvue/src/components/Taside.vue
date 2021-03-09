@@ -15,17 +15,16 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-1" @click.native="choose('teacher_jobfair')" >招聘会信息</el-menu-item>
-            <el-menu-item index="1-2" @click.native="choose('')" >快速投递</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
           <template #title>
             <i class="el-icon-office-building"></i>
-            <span>求职信息</span>
+            <span>审核信息</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="2-1" @click.native="choose('student_company')" >企业信息</el-menu-item>
-            <el-menu-item index="2-2" @click.native="choose('student_policy')" >就业政策</el-menu-item>
+            <el-menu-item index="2-1" @click.native="choose('teacher_company')" >企业注册</el-menu-item>
+            <el-menu-item index="2-2" @click.native="choose('teacher_policy')" >就业政策</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">
