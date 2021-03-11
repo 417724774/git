@@ -84,6 +84,9 @@ public class CompanyInfoController {
     @PostMapping("/companyuppwd")
     public Result companyUppwd(@RequestBody CompanyInfo companyInfo) {
         companyInfo.setCPassword(SecureUtil.md5(companyInfo.getCPassword()));
+        User user = new User().setUserId(companyInfo.getCUserid()).setPassword(companyInfo.getCPassword());
+
+        Boolean res1 = userService.update(user,new QueryWrapper<User>().eq("user_id",user.getUserId()));
         Boolean res = companyInfoService.updateById(companyInfo);
         if(res){
             return Result.success(res);

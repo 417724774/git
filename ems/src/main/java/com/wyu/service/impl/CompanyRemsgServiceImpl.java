@@ -34,4 +34,10 @@ public class CompanyRemsgServiceImpl extends ServiceImpl<CompanyRemsgMapper, Com
 
     }
 
+    @Override
+    public IPage<ComJobList> teaComJobList(Page page) {
+        IPage<ComJobList> list= this.baseMapper.teaComJobList(page);
+        return list;
+    }
+
 }

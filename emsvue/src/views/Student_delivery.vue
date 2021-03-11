@@ -3,14 +3,15 @@
   <div>
 
     <div style="width: 100%" >
-      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
-      <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
+      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+      <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
     </div>
     <template>
       <el-table
           :data="tableData"
           style="width: auto;
-                 margin: 10px">
+                 margin: 10px;
+                 clear: both">
         <el-table-column type="expand">
           <template #default="props" >
             <el-form label-position="left"  inline class="demo-table-expand">

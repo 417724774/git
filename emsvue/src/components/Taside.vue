@@ -11,10 +11,12 @@
         <el-submenu index="1">
           <template #title>
             <i class="el-icon-user"></i>
-            <span>招聘会管理</span>
+            <span>发布管理</span>
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-1" @click.native="choose('teacher_jobfair')" >招聘会信息</el-menu-item>
+            <el-menu-item index="1-2" @click.native="choose('Teacher_message')" >宣传或通知</el-menu-item>
+            <el-menu-item index="1-3" @click.native="choose('teacher_policy')" >就业政策</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2">
@@ -24,16 +26,17 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="2-1" @click.native="choose('teacher_company')" >企业注册</el-menu-item>
-            <el-menu-item index="2-2" @click.native="choose('teacher_policy')" >就业政策</el-menu-item>
+            <el-menu-item index="2-2" @click.native="choose('teacher_company_job')" >企业招聘</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">
           <template #title>
             <i class="el-icon-tickets"></i>
-            <span>就业信息</span>
+            <span>学生信息</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="3-1" @click.native="choose('student_register')" >资料登记</el-menu-item>
+            <el-menu-item index="3-1" @click.native="choose('teacher_statistic')" >就业统计</el-menu-item>
+            <el-menu-item index="3-2" @click.native="choose('teacher_student')" >学生信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

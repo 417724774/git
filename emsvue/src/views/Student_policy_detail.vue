@@ -1,10 +1,10 @@
 <template>
   <div>
     <div style="width: 100%" >
-      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
-      <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
+      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+      <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
     </div>
-    <div class="block" style="margin-right: 45px;width: 100%" align="center">
+    <div class="block" style="margin-right: 45px;width: 100%;clear: both" align="center">
       <el-timeline >
         <el-timeline-item  placement="top"  >
           <el-card style="width: 800px">

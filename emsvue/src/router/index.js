@@ -36,6 +36,14 @@ import Teacher_company from "../views/Teacher_company";
 import Teacher_policy from "../views/Teacher_policy";
 import Teacher_policy_add from "../views/Teacher_policy_add";
 import Teacher_policy_detail from "../views/Teacher_policy_detail";
+import Teacher_statistic from "../views/Teacher_statistic";
+import Teacher_student from "../views/Teacher_student";
+import Teacher_student_detail from "../views/Teacher_student_detail";
+import Teacher_company_job from "../views/Teacher_company_job";
+import Teacher_message from "../views/Teacher_message";
+import Teacher_message_add from "../views/Teacher_message_add";
+import Teacher_message_detail from "../views/Teacher_message_detail";
+import Message_detail from "../views/Message_detail";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -101,7 +109,11 @@ const routes = [
       path: '/student_register',
       name: 'Student_register',
       component: Student_register
-    }]
+    },{
+        path: '/message_detail/:tmid',
+        name: 'Message_detail',
+        component: Message_detail
+      }]
   },
   {
     path: '/company',
@@ -156,6 +168,11 @@ const routes = [
         path: '/company_statistic',
         name: 'Company_statistic',
         component: Company_statistic
+      },
+      {
+        path: '/message_detail',
+        name: 'Message_detail',
+        component: Message_detail
       }
     ]
   },
@@ -193,6 +210,10 @@ const routes = [
         name: 'Teacher_company',
         component: Teacher_company
       },{
+        path: '/teacher_company_job',
+        name: 'Teacher_company_job',
+        component: Teacher_company_job
+      },{
         path: '/teacher_policy',
         name: 'Teacher_policy',
         component: Teacher_policy
@@ -204,6 +225,35 @@ const routes = [
         path: '/teacher_policy_detail/:pid',
         name: 'Teacher_policy_detail',
         component: Teacher_policy_detail
+      },{
+        path: '/teacher_statistic',
+        name: 'Teacher_statistic',
+        component: Teacher_statistic
+      },{
+        path: '/teacher_student',
+        name: 'Teacher_student',
+        component: Teacher_student
+      },{
+        path: '/teacher_student_detail',
+        name: 'Teacher_student_detail',
+        component: Teacher_student_detail
+      },{
+        path: '/teacher_message',
+        name: 'Teacher_message',
+        component: Teacher_message
+      },{
+        path: '/teacher_message_add',
+        name: 'Teacher_message_add',
+        component: Teacher_message_add
+      },{
+        path: '/teacher_message_detail/:tmid',
+        name: 'Teacher_message_detail',
+        component: Teacher_message_detail
+      },
+      {
+        path: '/message_detail',
+        name: 'Message_detail',
+        component: Message_detail
       }
     ]
   },

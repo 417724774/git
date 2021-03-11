@@ -19,4 +19,6 @@ public interface CompanyRemsgService extends IService<CompanyRemsg> {
 
     IPage<ComJobList> comJobList(Page page);
 
+    IPage<ComJobList> teaComJobList(Page page);
+
 }

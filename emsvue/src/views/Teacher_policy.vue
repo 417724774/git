@@ -5,9 +5,9 @@
 
     <template>
       <div style="width: 100%" >
-        <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 45.5%; background-color: #6c6c6c"></el-button>
-        <el-button class="back" type="primary" size="mini" icon="el-icon-plus" @click="add" style="margin-right: 45%; background-color: #6c6c6c"></el-button>
-        <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
+        <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+        <el-button align="center" class="back" type="primary" size="mini" icon="el-icon-plus" @click="add" style=" background-color: #6c6c6c"></el-button>
+        <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
       </div>
       <el-table
           row-key="date"
@@ -120,7 +120,7 @@ export default {
           this.page(_this.currentPage)
         }else {
           _this.currentPage = _this.currentPage
-
+          this.page(_this.currentPage)
         }
         // console.log(_this.total)
         // _this.total -= 1
@@ -135,13 +135,6 @@ export default {
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
-
-        // const tusername = _this.$store.getters.getUser.username
-        // _this.$axios.post('/teacher/policyfilter',{pman:tusername}).then(res=>{
-        //   if(res.data.data !== null)
-        //     _this.filtedply = res.data.data
-        // })
-
       })
     }
   },

@@ -88,4 +88,15 @@ public class TeacherJobfairController {
         }
     }
 
+    @GetMapping("/jobfairlog")
+    public Result jobFairLog() {
+
+        List<TeacherJobfair> res = teacherJobfairService.list(new QueryWrapper<TeacherJobfair>());
+        if(res.size() >= 1){
+            return Result.success(res);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
 }

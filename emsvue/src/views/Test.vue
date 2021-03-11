@@ -1,86 +1,19 @@
-<template>
-
-  <div>
-    <Header v-on:choose="choose">
-    </Header>
-    <el-container>
-        <Aside v-on:choose="choose"></Aside>
-      <el-container class="containor">
-        <Logs></Logs>
-          <el-main>
-            <div id="app">
-              <router-view></router-view>
-
-            </div>
-          </el-main>
-
-        <el-footer class="footer">版权所有©五邑大学-梁卓林</el-footer>
-      </el-container>
-
-    </el-container>
-  </div>
+<template >
 
 </template>
 
 <script>
-import Header from "../components/Sheader";
-import Aside from "../components/Saside";
-import Logs from "../components/Logs";
+//空白页面
 export default {
-  name: "Test",
-  components: { Header,Aside,Logs
+  beforeRouteEnter(to, from, next) {
+    next((xq) => {
+      //要注意，必须使用this.$router.replace而非this.$router.push
+      //如果使用的是this.$router.push会导致，进入过空白页之后，通过浏览器的后退键，无法实现页面后退的bug现象
+      xq.$router.replace(from.path);
+    });
   },
-  data(){
-    return {
-      blogs:["生活就像海洋，只有意志坚强的人才能到达彼岸",
-        "最值得学习的博客项目eblog",
-        "博客项目eblog讲解视频上线啦，长达17个小时！！",
-        "真正理解Mysql的四种隔离级别@"]
-    }
-  },
-  computed:{
-
-  },
-  methods: {
-    choose(data){
-      this.$router.push('/'+data)
-    }
-  }
-}
+};
 </script>
 
-<style scoped>
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-  /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
-  padding: unset;
-  margin-top: 16px;
-}
-body > .el-container {
-  margin-bottom: 40px;
-}
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
-.containor{
-  background: #E9EEF3;
-}
-.footer{
-  background-color: #B3C0D1;
-  color: #333;
-  text-align: center;
-  line-height: 34px;
-  /*margin-top: 16px;*/
-  max-height: 34px;
-}
-
-
+<style>
 </style>

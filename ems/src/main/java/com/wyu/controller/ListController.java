@@ -10,6 +10,7 @@ import com.wyu.entity.CompanyInfo;
 import com.wyu.entity.StudentInfo;
 import com.wyu.entity.TeacherInfo;
 import com.wyu.service.CompanyInfoService;
+import com.wyu.service.CompanyRemsgService;
 import com.wyu.service.StudentInfoService;
 import com.wyu.service.TeacherInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class ListController {
     TeacherInfoService teacherInfoService;
     @Autowired
     CompanyInfoService companyInfoService;
+    @Autowired
+    CompanyRemsgService companyRemsgService;
 
     @GetMapping("/studentlist")
     public Result studentList(@RequestParam(defaultValue = "1") Integer currentPage){
@@ -73,6 +76,18 @@ public class ListController {
         }
     }
 
+    @GetMapping("/teacher/teacomjoblist")
+    public Result teaComJobList(@RequestParam(defaultValue = "1") Integer currentPage){
 
+        Page page = new Page(currentPage,5);
+
+        IPage pageData = companyRemsgService.teaComJobList(page);
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
 
 }

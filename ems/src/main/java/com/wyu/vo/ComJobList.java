@@ -33,5 +33,7 @@ public class ComJobList implements Serializable {
 
     private String cjDescription;
 
+    private String cjStatus;
+
 
 }

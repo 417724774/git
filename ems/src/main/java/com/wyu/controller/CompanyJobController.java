@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -34,8 +35,18 @@ public class CompanyJobController {
     @Autowired
     JionService jionService;
 
-    @GetMapping("/joblist")
-    public Result jobList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String id) {
+    @GetMapping("/getjobstatus")
+    public Result getJobStatus() {
+        List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>());
+        if(!res.isEmpty()){
+            return Result.success(res);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @GetMapping("/joblistbyid")
+    public Result jobListById(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String id) {
         Page page = new Page(currentPage,5);
         IPage pageData = companyJobService.page(page,new QueryWrapper<CompanyJob>().eq("cj_cuserid",id));
 
@@ -60,6 +71,8 @@ public class CompanyJobController {
 
     @PostMapping("/jobsaveorupdate")
     public Result jobUpdate(@RequestBody CompanyJob companyJob) {
+
+        companyJob.setCjStatus("未审核");
 
         Boolean res = companyJobService.saveOrUpdate(companyJob,new UpdateWrapper<CompanyJob>().eq("cj_id",companyJob.getCjId()));
         if(res){
@@ -104,6 +117,17 @@ public class CompanyJobController {
             return Result.fail("数据不存在！");
         }
 
+    }
+
+    @PostMapping("/changestatus")
+    public Result changeStatus(@RequestBody CompanyJob job) {
+        Boolean res =  companyJobService.updateById(job);
+
+        if(res){
+            return Result.success(res);
+        }else {
+            return Result.fail("操作失败！");
+        }
     }
 
 }

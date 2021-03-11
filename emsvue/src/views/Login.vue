@@ -8,13 +8,6 @@
       <el-main>
         <h1 class="h1">毕业生就业管理系统</h1>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item prop="radio1">
-            <el-radio-group v-model="ruleForm.radio1"  class="radio1" >
-              <el-radio-button label="学生" @click.native="choose1"></el-radio-button>
-              <el-radio-button label="教师"@click.native="choose2"></el-radio-button>
-              <el-radio-button label="企业" @click.native="choose3"></el-radio-button>
-            </el-radio-group>
-          </el-form-item>
           <el-form-item label="用户名" prop="userId">
             <el-input v-model="ruleForm.userId"></el-input>
           </el-form-item>
@@ -24,7 +17,7 @@
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
-            <el-link class="register" v-show="!dis" href="/company_register">注册</el-link>
+            <el-link class="register" href="/company_register">企业注册</el-link>
           </el-form-item>
         </el-form>
       </el-main>
@@ -51,9 +44,6 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'change' }
-        ],
-        radio1: [
-          { required: true, message: '请选择身份', trigger: 'change' }
         ]
       },
       dis:true
@@ -78,7 +68,7 @@ export default {
             //console.log(_this.$store.getters.getUserInfo)
 
             //跳转
-            switch (_this.ruleForm.radio1) {
+            switch (res.data.data.type) {
               case "学生": {
                 _this.$router.push("/student");
                 break;
@@ -104,13 +94,6 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-    choose3(){
-        this.dis = false
-    },choose2(){
-      this.dis = true
-    },choose1(){
-      this.dis = true
     }
 
   }
@@ -131,7 +114,6 @@ export default {
   color: #333;
   text-align: center;
   line-height: 60px;
-  margin-top: 300px;
 }
 
 .el-aside {
@@ -146,6 +128,7 @@ export default {
   color: #333;
   text-align: center;
   line-height: 160px;
+  height: 790px;
 }
 
 body > .el-container {
@@ -168,15 +151,11 @@ body > .el-container {
 
 .demo-ruleForm{
   max-width: 500px;
-  margin-left: 650px;
+  margin: 0 auto;
 }
 
 .h1{
   margin-left: 35px;
-}
-
-.radio1{
-  margin: 0 auto;
 }
 .register{
   margin-left: 20px;

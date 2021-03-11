@@ -5,13 +5,12 @@
               <el-container>
 
                 <el-main>
-                  <div style="width: auto" >
-
-                    <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
-                    <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
+                  <div style="width: 100%" >
+                    <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+                    <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
                   </div>
                   <div align="center">
-                  <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm" style="margin: 10px" >
+                  <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm" style="margin: 10px;clear: both" >
                     <el-form-item label="公司名称" prop="cunit" >
                       <el-input readonly  v-model="ruleForm.cunit"></el-input>
                     </el-form-item>

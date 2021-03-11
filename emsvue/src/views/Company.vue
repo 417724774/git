@@ -7,7 +7,7 @@
       <Caside v-on:choose="choose"></Caside>
       <el-container class="containor">
         <Logs></Logs>
-        <el-main style="height: 650px">
+        <el-main style="height: 682px">
           <div id="app">
             <router-view v-if="isRouterAlive"></router-view>
 

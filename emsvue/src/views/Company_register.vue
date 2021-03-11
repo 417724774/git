@@ -178,7 +178,7 @@ export default {
   /*background-color: #E9EEF3;*/
   color: #333;
   text-align: center;
-  height: 732px;
+  height: 762px;
 }
 
 .el-container {
@@ -192,7 +192,7 @@ export default {
 
 .demo-ruleForm{
   max-width: 500px;
-  margin-left: 35%;
+  margin: 0 auto;
 }
 
 .h1{

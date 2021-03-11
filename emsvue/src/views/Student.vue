@@ -7,7 +7,7 @@
       <Saside v-on:choose="choose"></Saside>
       <el-container class="containor">
         <Logs></Logs>
-        <el-main style="height: 650px">
+        <el-main style="height: 682px">
           <div id="app">
             <router-view></router-view>
 

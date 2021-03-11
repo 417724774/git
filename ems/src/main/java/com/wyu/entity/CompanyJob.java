@@ -81,4 +81,6 @@ public class CompanyJob implements Serializable {
      */
     private String cjProperty;
 
+    private String cjStatus;
+
 }

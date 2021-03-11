@@ -22,4 +22,6 @@ public interface CompanyRemsgMapper extends BaseMapper<CompanyRemsg> {
 
     IPage<ComJobList> comJobList(@Param("page") Page page);
 
+    IPage<ComJobList> teaComJobList(Page page);
+
 }

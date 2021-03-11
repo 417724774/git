@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wyu.mapper.StudentWorkMapper">
+<select id="stuWorkList" resultType="com.wyu.vo.stuWorkList">
+    SELECT student_work.*,s_name FROM student_work,student_info
+    <where>
+     student_info.s_userid = student_work.sw_stuid
+    </where>
 
+</select>
 </mapper>

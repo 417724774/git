@@ -1,7 +1,13 @@
 <template >
-  <el-carousel height="70px" style="width: 100%;">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <h3 class="small">{{ blogs[item-1] }}</h3>
+<!--  <el-carousel height="70px" style="width: 100%;" :interval="5000">-->
+<!--    <el-carousel-item v-for="item in blogs.length" :key="item" >-->
+<!--      <h3 class="small">即将举办：“{{blogs[item-1].jfTitle}}”···· 时间：{{blogs[item-1].jfDate}} ···· 地点：{{blogs[item-1].jfAdress}}</h3>-->
+<!--    </el-carousel-item>-->
+<!--  </el-carousel>-->
+  <el-carousel height="70px" style="width: 100%;" :interval="5000">
+    <el-carousel-item v-for="item in blogs.length" :key="item" >
+<!--      <h2  @click="choose(blogs[item-1].tmId)"></h2>-->
+      <h1 align="center"><router-link style="font-size: 28px" tag="el-link" class="ptitle" :to="{ name:'Message_detail',params:{tmid:blogs[item-1].tmId} }" >{{blogs[item-1].tmType}}：“{{blogs[item-1].tmTitle}}”······························{{blogs[item-1].tmPtime}}</router-link></h1>
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -11,10 +17,23 @@ export default {
   name: "Logs",
   data() {
     return {
-      blogs: ["生活就像海洋，只有意志坚强的人才能到达彼岸",
-        "最值得学习的博客项目eblog",
-        "博客项目eblog讲解视频上线啦，长达17个小时！！",
-        "真正理解Mysql的四种隔离级别@"]
+      blogs: []
+    }
+  },
+  created() {
+    const _this = this
+    _this.$axios.get('/teacher/messagelogs').then(res=>{
+
+      _this.blogs = res.data.data
+
+    })
+  },
+  methods:{
+    choose(data){
+      this.$emit("choose",'teacher_message_detail/'+data)
+    },
+    close(){
+      this.history.back()
     }
   }
 }

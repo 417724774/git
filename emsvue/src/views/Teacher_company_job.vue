@@ -1,0 +1,196 @@
+<template >
+
+  <div>
+
+    <div style="width: 100%" >
+      <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+      <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
+    </div>
+    <template>
+      <el-table
+          :data="tableData"
+          style="width: auto;
+                 margin: 10px;
+                 clear: both"
+                 max-height="550px;">
+        <el-table-column type="expand">
+          <template #default="props" >
+            <el-form label-position="left"  inline class="demo-table-expand">
+              <el-form-item label="公司名称" style="width: 30%">
+                <span>{{ props.row.cunit }}</span>
+              </el-form-item>
+              <el-form-item label="招聘岗位" style="width: 40%">
+                <span>{{ props.row.cjType }}</span>
+              </el-form-item>
+              <el-form-item label="基本要求" style="width: 30%">
+                <span>{{ props.row.cjDemand }}</span>
+              </el-form-item>
+              <el-form-item label="职位类型"style="width: 40%">
+                <span>{{ props.row.cjProperty }}</span>
+              </el-form-item>
+              <el-form-item label="工作地点" style="width: 30%">
+                <span>{{ props.row.cjAdress }}</span>
+              </el-form-item>
+              <el-form-item label="职位描述"style="width: auto">
+                <span>{{ props.row.cjDescription }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column
+            label="公司名称"
+            prop="cunit" >
+        </el-table-column>
+        <el-table-column
+            label="招聘岗位"
+            prop="cjType" >
+        </el-table-column>
+        <el-table-column
+            label="薪资"
+            prop="cjSalary">
+        </el-table-column>
+        <el-table-column
+            label="审核状态"
+            prop="cjStatus">
+        </el-table-column>
+        <el-table-column
+            label="操作"
+            prop="desc" align="center" >
+          <template slot-scope="scope">
+            <el-button v-if="dis(scope.row.cjId)" @click="po(scope.row.cjId,'已通过',scope.row)" >通过</el-button>
+            <el-button v-if="dis1(scope.row.cjId)" @click="po(scope.row.cjId,'未通过',scope.row)" >不通过</el-button>
+          </template>
+
+        </el-table-column>
+
+      </el-table>
+      <el-pagination
+          background
+          layout="prev, pager, next"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          :total="total"
+          @current-change=page>
+      </el-pagination>
+    </template>
+
+  </div>
+
+</template>
+
+<script>
+export default {
+  name: "teacher_company_job",
+  inject:['reload'],
+  data() {
+    return {
+      tableData: [],
+      currentPage: 1,
+      total: 0,
+      pageSize: 5,
+      filtedCpy: {}
+
+    }
+  },
+  methods:{
+    page(currentPage){
+      const _this = this;
+      _this.$axios.get("/teacher/teacomjoblist?currentPage="+currentPage).then(res=>{
+        _this.tableData = res.data.data.records
+        _this.currentPage = res.data.data.current
+        _this.total = res.data.data.total
+        _this.pageSize = res.data.data.size
+      })
+    },
+    dis(data1){
+      for (const dataKey in this.filtedCpy) {
+        if( data1 === this.filtedCpy[dataKey].cjId){
+
+          if(this.filtedCpy[dataKey].cjStatus === '已通过'){
+            return false
+          }
+          if(this.filtedCpy[dataKey].cjStatus === '未通过'){
+            return true
+          }
+          if(this.filtedCpy[dataKey].cjStatus === '未审核'){
+            return true
+          }
+        }
+      }
+    },
+    dis1(data1){
+      for (const dataKey in this.filtedCpy) {
+        if( data1 === this.filtedCpy[dataKey].cjId){
+
+          if(this.filtedCpy[dataKey].cjStatus === '已通过'){
+            return true
+          }
+          if(this.filtedCpy[dataKey].cjStatus === '未通过'){
+            return false
+          }
+          if(this.filtedCpy[dataKey].cjStatus === '未审核'){
+            return true
+          }
+        }
+      }
+    }
+    ,
+    back(){
+      this.$router.back()
+    },
+    close(){
+      this.$router.push('/teacher_index')
+    },
+    po(cjid,data,row) {
+        const date = {
+          cjId:cjid,
+          cjStatus:data
+        }
+        const _this= this
+        _this.$axios.post('/company/changestatus', date).then(res => {
+          if (res.data.code === 200) {
+
+            alert("操作成功！")
+            localStorage.setItem("currentPage",_this.currentPage)
+            _this.$router.replace( "/test");
+          } else {
+            alert("操作失败！请再次尝试！")
+          }
+        })
+
+
+    },
+    get(){
+      this.$axios.get('/company/getjobstatus').then(res=>{
+        if(res.data.data !== null)
+        this.filtedCpy = res.data.data
+      })
+
+    }
+  },
+  created() {
+    this.page(localStorage.getItem('currentPage')||1)
+    this.get()
+    localStorage.removeItem('currentPage')
+
+  }
+}
+</script>
+
+<style>
+
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item{
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+
+
+</style>

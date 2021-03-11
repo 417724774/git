@@ -75,7 +75,7 @@ public class StuempInfoController {
 
     @GetMapping("/companydetailjoblist")
     public Result companyDetailJobList(@RequestParam String cuserid){
-        List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>().eq("cj_cuserid",cuserid));
+        List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>().eq("cj_cuserid",cuserid).eq("cj_status","已通过"));
 
         if(res != null){
             String strList ="";

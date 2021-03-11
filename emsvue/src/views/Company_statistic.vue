@@ -5,11 +5,11 @@
     <el-container>
       <el-main>
         <div style="width: 100%" >
-          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
-          <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
         </div>
 
-        <div v-for="(item,index) in this.tableData" style="margin-bottom: 40px">
+        <div v-for="(item,index) in this.tableData" style="margin-bottom: 40px;clear: both">
 
           <el-progress type="circle"
                        :format="format(index)"

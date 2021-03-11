@@ -5,11 +5,17 @@
     <el-container>
       <el-main>
         <div style="width: 100%" >
-          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="margin-right: 93.8%; background-color: #6c6c6c"></el-button>
-          <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
+          <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
         </div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
+          <el-form-item label="审核状态：" prop="cjStatus">
+            <h3 style="margin-top: unset ;" >
+              <span v-if="dis" style="color: green"> {{ruleForm.cjStatus}}</span>
+              <span v-if="!dis" style="color: red"> {{ruleForm.cjStatus}}</span>
+            </h3>
+          </el-form-item>
           <el-form-item label="职位类型：" prop="cjType">
             <el-input v-model="ruleForm.cjType"></el-input>
           </el-form-item>
@@ -99,7 +105,8 @@ export default {
       },
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 5,
+      dis:''
     };
   },
   methods: {
@@ -135,6 +142,14 @@ export default {
       this.$axios.post("/company/jobdetail",sid).then(res=>{
         //console.log(res.data.data)
         this.ruleForm = res.data.data
+
+        if(this.ruleForm.cjStatus === "未审核"||this.ruleForm.cjStatus === "未通过"){
+
+          this.dis = false
+        }
+        else {
+          this.dis = true
+        }
       })
     }
 
@@ -151,8 +166,7 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height:auto;
   padding: unset;
 }
 body > .el-container {
@@ -169,6 +183,7 @@ body > .el-container {
   max-width: 500px;
   margin-left: 32%;
   margin-top: 30px;
+  clear: both;
 }
 
 
