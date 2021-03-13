@@ -9,7 +9,11 @@
       <div class="avator1">
         <el-avatar class="avator" :src="user.avator"></el-avatar>
 <!--        <el-link class="username" v-if="dis" style="color: #ffffff" href="">{{ user.name }}</el-link>-->
-        <el-dropdown class="dropdown" >
+
+        <el-badge :hidden="Hidden" is-dot class="item" style="margin-right: 20px;" type="primary">
+          <el-link :underline="false" title="消息"  @click="msg" class="el-icon-message-solid" style="color: #E9EEF3"></el-link>
+        </el-badge>
+        <el-dropdown class="dropdown" style="margin-right: 24px">
         <span class="el-dropdown-link" >
           {{ user.username }}
         </span>
@@ -39,7 +43,8 @@ export default {
         username:'',
         avator:'',
       },
-      persondis:false
+      persondis:false,
+      Hidden: true
     }
   },
   methods:{
@@ -58,6 +63,34 @@ export default {
     },
     choose(data){
       this.$emit('choose',data)
+    },
+    msg(){
+      this.Hidden = true
+      this.$emit("msg")
+
+    },
+    existNoRead(){
+
+      const _this = this
+      const tnaccept = _this.$store.getters.getUser.userId
+      _this.$axios.get('/company/isexistnoread?tnaccept='+tnaccept).then(res=>{
+
+        if(res.data.code === 200){
+
+          if(res.data.data > 0){
+
+            _this.Hidden = false
+
+          }else {
+
+            _this.Hidden = true
+
+          }
+
+        }
+
+      })
+
     }
   },
     created(){
@@ -65,6 +98,7 @@ export default {
         this.user.username = this.$store.getters.getUser.username
         this.user.avator = this.$store.getters.getUser.avator
       }
+      this.existNoRead()
     }
 
 }

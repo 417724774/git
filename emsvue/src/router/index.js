@@ -44,6 +44,7 @@ import Teacher_message from "../views/Teacher_message";
 import Teacher_message_add from "../views/Teacher_message_add";
 import Teacher_message_detail from "../views/Teacher_message_detail";
 import Message_detail from "../views/Message_detail";
+import Teacher_jobfair_notification from "../views/Teacher_jobfair_notification";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -201,6 +202,10 @@ const routes = [
         path: '/teacher_jobfair_add',
         name: 'Teacher_jobfair_add',
         component: Teacher_jobfair_add
+      },{
+        path: '/teacher_jobfair_notification',
+        name: 'Teacher_jobfair_notification',
+        component: Teacher_jobfair_notification
       },{
         path: '/teacher_jobfair_detail/:id',
         name: 'Teacher_jobfair_detail',

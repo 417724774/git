@@ -57,8 +57,8 @@
             label="操作"
             prop="desc" align="center" >
           <template slot-scope="scope">
-            <el-button v-if="dis(scope.row.cjId)" @click="po(scope.row.cjId,'已通过',scope.row)" >通过</el-button>
-            <el-button v-if="dis1(scope.row.cjId)" @click="po(scope.row.cjId,'未通过',scope.row)" >不通过</el-button>
+            <el-button size="mini" v-if="dis(scope.row.cjId)" @click="po(scope.row.cjId,'已通过',scope.row)" >通过</el-button>
+            <el-button size="mini" v-if="dis1(scope.row.cjId)" @click="po(scope.row.cjId,'未通过',scope.row)" >不通过</el-button>
           </template>
 
         </el-table-column>

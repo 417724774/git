@@ -59,9 +59,10 @@ export default {
       const _this = this;
       const id = _this.$store.getters.getUser.userId
       _this.$axios.get("/company/joblist?id="+id).then(res=>{
-        _this.tableData = res.data.data.records
+
+        _this.tableData = res.data.data
         _this.total = res.data.data.total
-        for (let i=0;i<_this.tableData.length;i++ ){
+        for (let i=0;i < _this.tableData.length;i++ ){
           _this.cjid.push(_this.tableData[i].cjId)
 
         }

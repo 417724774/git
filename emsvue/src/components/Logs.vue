@@ -35,7 +35,7 @@ export default {
     close(){
       this.history.back()
     }
-  }
+  },
 }
 </script>
 

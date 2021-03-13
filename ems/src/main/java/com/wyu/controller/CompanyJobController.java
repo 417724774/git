@@ -35,6 +35,16 @@ public class CompanyJobController {
     @Autowired
     JionService jionService;
 
+    @GetMapping("/joblist")
+    public Result jobList(@RequestParam String id) {
+        List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>().eq("cj_cuserid",id).eq("cj_status","已通过"));
+        if(!res.isEmpty()){
+            return Result.success(res);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
     @GetMapping("/getjobstatus")
     public Result getJobStatus() {
         List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>());

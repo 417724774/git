@@ -66,23 +66,27 @@ export default {
 
             //获取
             //console.log(_this.$store.getters.getUserInfo)
+            if(res.data.data === 200) {
+              //跳转
+              switch (res.data.data.type) {
+                case "学生": {
+                  _this.$router.push("/student");
+                  break;
+                }
 
-            //跳转
-            switch (res.data.data.type) {
-              case "学生": {
-                _this.$router.push("/student");
-                break;
-              }
+                case "企业": {
+                  _this.$router.push("/company");
+                  break;
+                }
 
-              case "企业": {
-                _this.$router.push("/company");
-                break;
-              }
+                case "教师": {
 
-              case "教师": {
-                _this.$router.push("/Teacher");
-                break;
+                  _this.$router.push("/Teacher");
+                  break;
+                }
               }
+            }else {
+              alert(res.data.msg)
             }
 
           })

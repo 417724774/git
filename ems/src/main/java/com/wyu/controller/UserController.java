@@ -51,7 +51,7 @@ public class UserController {
         Assert.notNull(user,"用户不存在");
 
         if(!user.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))){
-            return Result.fail("密码不正确");
+            return Result.fail("用户名或密码不正确");
         }
 
         String jwt = jwtUtils.generateToken(user.getId());

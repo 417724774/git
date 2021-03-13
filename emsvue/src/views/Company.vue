@@ -1,16 +1,54 @@
 <template>
 
   <div>
-    <Cheader v-on:choose="choose">
+
+    <Cheader v-on:choose="choose" v-on:msg="msg">
     </Cheader>
     <el-container>
       <Caside v-on:choose="choose"></Caside>
       <el-container class="containor">
+        <el-drawer
+            title="消息(0)"
+            :visible.sync="drawer"
+            style="position: absolute;text-align: center"
+            z-index="18"
+            :direction="direction"
+            :size="350"
+        >
+          <template>
+          <el-tabs :stretch="true" active-name="activeName" @tab-click="handleClick">
+            <el-tab-pane label="未读" name="未读"></el-tab-pane>
+            <el-tab-pane label="已读" name="已读"></el-tab-pane>
+          </el-tabs>
+        </template>
+          <el-table
+              :data="tableData" :show-header="false" style="font-size: 2px">
+            <el-table-column type="expand">
+              <template #default="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <el-form-item label="">
+                    <span>{{ props.row.tnContent }}</span>
+                  </el-form-item>
+                </el-form>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="tnTitle" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
+                prop="tnPtime" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column>
+              <template #default="props">
+              <el-link v-show="dis" type="info" @click="changeStatus(props.row.tnId)">标为已读...</el-link>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-drawer>
         <Logs></Logs>
         <el-main style="height: 682px">
           <div id="app">
             <router-view v-if="isRouterAlive"></router-view>
-
           </div>
         </el-main>
 
@@ -37,8 +75,12 @@ export default {
   },
   data(){
     return {
-      isRouterAlive:true
-
+      isRouterAlive:true,
+      drawer: false,
+      direction: 'rtl',
+      tableData: [],
+      activeName:'未读',
+      dis:true
     }
   },
   computed:{
@@ -53,7 +95,56 @@ export default {
       this.$nextTick(function(){
         this.isRouterAlive = true
       })
+    },
+    msg(){
+      this.drawer = true
+    },
+    changeStatus(data){
+
+      const _this = this
+      _this.$axios.post('/company/changenotificationstatus',{tnId:data,tnStatus:'已读'}).then(res=>{
+
+        if(res.data.code === 200)
+        this.getNoRead()
+      })
+
+    },
+    handleClick(tab) {
+      if(tab.name == '未读'){
+        this.getNoRead()
+      }else{
+        this.dis = false
+        this.getRead()
+      }
+    },
+    getRead(){
+
+      const _this = this
+      _this.$axios.get('/company/read?tnaccept='+_this.$store.getters.getUser.userId).then(res=>{
+
+        if(res.data.code === 200){
+
+          _this.tableData = res.data.data
+          return
+        }
+
+      })
+
+    },
+    getNoRead(){
+      const _this = this
+      _this.$axios.get('/company/noread?tnaccept='+_this.$store.getters.getUser.userId).then(res=>{
+
+        if(res.data.code === 200){
+
+          _this.tableData = res.data.data
+        }
+
+      })
     }
+  },
+  created() {
+    this.getNoRead()
   }
 }
 </script>
@@ -67,9 +158,6 @@ export default {
   padding: unset;
   margin-top: 16px;
 }
-body > .el-container {
-  margin-bottom: 40px;
-}
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
   line-height: 260px;
@@ -79,6 +167,8 @@ body > .el-container {
 }
 .containor{
   background: #E9EEF3;
+  overflow: hidden;
+  position: relative;
 }
 .footer{
   background-color: #B3C0D1;

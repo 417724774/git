@@ -32,11 +32,23 @@
         <el-table-column
             prop=""
             label="操作"
-            width="200"
-            align="center">
+            width="auto"
+            align="right">
           <template slot-scope="scope" >
+            <router-link tag="el-button" class="el-button--mini" :to="{ name:'Teacher_jobfair_notification',params:{id:scope.row.jfId,name:scope.row.jfTitle} }">提醒</router-link>
             <router-link tag="el-button" class="el-button--mini" :to="{ name:'Teacher_jobfair_detail',params:{id:scope.row.jfId} }">查看</router-link>
             <el-button v-if="jffilter(scope.row.jfId)" class="el-button--mini" @click="deljobfair(scope.row.jfId)">删除</el-button>
+            <el-popover
+                placement="right"
+                width="auto"
+                trigger="click"
+                >
+              <el-table :data="status">
+                <el-table-column width="200" property="cunit" label="公司"></el-table-column>
+                <el-table-column width="200" property="cstatus" label="参与情况"></el-table-column>
+              </el-table>
+              <el-button @click="jion(scope.row.jfId)" style="margin-left: 10px" class="el-button--mini" slot="reference">参与情况</el-button>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>
@@ -68,7 +80,8 @@ export default {
       total: 0,
       pageSize: 5,
       dis:'',
-      filtedjf:[]
+      filtedjf:[],
+      status:[]
     }
   },
   methods: {
@@ -124,6 +137,12 @@ export default {
         })
 
       })
+    },
+    jion(data){
+      this.$axios.post('/jion/jionlist',{jtjid:data}).then(res=>{
+        if(res.data.code === 200)
+          this.status = res.data.data
+      })
     }
   },
   created() {
@@ -138,8 +157,7 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height: auto;
   padding: unset;
 }
 body > .el-container {

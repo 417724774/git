@@ -52,6 +52,7 @@ export default {
       }).then((res) => {
         _this.$store.commit('REMOVE_INFO')
         _this.$router.push('/login')
+        // clearInterval(this.timer)
       }).catch((e)=>{
         console.log(e.toString())
       });
@@ -65,6 +66,22 @@ export default {
         this.user.username = this.$store.getters.getUser.username
         this.user.avator = this.$store.getters.getUser.avator
       }
+      // if(this.timer){
+      //   clearInterval(this.timer)
+      // }else{
+      //   this.timer=setInterval(()=>{
+      //     //获取数据
+      //     const _this = this
+      //     const num =
+      //         _this.$axios.get('/teacher/messagelogs').then(res=>{
+      //
+      //
+      //           console.log(1)
+      //           // console.log(res.data.data[Math.floor(Math.random() * (3 - 0 + 1)) + 0].tmTitle)
+      //
+      //         })
+      //   },3000)
+      // }
     }
 
 }
