@@ -95,7 +95,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     add(){
       this.$router.push('/teacher_jobfair_add')
@@ -110,7 +110,11 @@ export default {
     },
     deljobfair(data){
       const _this = this
-      this.$axios.get('/teacher/jobfairdelete?jfid='+data).then(res=>{
+      this.$axios.get('/teacher/jobfairdelete?jfid='+data,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200){
           alert("删除成功！")
           // this.$router.go(0)
@@ -124,14 +128,22 @@ export default {
     page(currentPage){
       const _this = this;
       const id = _this.$store.getters.getUser.userId
-      _this.$axios.get("/teacher/jobfairlist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/teacher/jobfairlist?currentPage="+currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
 
         const tuserid = _this.$store.getters.getUser.userId
-        _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:tuserid}).then(res=>{
+        _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:tuserid},{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res=>{
           if(res.data.data !== null)
             this.filtedjf = res.data.data
         })
@@ -139,7 +151,11 @@ export default {
       })
     },
     jion(data){
-      this.$axios.post('/jion/jionlist',{jtjid:data}).then(res=>{
+      this.$axios.post('/jion/jionlist',{jtjid:data},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200)
           this.status = res.data.data
       })

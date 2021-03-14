@@ -5,7 +5,6 @@ import Student from "../views/Student";
 import Test from "../views/Test";
 import Company_register from "../views/Company_register";
 import Student_detail from "../views/Student_detail"
-import Index from "../views/Index";
 import Student_uppwd from "../views/Student_uppwd";
 import Student_resume from "../views/Student_resume";
 import Student_delivery from "../views/Student_delivery";
@@ -45,6 +44,9 @@ import Teacher_message_add from "../views/Teacher_message_add";
 import Teacher_message_detail from "../views/Teacher_message_detail";
 import Message_detail from "../views/Message_detail";
 import Teacher_jobfair_notification from "../views/Teacher_jobfair_notification";
+import Student_avatar from "../views/Student_avatar";
+import Company_avatar from "../views/Company_avatar";
+import Teacher_avatar from "../views/Teacher_avatar";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -74,10 +76,6 @@ const routes = [
       path: '/student_detail',
       name: 'Student_detail',
       component: Student_detail
-    },{
-      path: '/student_index',
-      name: 'Student_index',
-      component: Index
     },{
       path: '/student_uppwd',
       name: 'Student_uppwd',
@@ -114,6 +112,10 @@ const routes = [
         path: '/message_detail/:tmid',
         name: 'Message_detail',
         component: Message_detail
+    },{
+        path: '/student_avatar',
+        name: 'Student_avatar',
+        component: Student_avatar
       }]
   },
   {
@@ -125,10 +127,6 @@ const routes = [
         path: '/company_detail',
         name: Company_detail,
         component: Company_detail
-      },{
-        path: '/company_index',
-        name: 'Company_index',
-        component: Index
       },{
         path: '/company_uppwd',
         name: 'Company_uppwd',
@@ -171,9 +169,14 @@ const routes = [
         component: Company_statistic
       },
       {
-        path: '/message_detail',
+        path: '/message_detail/:tmid',
         name: 'Message_detail',
         component: Message_detail
+      },
+      {
+        path: '/company_avatar',
+        name: 'Company_avatar',
+        component: Company_avatar
       }
     ]
   },
@@ -186,10 +189,6 @@ const routes = [
         path: '/teacher_detail',
         name: 'Teacher_detail',
         component: Teacher_detail
-      },{
-        path: '/teacher_index',
-        name: 'Teacher_index',
-        component: Index
       },{
         path: '/teacher_uppwd',
         name: 'Teacher_uppwd',
@@ -256,9 +255,14 @@ const routes = [
         component: Teacher_message_detail
       },
       {
-        path: '/message_detail',
+        path: '/message_detai/:tmidl',
         name: 'Message_detail',
         component: Message_detail
+      },
+      {
+        path: '/teacher_avatar',
+        name: 'Teacher_avatar',
+        component: Teacher_avatar
       }
     ]
   },

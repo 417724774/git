@@ -90,7 +90,11 @@ export default {
         if (valid) {
 
           const _this = this
-          _this.$axios.post('/teacher/jobfairsaveupadate',this.ruleForm).then(res => {
+          _this.$axios.post('/teacher/jobfairsaveupadate',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("修改成功！")
             }else {
@@ -110,7 +114,11 @@ export default {
       const _this = this
       const jfid = _this.$route.params.id
       const jftuserid = _this.$store.getters.getUser.userId
-      _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:jftuserid}).then(res=>{
+      _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:jftuserid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.filtedjf = res.data.data
         for (const resKey in _this.filtedjf) {
           if(jfid === _this.filtedjf[resKey]){
@@ -126,12 +134,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     get(){
       const _this = this
       const jfid = _this.$route.params.id
-      _this.$axios.get("/teacher/jobfairdetail?jfid="+jfid).then(res=>{
+      _this.$axios.get("/teacher/jobfairdetail?jfid="+jfid,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
 
         if(res.data.code === 200){
 

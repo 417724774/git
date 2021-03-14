@@ -102,7 +102,11 @@ export default {
     changeStatus(data){
 
       const _this = this
-      _this.$axios.post('/company/changenotificationstatus',{tnId:data,tnStatus:'已读'}).then(res=>{
+      _this.$axios.post('/company/changenotificationstatus',{tnId:data,tnStatus:'已读'},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
 
         if(res.data.code === 200)
         this.getNoRead()
@@ -120,7 +124,11 @@ export default {
     getRead(){
 
       const _this = this
-      _this.$axios.get('/company/read?tnaccept='+_this.$store.getters.getUser.userId).then(res=>{
+      _this.$axios.get('/company/read?tnaccept='+_this.$store.getters.getUser.userId,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
 
         if(res.data.code === 200){
 
@@ -133,7 +141,11 @@ export default {
     },
     getNoRead(){
       const _this = this
-      _this.$axios.get('/company/noread?tnaccept='+_this.$store.getters.getUser.userId).then(res=>{
+      _this.$axios.get('/company/noread?tnaccept='+_this.$store.getters.getUser.userId,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
 
         if(res.data.code === 200){
 

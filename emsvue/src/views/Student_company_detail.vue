@@ -65,7 +65,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     },
     filter(data){
       for (const dataKey in this.filtedCpy) {
@@ -111,17 +111,29 @@ export default {
     get(){
       let sid = this.$route.params.cuserid
       const _this = this
-      this.$axios.post("/company/detail",{"cuserid":sid}).then(res=>{
+      this.$axios.post("/company/detail",{"cuserid":sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.ruleForm = res.data.data
       })
       //获取已投递列表
       sid = this.$store.getters.getUser.userId
-      this.$axios.post('/company_remsg/filter',{crStuid:sid}).then(res=>{
+      this.$axios.post('/company_remsg/filter',{crStuid:sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.data !== null)
           _this.filtedCpy = res.data.data
       })
       //获取简历完善信息
-      this.$axios.post('/stuempinfo/studentresume',{seStuid:sid}).then(res=>{
+      this.$axios.post('/stuempinfo/studentresume',{seStuid:sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
 
         if(res.data.code !== 200){
           _this.resumeexist = false
@@ -130,7 +142,11 @@ export default {
         }
       })
       sid = this.$route.params.cuserid
-      this.$axios.get('/stuempinfo/companydetailjoblist?cuserid='+sid).then(res=>{
+      this.$axios.get('/stuempinfo/companydetailjoblist?cuserid='+sid,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.data !== ''){
           _this.job = res.data.data
         }else {

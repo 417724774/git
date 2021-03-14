@@ -87,7 +87,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/company_index')
+      this.$router.push('/company')
     },
     add(){
     // :to="{ name:'Company_job_detail',params:{id:scope.row.cjId} }"
@@ -95,7 +95,11 @@ export default {
     },
     deljob(data,data1){
       const _this = this
-      this.$axios.get('/company/jobdelete?cjid='+data).then(res=>{
+      this.$axios.get('/company/jobdelete?cjid='+data,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200){
           alert("删除成功！")
           // this.$router.go(0)
@@ -121,7 +125,11 @@ export default {
     page(currentPage){
       const _this = this;
       const id = _this.$store.getters.getUser.userId
-      _this.$axios.get("/company/joblistbyid?currentPage="+currentPage+"&id="+id).then(res=>{
+      _this.$axios.get("/company/joblistbyid?currentPage="+currentPage+"&id="+id,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total

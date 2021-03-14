@@ -7,7 +7,9 @@
 
     <div class="header-right">
       <div class="avator1">
-        <el-avatar class="avator" :src="user.avator"></el-avatar>
+        <el-link :underline="false">
+          <el-avatar title="头像" class="avator" @click.native="avatar" :src="avatarUrl"></el-avatar>
+        </el-link>
 <!--        <el-link class="username" v-if="dis" style="color: #ffffff" href="">{{ user.name }}</el-link>-->
         <el-dropdown class="dropdown" >
         <span class="el-dropdown-link" >
@@ -39,7 +41,8 @@ export default {
         username:'',
         avator:'',
       },
-      persondis:false
+      persondis:false,
+      avatarUrl: this.$store.getters.getUser.avatar
     }
   },
   methods:{
@@ -59,6 +62,9 @@ export default {
     },
     choose(data){
       this.$emit('choose',data)
+    },
+    avatar(){
+      this.$router.push('/teacher_avatar')
     }
   },
     created(){

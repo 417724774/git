@@ -8,6 +8,7 @@ import com.wyu.common.lang.Result;
 import com.wyu.entity.CompanyInfo;
 import com.wyu.entity.Policy;
 import com.wyu.service.PolicyService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class PolicyController {
     @Autowired
     PolicyService policyService;
 
+    @RequiresAuthentication
     @GetMapping("/student/policylist")
     public Result policyList (@RequestParam(defaultValue = "1") Integer currentPage){
 
@@ -37,6 +39,7 @@ public class PolicyController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/student/policy_detail")
     public Object studentPolicyDetail( @RequestBody Policy policy){
         Policy res = policyService.getById(policy.getPId());
@@ -49,6 +52,7 @@ public class PolicyController {
 //        return Result.success(companyInfo);
     }
 
+    @RequiresAuthentication
     @GetMapping("/teacher/policylist")
     public Result teacherPolicyList (@RequestParam(defaultValue = "1") Integer currentPage){
         Page page = new Page(currentPage,5);
@@ -61,6 +65,7 @@ public class PolicyController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/teacher/policy")
     public Result teacherPolicy (){
         Page page = new Page(1,5);
@@ -73,6 +78,7 @@ public class PolicyController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacher/policyfilter")
     public Result policyFilter(@RequestBody Policy policy){
 
@@ -95,6 +101,7 @@ public class PolicyController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacher/policyadd")
     public Result policyAdd(@RequestBody Policy policy){
 
@@ -114,6 +121,7 @@ public class PolicyController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping ("/teacher/policydelete")
     public Result policyDelete(@RequestParam Integer pid){
 
@@ -133,6 +141,7 @@ public class PolicyController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping ("/teacher/policydetail")
     public Object teacherPolicyDetail( @RequestParam Integer pid){
         Policy res = policyService.getById(pid);
@@ -145,6 +154,7 @@ public class PolicyController {
 //        return Result.success(companyInfo);
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacher/policyupdate")
     public Result policyUpdate(@RequestBody Policy policy){
 

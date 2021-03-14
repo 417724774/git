@@ -65,7 +65,11 @@ export default {
         if (valid) {
             const _this = this
           _this.ruleForm.swStuid = _this.$store.getters.getUser.userId
-            this.$axios.post('/studentworkupdate',_this.ruleForm).then(res => {
+            this.$axios.post('/studentworkupdate',_this.ruleForm,{
+              headers: {
+                Authorization: localStorage.getItem('token')
+              }
+            }).then(res => {
               if(res.data.code === 200){
                 alert("登记成功！")
               }else {
@@ -86,12 +90,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     }
   },
   created(){
     const sid = this.$store.getters.getUser.userId
-    this.$axios.post('/studentworkinfo',{swStuid:sid}).then(res => {
+    this.$axios.post('/studentworkinfo',{swStuid:sid},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res => {
       if(res.data.code === 200) {
         this.ruleForm = res.data.data
       }else {

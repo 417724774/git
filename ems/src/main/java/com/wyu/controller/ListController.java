@@ -13,6 +13,7 @@ import com.wyu.service.CompanyInfoService;
 import com.wyu.service.CompanyRemsgService;
 import com.wyu.service.StudentInfoService;
 import com.wyu.service.TeacherInfoService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,7 @@ public class ListController {
     @Autowired
     CompanyRemsgService companyRemsgService;
 
+    @RequiresAuthentication
     @GetMapping("/studentlist")
     public Result studentList(@RequestParam(defaultValue = "1") Integer currentPage){
 
@@ -48,6 +50,7 @@ public class ListController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/companylist")
     public Result companyList(@RequestParam(defaultValue = "1") Integer currentPage){
 
@@ -63,6 +66,7 @@ public class ListController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("/teacherlist")
     public Result teacherList(@RequestParam(defaultValue = "1") Integer currentPage){
 
@@ -76,6 +80,7 @@ public class ListController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/teacher/teacomjoblist")
     public Result teaComJobList(@RequestParam(defaultValue = "1") Integer currentPage){
 

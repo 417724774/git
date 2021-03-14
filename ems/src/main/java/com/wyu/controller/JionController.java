@@ -8,6 +8,7 @@ import com.wyu.entity.CompanyRemsg;
 import com.wyu.entity.Jion;
 import com.wyu.service.CompanyInfoService;
 import com.wyu.service.JionService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class JionController {
     @Autowired
     CompanyInfoService companyInfoService;
 
+    @RequiresAuthentication
     @PostMapping("/jionfilter")
     public Result jionFilter(@RequestBody Jion jion){
 
@@ -46,6 +48,7 @@ public class JionController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/jionlist")
     public Result jionList(@RequestBody Jion jion){
 
@@ -84,6 +87,7 @@ public class JionController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/anyonejion")
     public Result anyonJion(@RequestParam Integer jfid){
 

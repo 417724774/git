@@ -84,11 +84,15 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     page(currentPage){
       const _this = this
-      _this.$axios.get("/teacher/stuworklist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/teacher/stuworklist?currentPage="+currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total

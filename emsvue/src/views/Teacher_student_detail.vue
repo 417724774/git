@@ -95,7 +95,11 @@ export default {
         if (valid) {
 
           const _this = this
-          this.$axios.post('/student/studentupper',this.ruleForm).then(res => {
+          this.$axios.post('/student/studentupper',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("修改学生信息成功！")
             }else {
@@ -115,13 +119,17 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     }
 
   },
   created() {
     const sid = this.$route.params.id
-    this.$axios.post("/student/studentinfo",{"suserid":sid}).then(res=>{
+    this.$axios.post("/student/studentinfo",{"suserid":sid},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
       this.ruleForm = res.data.data
       this.ruleForm.syog = res.data.data.sYog
     })

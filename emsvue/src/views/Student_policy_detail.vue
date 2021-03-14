@@ -34,12 +34,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     }
   },
   created() {
     const pid = this.$route.params.pid
-    this.$axios.post("/student/policy_detail",{"pid":pid}).then(res=>{
+    this.$axios.post("/student/policy_detail",{"pid":pid},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
       this.detail = res.data.data
     })
   }

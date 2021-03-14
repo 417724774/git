@@ -13,6 +13,7 @@ import com.wyu.entity.StuempInfo;
 import com.wyu.service.CompanyJobService;
 import com.wyu.service.CompanyRemsgService;
 import com.wyu.service.StuempInfoService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class StuempInfoController {
     @Autowired
     CompanyJobService companyJobService;
 
-
+    @RequiresAuthentication
     @PostMapping("/studentresume")
     public Result studentresume(@RequestBody StuempInfo stures) {
         StuempInfo res = stuempInfoService.getOne(new QueryWrapper<StuempInfo>().eq("se_stuid",stures.getSeStuid()));
@@ -48,6 +49,7 @@ public class StuempInfoController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/stuemupdate")
     public Result stuemupdate(@RequestBody StuempInfo stures) {
         System.out.println(stures);
@@ -59,6 +61,7 @@ public class StuempInfoController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/comjoblist")
     public Result comJobList(@RequestParam(defaultValue = "1") Integer currentPage){
 
@@ -73,6 +76,7 @@ public class StuempInfoController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/companydetailjoblist")
     public Result companyDetailJobList(@RequestParam String cuserid){
         List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>().eq("cj_cuserid",cuserid).eq("cj_status","已通过"));

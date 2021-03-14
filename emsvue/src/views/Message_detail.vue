@@ -9,19 +9,19 @@
         </div>
         <el-form :model="ruleForm" ref="ruleForm" label-width="110px" class="demo-ruleForm">
           <el-form-item label="职位性质：" prop="tmType">
-            <el-input v-model="ruleForm.tmType"></el-input>
+            <el-input readonly v-model="ruleForm.tmType"></el-input>
           </el-form-item>
           <el-form-item label="发布时间：" prop="tmPtime">
-            <el-input v-model="ruleForm.tmPtime"></el-input>
+            <el-input readonly v-model="ruleForm.tmPtime"></el-input>
           </el-form-item>
           <el-form-item label="发布人：" prop="tmMan">
-            <el-input v-model="ruleForm.tmMan"></el-input>
+            <el-input readonly v-model="ruleForm.tmMan"></el-input>
           </el-form-item>
           <el-form-item label="标题：" prop="tmTitle">
-            <el-input v-model="ruleForm.tmTitle"></el-input>
+            <el-input readonly v-model="ruleForm.tmTitle"></el-input>
           </el-form-item>
           <el-form-item label="正文：" prop="tmContent">
-            <el-input autosize type="textarea" v-model="ruleForm.tmContent"></el-input>
+            <el-input readonly autosize type="textarea" v-model="ruleForm.tmContent"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button @click="last()">上一条</el-button>

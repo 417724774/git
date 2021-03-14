@@ -88,12 +88,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/company_index')
+      this.$router.push('/company')
     },
     page(currentPage){
       const _this = this;
       const cid = _this.$store.getters.getUser.userId
-      _this.$axios.get("/company_remsg/resumelist?currentPage="+currentPage+"&cid="+cid).then(res=>{
+      _this.$axios.get("/company_remsg/resumelist?currentPage="+currentPage+"&cid="+cid,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
@@ -101,7 +105,11 @@ export default {
       })
     },
     changeStatus(crid,row){
-      this.$axios.get('/company_remsg/resumeupstatus?crid='+crid).then(res=>{
+      this.$axios.get('/company_remsg/resumeupstatus?crid='+crid,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200){
           row.crStatus = '已阅过'
         }else {

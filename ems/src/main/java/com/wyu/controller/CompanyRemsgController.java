@@ -9,6 +9,7 @@ import com.wyu.common.lang.Result;
 import com.wyu.entity.CompanyRemsg;
 import com.wyu.entity.TeacherInfo;
 import com.wyu.service.CompanyRemsgService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class CompanyRemsgController {
     @Autowired
     CompanyRemsgService companyRemsgService;
 
+    @RequiresAuthentication
     @PostMapping("/save")
     public Result companyRemsgSave(@RequestBody CompanyRemsg companyRemsg){
 
@@ -39,6 +41,7 @@ public class CompanyRemsgController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/filter")
     public Result companyRemsgFilter(@RequestBody CompanyRemsg sid){
         List<CompanyRemsg> res =  companyRemsgService.list(new QueryWrapper<CompanyRemsg>().eq("cr_stuid",sid.getCrStuid()));
@@ -55,6 +58,7 @@ public class CompanyRemsgController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/resumelist")
     public Result resumeList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String cid){
 
@@ -70,6 +74,7 @@ public class CompanyRemsgController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/resumeupstatus")
     public Result resumeUpStatus(@RequestParam Integer crid){
 
@@ -83,6 +88,7 @@ public class CompanyRemsgController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/resumecount")
     public Result resumeCount(@RequestBody List<Integer> list){
 

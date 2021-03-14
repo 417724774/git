@@ -49,13 +49,17 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     }
   },
   created() {
     const _this = this
     const tmid = _this.$route.params.tmid
-    _this.$axios.get('/teacher/messagedetail?tmid='+tmid).then(res=>{
+    _this.$axios.get('/teacher/messagedetail?tmid='+tmid,{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
 
       if(res.data.code === 200){
 

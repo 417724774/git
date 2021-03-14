@@ -111,7 +111,11 @@ export default {
           const _this = this
           _this.ruleForm.cjCuserid = _this.$store.getters.getUser.userId
           _this.ruleForm.cjPtime = _this.$store.getters.getDate
-          this.$axios.post('/company/jobsaveorupdate',this.ruleForm).then(res => {
+          this.$axios.post('/company/jobsaveorupdate',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("添加成功！")
             }else {
@@ -131,7 +135,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/company_index')
+      this.$router.push('/company')
     }
   },
   created() {

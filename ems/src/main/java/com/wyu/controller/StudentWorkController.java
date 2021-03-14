@@ -9,6 +9,7 @@ import com.wyu.entity.StudentInfo;
 import com.wyu.entity.StudentWork;
 import com.wyu.service.StudentInfoService;
 import com.wyu.service.StudentWorkService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class StudentWorkController {
     @Autowired
     StudentInfoService studentInfoService;
 
+    @RequiresAuthentication
     @PostMapping("/studentworkinfo")
     public Result studentWorkInfo(@RequestBody StudentWork id) {
         StudentWork res = studentWorkService.getById(id.getSwStuid());
@@ -39,6 +41,7 @@ public class StudentWorkController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/studentworkupdate")
     public Result studentWorkUpdate(@RequestBody StudentWork id) {
         Boolean res = studentWorkService.saveOrUpdate(id);
@@ -50,6 +53,7 @@ public class StudentWorkController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/teacher/stuworklist")
     public Result stuWorkList(@RequestParam(defaultValue = "1L") Integer currentPage){
 
@@ -66,6 +70,7 @@ public class StudentWorkController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("/teacher/countstuwork")
     public Result countStuWork(){
 

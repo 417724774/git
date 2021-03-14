@@ -87,7 +87,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     add(){
       this.$router.push('/teacher_policy_add')
@@ -102,7 +102,11 @@ export default {
     },
     delpolicy(data,data1){
       const _this = this
-      this.$axios.get('/teacher/policydelete?pid='+data).then(res=>{
+      this.$axios.get('/teacher/policydelete?pid='+data,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200){
           alert("删除成功！")
           // this.$router.go(0)
@@ -130,7 +134,11 @@ export default {
     page(currentPage){
       const _this = this;
       const id = _this.$store.getters.getUser.userId
-      _this.$axios.get("/teacher/policylist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/teacher/policylist?currentPage="+currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
@@ -140,14 +148,22 @@ export default {
   },
   created() {
     const _this = this
-    _this.$axios.get('/teacher/policy').then(res=>{
+    _this.$axios.get('/teacher/policy',{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
 
       _this.tableData = res.data.data.records
       _this.total = res.data.data.total
       _this.pageSize = res.data.data.size
     })
     const tusername = _this.$store.getters.getUser.username
-    _this.$axios.post('/teacher/policyfilter',{pman:tusername}).then(res=>{
+    _this.$axios.post('/teacher/policyfilter',{pman:tusername},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
       if(res.data.data !== null)
         this.filtedply = res.data.data
     })

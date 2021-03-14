@@ -1,9 +1,13 @@
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
 server:
-  port: 8081
+  port: 8080
 wyu:
   jwt:
     secret: f4e2e52034348f86b67cde581c0f9eb5
     expire: 604800
     header: Authorization
+  file:
+    staticAccessPath: /local/**
+    uploadAvatar: /home/ems/img/
+  paiUrl: http://47.119.144.160:8080/local/

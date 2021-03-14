@@ -10,6 +10,7 @@ import com.wyu.entity.StudentInfo;
 import com.wyu.entity.User;
 import com.wyu.service.StudentInfoService;
 import com.wyu.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class StudentInfoController {
     @Autowired
     UserService userService;
 
+    @RequiresAuthentication
     @PostMapping("/studentinfo")
     public Result studentInfo(@RequestBody StudentInfo id) {
         StudentInfo studentInfo = studentInfoService.getById(id.getSUserid());
@@ -41,6 +43,7 @@ public class StudentInfoController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/studentuppwd")
     public Result studentuppwd(@RequestBody StudentInfo student) {
         student.setSPassword(SecureUtil.md5(student.getSPassword()));
@@ -57,6 +60,7 @@ public class StudentInfoController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/studentupper")
     public Result studentupper(@RequestBody StudentInfo student) {
         Boolean res = studentInfoService.updateById(student);

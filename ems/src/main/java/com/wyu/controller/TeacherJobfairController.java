@@ -9,6 +9,7 @@ import com.wyu.entity.CompanyJob;
 import com.wyu.entity.CompanyRemsg;
 import com.wyu.entity.TeacherJobfair;
 import com.wyu.service.TeacherJobfairService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class TeacherJobfairController {
     @Autowired
     TeacherJobfairService teacherJobfairService;
 
+    @RequiresAuthentication
     @GetMapping("/jobfairlist")
     public Result jobFairList(@RequestParam(defaultValue = "1") Integer currentPage) {
         Page page = new Page(currentPage,5);
@@ -38,6 +40,7 @@ public class TeacherJobfairController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/jobfairdelete")
     public Result jobFairDelete(@RequestParam Integer jfid) {
 
@@ -49,6 +52,7 @@ public class TeacherJobfairController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/jobfairsaveupadate")
     public Result jobFairUpdate(@RequestBody TeacherJobfair teacherJobfair) {
 
@@ -60,6 +64,7 @@ public class TeacherJobfairController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/jobfairdetail")
     public Result jobFairDetail(@RequestParam Integer jfid) {
 
@@ -72,6 +77,7 @@ public class TeacherJobfairController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/jobfairfilter")
     public Result jobFairFilter(@RequestBody TeacherJobfair teacherJobfair ) {
 
@@ -88,6 +94,7 @@ public class TeacherJobfairController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/jobfairlog")
     public Result jobFairLog() {
 

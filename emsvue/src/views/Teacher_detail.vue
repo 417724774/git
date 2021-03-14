@@ -67,7 +67,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const _this = this
-          this.$axios.post('/teacher/teacherupper',this.ruleForm).then(res => {
+          this.$axios.post('/teacher/teacherupper',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("修改个人信息成功！")
             }else {
@@ -87,13 +91,17 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     }
 
   },
   created() {
     const tid = this.$store.getters.getUser.userId
-    this.$axios.post("/teacher/teacherinfo",{"tuserid":tid}).then(res=>{
+    this.$axios.post("/teacher/teacherinfo",{"tuserid":tid},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
       this.ruleForm = res.data.data
     })
   }

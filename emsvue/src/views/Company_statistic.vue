@@ -58,7 +58,11 @@ export default {
     get(){
       const _this = this;
       const id = _this.$store.getters.getUser.userId
-      _this.$axios.get("/company/joblist?id="+id).then(res=>{
+      _this.$axios.get("/company/joblist?id="+id,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
 
         _this.tableData = res.data.data
         _this.total = res.data.data.total
@@ -66,7 +70,11 @@ export default {
           _this.cjid.push(_this.tableData[i].cjId)
 
         }
-        this.$axios.post('company_remsg/resumecount',_this.cjid).then(res=>{
+        this.$axios.post('company_remsg/resumecount',_this.cjid,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res=>{
 
           _this.num = res.data.data
 
@@ -77,7 +85,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/company_index')
+      this.$router.push('/company')
     },
   },
   created() {

@@ -10,6 +10,7 @@ import com.wyu.entity.CompanyInfo;
 import com.wyu.entity.User;
 import com.wyu.service.CompanyInfoService;
 import com.wyu.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ public class CompanyInfoController {
     @Autowired
     UserService userService;
 
+    @RequiresAuthentication
     @PostMapping("/register")
     public Object save(@Validated @RequestBody CompanyInfo companyInfo){
         System.out.println(companyInfo.toString());
@@ -58,6 +60,7 @@ public class CompanyInfoController {
 //        return Result.success(companyInfo);
     }
 
+    @RequiresAuthentication
     @PostMapping("/detail")
     public Object companyDetail( @RequestBody CompanyInfo companyInfo){
         CompanyInfo res = companyInfoService.getById(companyInfo.getCUserid());
@@ -70,6 +73,7 @@ public class CompanyInfoController {
 //        return Result.success(companyInfo);
     }
 
+    @RequiresAuthentication
     @PostMapping("/companyupper")
     public Result companyUpper(@RequestBody CompanyInfo companyInfo) {
         Boolean res = companyInfoService.updateById(companyInfo);
@@ -81,6 +85,7 @@ public class CompanyInfoController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/companyuppwd")
     public Result companyUppwd(@RequestBody CompanyInfo companyInfo) {
         companyInfo.setCPassword(SecureUtil.md5(companyInfo.getCPassword()));
@@ -95,6 +100,7 @@ public class CompanyInfoController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/companylist")
     public Result companyList(@RequestParam(defaultValue = "1L") Integer currentPage){
 
@@ -110,6 +116,7 @@ public class CompanyInfoController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("/companyfilter")
     public Result companyFilter(){
         List<String> res = new ArrayList<String>();
@@ -125,6 +132,7 @@ public class CompanyInfoController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/companycheck")
     public Result companyCheck(@RequestBody CompanyInfo companyInfo){
 

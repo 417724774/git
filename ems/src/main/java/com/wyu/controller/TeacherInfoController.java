@@ -9,6 +9,7 @@ import com.wyu.entity.TeacherInfo;
 import com.wyu.entity.User;
 import com.wyu.service.TeacherInfoService;
 import com.wyu.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class TeacherInfoController {
     @Autowired
     UserService userService;
 
+    @RequiresAuthentication
     @PostMapping("/teacherupper")
     public Result teacherUpPer(@RequestBody TeacherInfo teacherInfo){
 
@@ -42,6 +44,7 @@ public class TeacherInfoController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacherinfo")
     public Result studentInfo(@RequestBody TeacherInfo id) {
         TeacherInfo teacherInfo = teacherInfoService.getById(id.getTUserid());
@@ -53,6 +56,7 @@ public class TeacherInfoController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacheruppwd")
     public Result teacherUpPwd(@RequestBody TeacherInfo teacherInfo) {
         teacherInfo.setTPassword(SecureUtil.md5(teacherInfo.getTPassword()));

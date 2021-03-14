@@ -92,7 +92,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     add(){
       this.$router.push('/teacher_message_add')
@@ -106,7 +106,11 @@ export default {
     },
     delMessage(data,data1){
       const _this = this
-      _this.$axios.post('/teacher/messagedelete', {tmId:data}).then(res=>{
+      _this.$axios.post('/teacher/messagedelete', {tmId:data},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200){
           alert("删除成功！")
           // this.$router.go(0)
@@ -133,7 +137,11 @@ export default {
     },
     page(currentPage){
       const _this = this;
-      _this.$axios.get("/teacher/messagelist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/teacher/messagelist?currentPage="+currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total

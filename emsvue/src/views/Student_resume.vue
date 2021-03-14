@@ -131,7 +131,11 @@ export default {
           const _this = this
           _this.ruleForm.seStuid = _this.$store.getters.getUser.userId
           console.log(_this.ruleForm)
-          this.$axios.post('/stuempinfo/stuemupdate',this.ruleForm).then(res => {
+          this.$axios.post('/stuempinfo/stuemupdate',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("完善简历成功！")
             }else {
@@ -151,13 +155,17 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     }
 
   },
   created() {
     const sid = this.$store.getters.getUser.userId
-    this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid}).then(res=>{
+    this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
       //console.log(res.data.data)
       if(res.data.code === 200){
         this.ruleForm = res.data.data

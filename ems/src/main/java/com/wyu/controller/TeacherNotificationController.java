@@ -11,6 +11,7 @@ import com.wyu.service.CompanyInfoService;
 import com.wyu.service.JionService;
 import com.wyu.service.TeacherNotificationService;
 import com.wyu.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class TeacherNotificationController {
     @Autowired
     CompanyInfoService companyInfoService;
 
+    @RequiresAuthentication
     @PostMapping("/teacher/sendnotification1")
     public Result sendNotification1(@RequestBody TeacherNotification teacherNotification){
 
@@ -50,6 +52,7 @@ public class TeacherNotificationController {
         return Result.success(res);
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacher/sendnotification2")
     public Result sendNotification2(@RequestBody TeacherNotification teacherNotification){
 
@@ -73,6 +76,7 @@ public class TeacherNotificationController {
         return Result.success(res);
     }
 
+    @RequiresAuthentication
     @PostMapping("/teacher/sendnotification3")
     public Result sendNotification3(@RequestBody TeacherNotification teacherNotification){
 
@@ -87,6 +91,7 @@ public class TeacherNotificationController {
         return Result.success(res);
     }
 
+    @RequiresAuthentication
     @GetMapping("/company/noread")
     public Result noRead(@RequestParam String tnaccept){
 
@@ -96,6 +101,7 @@ public class TeacherNotificationController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("/company/read")
     public Result read(@RequestParam String tnaccept){
 
@@ -105,6 +111,7 @@ public class TeacherNotificationController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/company/changenotificationstatus")
     public Result changeNotificationStatus(@RequestBody TeacherNotification teacherNotification){
 
@@ -114,6 +121,7 @@ public class TeacherNotificationController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("/company/isexistnoread")
     public Result isExistNoRead(@RequestParam String tnaccept){
 

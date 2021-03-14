@@ -90,7 +90,11 @@ export default {
   methods:{
     page(currentPage){
       const _this = this;
-      _this.$axios.get("/stuempinfo/comjoblist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/stuempinfo/comjoblist?currentPage="+currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
@@ -110,7 +114,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     },
     po(cjId,cuserid) {
       let res = false
@@ -131,7 +135,11 @@ export default {
           crTime: new Date().getTime()
         }
         const _this= this
-        this.$axios.post('/company_remsg/save', date).then(res => {
+        this.$axios.post('/company_remsg/save', date,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res => {
           if (res.data.code === 200) {
             // _this.reload()
             alert("投递成功！")
@@ -147,11 +155,19 @@ export default {
     get(){
       const sid = this.$store.getters.getUser.userId
       const _this = this
-      this.$axios.post('/company_remsg/filter',{crStuid:sid}).then(res=>{
+      this.$axios.post('/company_remsg/filter',{crStuid:sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.data !== null)
         this.filtedCpy = res.data.data
       }).finally(()=>{
-        _this.$axios.post('/stuempinfo/studentresume',{seStuid:sid}).then(res=>{
+        _this.$axios.post('/stuempinfo/studentresume',{seStuid:sid},{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res=>{
           if(res.data.code !== 200){
             _this.resumeexist = false
           }else {

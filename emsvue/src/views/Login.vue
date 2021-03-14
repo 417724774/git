@@ -33,8 +33,8 @@ export default {
   data() {
     return {
       ruleForm: {
-        userId: '202100',
-        password: '10010',
+        userId: '311700',
+        password: '123456',
         radio1:''
       },
       rules: {
@@ -66,7 +66,7 @@ export default {
 
             //获取
             //console.log(_this.$store.getters.getUserInfo)
-            if(res.data.data === 200) {
+            if(res.data.code === 200) {
               //跳转
               switch (res.data.data.type) {
                 case "学生": {

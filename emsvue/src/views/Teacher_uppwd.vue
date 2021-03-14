@@ -59,7 +59,11 @@ export default {
             return false
           }else {
             const _this = this
-            this.$axios.post('/teacher/teacheruppwd',this.ruleForm).then(res => {
+            this.$axios.post('/teacher/teacheruppwd',this.ruleForm,{
+              headers: {
+                Authorization: localStorage.getItem('token')
+              }
+            }).then(res => {
               if(res.data.code === 200){
                 alert("修改密码成功！")
               }else {
@@ -82,7 +86,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     }
   }
 

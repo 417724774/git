@@ -30,12 +30,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/student_index')
+      this.$router.push('/student')
     }
   },
   created(){
     const _this = this;
-    _this.$axios.get('/student/policylist').then(res =>{
+    _this.$axios.get('/student/policylist',{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res =>{
       _this.policys = res.data.data
 
     })

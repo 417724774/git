@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.common.lang.Result;
 import com.wyu.entity.TeacherMessage;
 import com.wyu.service.TeacherMessageService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class TeacherMessageController {
     @Autowired
     TeacherMessageService teacherMessageService;
 
+    @RequiresAuthentication
     @GetMapping("/messagelist")
     public Result messageList(@RequestParam(defaultValue = "1L") Integer currentPage){
 
@@ -41,6 +43,7 @@ public class TeacherMessageController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/messageadd")
     public Result messageAdd(@RequestBody TeacherMessage teacherMessage){
 
@@ -57,6 +60,7 @@ public class TeacherMessageController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("/messagedetail")
     public Result messageAdd(@RequestParam Integer tmid){
 
@@ -71,6 +75,7 @@ public class TeacherMessageController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/messagedelete")
     public Result messageDelete(@RequestBody TeacherMessage teacherMessage){
 
@@ -85,6 +90,7 @@ public class TeacherMessageController {
 
     }
 
+    @RequiresAuthentication
     @GetMapping("messagelogs")
     public Result messageLogs(){
 

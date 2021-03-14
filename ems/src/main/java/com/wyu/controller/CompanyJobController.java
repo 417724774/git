@@ -10,6 +10,7 @@ import com.wyu.entity.*;
 import com.wyu.service.CompanyJobService;
 import com.wyu.service.JionService;
 import com.wyu.service.TeacherJobfairService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class CompanyJobController {
     @Autowired
     JionService jionService;
 
+    @RequiresAuthentication
     @GetMapping("/joblist")
     public Result jobList(@RequestParam String id) {
         List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>().eq("cj_cuserid",id).eq("cj_status","已通过"));
@@ -45,6 +47,7 @@ public class CompanyJobController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/getjobstatus")
     public Result getJobStatus() {
         List<CompanyJob> res = companyJobService.list(new QueryWrapper<CompanyJob>());
@@ -55,6 +58,7 @@ public class CompanyJobController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/joblistbyid")
     public Result jobListById(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String id) {
         Page page = new Page(currentPage,5);
@@ -67,6 +71,7 @@ public class CompanyJobController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/jobdetail")
     public Result jobDetail(@RequestBody String id) {
 
@@ -79,6 +84,7 @@ public class CompanyJobController {
         }
     }
 
+    @RequiresAuthentication
     @PostMapping("/jobsaveorupdate")
     public Result jobUpdate(@RequestBody CompanyJob companyJob) {
 
@@ -92,6 +98,7 @@ public class CompanyJobController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/jobdelete")
     public Result jobDelete(@RequestParam Integer cjid) {
 
@@ -103,6 +110,7 @@ public class CompanyJobController {
         }
     }
 
+    @RequiresAuthentication
     @GetMapping("/jobfairlist")
     public Result getJobFairList(@RequestParam(defaultValue = "1") Integer currentPage){
         Page page = new Page(currentPage,5);
@@ -116,6 +124,7 @@ public class CompanyJobController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/jionjobfair")
     public Result jionJobFair(@RequestBody Jion jion){
 
@@ -129,6 +138,7 @@ public class CompanyJobController {
 
     }
 
+    @RequiresAuthentication
     @PostMapping("/changestatus")
     public Result changeStatus(@RequestBody CompanyJob job) {
         Boolean res =  companyJobService.updateById(job);

@@ -93,7 +93,11 @@ export default {
 
           const _this = this
           _this.ruleForm.jfTuserid = _this.$store.getters.getUser.userId
-          this.$axios.post('/teacher/jobfairsaveupadate',this.ruleForm).then(res => {
+          this.$axios.post('/teacher/jobfairsaveupadate',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("添加成功！")
             }else {
@@ -113,7 +117,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     }
   },
   created() {

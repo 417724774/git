@@ -95,7 +95,11 @@ export default {
   methods:{
     page(currentPage){
       const _this = this;
-      _this.$axios.get("/teacher/teacomjoblist?currentPage="+currentPage).then(res=>{
+      _this.$axios.get("/teacher/teacomjoblist?currentPage="+currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.tableData = res.data.data.records
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
@@ -139,7 +143,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     po(cjid,data,row) {
         const date = {
@@ -147,7 +151,11 @@ export default {
           cjStatus:data
         }
         const _this= this
-        _this.$axios.post('/company/changestatus', date).then(res => {
+        _this.$axios.post('/company/changestatus', date,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res => {
           if (res.data.code === 200) {
 
             alert("操作成功！")
@@ -161,7 +169,11 @@ export default {
 
     },
     get(){
-      this.$axios.get('/company/getjobstatus').then(res=>{
+      this.$axios.get('/company/getjobstatus',{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.data !== null)
         this.filtedCpy = res.data.data
       })

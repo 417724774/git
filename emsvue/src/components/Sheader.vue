@@ -7,7 +7,9 @@
 
     <div class="header-right">
       <div class="avator1">
-        <el-avatar class="avator" :src="user.avator"></el-avatar>
+        <el-link :underline="false">
+          <el-avatar title="头像" class="avator" @click.native="avatar1" :src="user.avatarUrl" :key="user.avatarUrl"></el-avatar>
+        </el-link>
 <!--        <el-link class="username" v-if="dis" style="color: #ffffff" href="">{{ user.name }}</el-link>-->
         <el-dropdown class="dropdown" >
         <span class="el-dropdown-link" >
@@ -37,7 +39,7 @@ export default {
     return {
       user:{
         username:'',
-        avator:'',
+        avatarUrl:'',
       },
       persondis:false
     }
@@ -47,7 +49,7 @@ export default {
       const _this = this
       _this.$axios.get('/user/logout',{
         headers: {
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem('token')
         }
       }).then((res) => {
         _this.$store.commit('REMOVE_INFO')
@@ -58,13 +60,18 @@ export default {
     },
     choose(data){
       this.$emit('choose',data)
+    },
+    avatar1(){
+      this.$router.push('/student_avatar')
     }
   },
     created(){
       if(this.$store.getters.getUser.username !== null){
         this.user.username = this.$store.getters.getUser.username
-        this.user.avator = this.$store.getters.getUser.avator
+        this.user.avatarUrl = this.$store.getters.getUser.avatar
       }
+
+
     }
 
 }

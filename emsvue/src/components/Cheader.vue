@@ -7,7 +7,9 @@
 
     <div class="header-right">
       <div class="avator1">
-        <el-avatar class="avator" :src="user.avator"></el-avatar>
+        <el-link :underline="false">
+          <el-avatar title="头像" class="avator" @click.native="avatar" :src="avatarUrl"></el-avatar>
+        </el-link>
 <!--        <el-link class="username" v-if="dis" style="color: #ffffff" href="">{{ user.name }}</el-link>-->
 
         <el-badge :hidden="Hidden" is-dot class="item" style="margin-right: 20px;" type="primary">
@@ -44,7 +46,8 @@ export default {
         avator:'',
       },
       persondis:false,
-      Hidden: true
+      Hidden: true,
+      avatarUrl: this.$store.getters.getUser.avatar
     }
   },
   methods:{
@@ -68,6 +71,9 @@ export default {
       this.Hidden = true
       this.$emit("msg")
 
+    },
+    avatar(){
+      this.$router.push('/teacher_avatar')
     },
     existNoRead(){
 

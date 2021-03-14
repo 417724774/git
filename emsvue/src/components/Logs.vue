@@ -22,7 +22,11 @@ export default {
   },
   created() {
     const _this = this
-    _this.$axios.get('/teacher/messagelogs').then(res=>{
+    _this.$axios.get('/teacher/messagelogs',{
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(res=>{
 
       _this.blogs = res.data.data
 

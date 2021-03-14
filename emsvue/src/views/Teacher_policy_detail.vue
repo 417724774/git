@@ -84,7 +84,11 @@ export default {
         if (valid) {
 
           const _this = this
-          this.$axios.post('/teacher/policyupdate',this.ruleForm).then(res => {
+          this.$axios.post('/teacher/policyupdate',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("修改成功！")
             }else {
@@ -104,13 +108,17 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     },
     filter(){
       const _this = this
       const pid = _this.$route.params.pid
       const pman = _this.$store.getters.getUser.username
-      _this.$axios.post('/teacher/policyfilter',{pman:pman}).then(res=>{
+      _this.$axios.post('/teacher/policyfilter',{pman:pman},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.filtedjf = res.data.data
         for (const resKey in _this.filtedjf) {
           if(pid === _this.filtedjf[resKey]){
@@ -125,7 +133,11 @@ export default {
     get(){
       const _this = this
       const pid = _this.$route.params.pid
-      _this.$axios.get('/teacher/policydetail?pid='+pid).then(res=>{
+      _this.$axios.get('/teacher/policydetail?pid='+pid,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         if(res.data.code === 200){
           _this.ruleForm = res.data.data
         }else {

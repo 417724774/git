@@ -84,7 +84,11 @@ export default {
         if (valid) {
 
           const _this = this
-          _this.$axios.post('/teacher/policyadd',_this.ruleForm).then(res => {
+          _this.$axios.post('/teacher/policyadd',_this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("添加成功！")
             }else {
@@ -104,7 +108,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     }
   },
   created() {

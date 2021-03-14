@@ -71,7 +71,11 @@ export default {
         if (valid) {
 
           const _this = this
-          this.$axios.post('/company/companyupper',this.ruleForm).then(res => {
+          this.$axios.post('/company/companyupper',this.ruleForm,{
+            headers: {
+              Authorization: localStorage.getItem('token')
+            }
+          }).then(res => {
             if(res.data.code === 200){
               alert("修改个人信息成功！")
             }else {
@@ -91,12 +95,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/company_index')
+      this.$router.push('/company')
     },
     get(){
       const sid = this.$store.getters.getUser.userId
       const _this = this
-      this.$axios.post("/company/detail",{"cuserid":sid}).then(res=>{
+      this.$axios.post("/company/detail",{"cuserid":sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
         _this.ruleForm = res.data.data
       }).finally(()=>{
 

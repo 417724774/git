@@ -69,10 +69,13 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const _this = this
-          console.log(this.ruleForm.man)
           if (this.ruleForm.man === '1') {
 
-            _this.$axios.post('/teacher/sendnotification1', _this.ruleForm).then(res => {
+            _this.$axios.post('/teacher/sendnotification1', _this.ruleForm,{
+              headers: {
+                Authorization: localStorage.getItem('token')
+              }
+            }).then(res => {
 
               if (res.data.code === 200) {
                 alert("发送成功！")
@@ -85,7 +88,11 @@ export default {
           }
           if (this.ruleForm.man === '2') {
 
-            _this.$axios.post('/teacher/sendnotification2', _this.ruleForm).then(res => {
+            _this.$axios.post('/teacher/sendnotification2', _this.ruleForm,{
+              headers: {
+                Authorization: localStorage.getItem('token')
+              }
+            }).then(res => {
 
               if (res.data.code === 200) {
                 alert("发送成功！")
@@ -96,7 +103,11 @@ export default {
           }
           if (this.ruleForm.man === '3') {
 
-            _this.$axios.post('/teacher/sendnotification3', _this.ruleForm).then(res => {
+            _this.$axios.post('/teacher/sendnotification3', _this.ruleForm,{
+              headers: {
+                Authorization: localStorage.getItem('token')
+              }
+            }).then(res => {
 
               if (res.data.code === 200) {
                 alert("发送成功！")
@@ -115,12 +126,16 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher_index')
+      this.$router.push('/teacher')
     }
   },
   created() {
     const _this = this
-    _this.$axios.get('/jion/anyonejion?jfid='+_this.$route.params.id).then(res=>{
+    _this.$axios.get('/jion/anyonejion?jfid='+_this.$route.params.id,{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
 
       if(res.data.data > 0){
 

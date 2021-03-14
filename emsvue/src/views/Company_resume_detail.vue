@@ -75,13 +75,17 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/company_index')
+      this.$router.push('/company')
     }
 
   },
   created() {
     const sid = this.$route.params.id
-    this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid}).then(res=>{
+    this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid},{
+      headers: {
+        Authorization: localStorage.getItem('token')
+      }
+    }).then(res=>{
       //console.log(res.data.data)
       this.ruleForm = res.data.data
     })
