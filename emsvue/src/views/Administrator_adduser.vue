@@ -8,18 +8,24 @@
           <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
         </div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="110px" class="demo-ruleForm">
-          <el-form-item label="职位性质：" prop="tmType">
-            <el-select v-model="ruleForm.tmType" placeholder="选择类型">
-              <el-option label="宣传" value="宣传"></el-option>
-              <el-option label="通知" value="通知"></el-option>
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" class="demo-ruleForm">
+          <span style="font-size: 28px;text-align: center">添加用户</span>
+          <el-form-item label="用户名：" prop="userId" style="margin-top: 50px">
+            <el-input v-model="ruleForm.userId"></el-input>
+          </el-form-item>
+          <el-form-item label="密码：" prop="password">
+            <el-input placeholder="123456" v-model="ruleForm.password"></el-input>
+          </el-form-item>
+          <el-form-item label="姓名：" prop="username">
+            <el-input v-model="ruleForm.username"></el-input>
+          </el-form-item>
+          <el-form-item label="身份：" prop="type">
+            <el-select v-model="ruleForm.type" placeholder="选择身份">
+              <el-option label="学生" value="学生"></el-option>
+              <el-option label="教师" value="教师"></el-option>
+              <el-option label="企业" value="企业"></el-option>
+              <el-option label="管理员" value="管理员"></el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item label="标题：" prop="tmTitle">
-            <el-input v-model="ruleForm.tmTitle"></el-input>
-          </el-form-item>
-          <el-form-item label="正文：" prop="tmContent">
-            <el-input autosize type="textarea" v-model="ruleForm.tmContent"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
@@ -28,38 +34,33 @@
         </el-form>
       </el-main>
     </el-container>
-
   </div>
 
 </template>
 
 <script>
 export default {
-  name: "Teacher_message_add",
+  name: "Administrator_adduser",
   components: {
   },
   data() {
     return {
       ruleForm: {
-        tmContent: '',
-        tmTitle: '',
-        tmType: '',
-        tmMan:this.$store.getters.getUser.username,
-        tmUserid:this.$store.getters.getUser.userId,
-        tmPtime: ''
+        password:'123456'
       },
-      rules: {
-        tmTitle: [
-          { required: true, message: '请输入标题', trigger: 'blur' },
-          { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+      rules:{
+        userId: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
-        tmType: [
-          { required: true, message: '请选择类型', trigger: 'blur' },
-
+        username: [
+          { required: true, message: '请输入姓名', trigger: 'blur' },
         ],
-        tmContent: [
-          { required: true, message: '请输入正文', trigger: 'blur' }
-        ]
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+        ],
+        type: [
+          { required: true, message: '请先择身份', trigger: 'blur' },
+        ],
       }
     };
   },
@@ -67,13 +68,13 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-
           const _this = this
-          this.$axios.post('/teacher/messageadd',this.ruleForm,{
+          _this.$axios.post('/user/add',_this.ruleForm,{
             headers: {
               Authorization: localStorage.getItem('token')
             }
-          }).then(res => {
+          }).then(res=>{
+
             if(res.data.code === 200){
 
               this.$notify({
@@ -82,15 +83,13 @@ export default {
               })
             }else {
               this.$notify.error({
-                title: '添加失败！请再次尝试！'
+                title: '添加失败！'
               })
             }
+
           })
-        } else {
-          console.log('error submit!!');
-          return false;
         }
-      });
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -99,7 +98,7 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher')
+      this.$router.push('/administrator')
     }
   },
   created() {
@@ -113,8 +112,7 @@ export default {
   color: #333;
   text-align: center;
   /*line-height: 160px;*/
-  height: 688px;
-  max-height: 689px;
+  height: auto;
   padding: unset;
 }
 body > .el-container {

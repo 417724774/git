@@ -149,18 +149,22 @@ export default {
             Authorization: localStorage.getItem('token')
           }
         }).then(res => {
-          if (res.data.code === 200) {
-            // _this.reload()
-            alert("操作成功！")
+          if(res.data.code === 200){
             if(boolean)
-             _this.filtedCpy.push(cuserid)
+              _this.filtedCpy.push(cuserid)
             else {
               let index = _this.filtedCpy.indexOf(cuserid)
               _this.filtedCpy.splice(index,1)
             }
             return;
-          } else {
-            alert("操作失败！请再次尝试！")
+            this.$notify({
+              title: '操作成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '操作失败！请再次尝试！'
+            })
           }
         })
 

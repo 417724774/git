@@ -9,6 +9,9 @@
                     <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
                   </div>
                   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="用户名：" prop="" >
+                      <el-input readonly v-model="this.$store.getters.getUser.userId"></el-input>
+                    </el-form-item>
                     <el-form-item label="姓名" prop="cname">
                       <el-input v-model="ruleForm.cname"></el-input>
                     </el-form-item>
@@ -77,9 +80,14 @@ export default {
             }
           }).then(res => {
             if(res.data.code === 200){
-              alert("修改个人信息成功！")
+              this.$notify({
+                title: '修改个人信息成功！',
+                type: 'success'
+              })
             }else {
-              alert("修改个人信息失败！请再次尝试！")
+              this.$notify.error({
+                title: '修改个人信息失败！请再次尝试！'
+              })
             }
           })
         } else {

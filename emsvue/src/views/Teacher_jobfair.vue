@@ -110,20 +110,26 @@ export default {
     },
     deljobfair(data){
       const _this = this
-      this.$axios.get('/teacher/jobfairdelete?jfid='+data,{
-        headers: {
-          Authorization: localStorage.getItem('token')
-        }
-      }).then(res=>{
-        if(res.data.code === 200){
-          alert("删除成功！")
-          // this.$router.go(0)
-          _this.reload()
-        }else {
-          alert("删除失败！请重新尝试！")
-        }
-
-      })
+      if(confirm("是否确认删除？")){
+        this.$axios.get('/teacher/jobfairdelete?jfid='+data,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res=>{
+          if(res.data.code === 200){
+            localStorage.setItem("currentPage",_this.currentPage)
+            _this.$router.replace( "/test");
+            this.$notify({
+              title: '删除成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '删除失败！请再次尝试！'
+            })
+          }
+        })
+      }
     },
     page(currentPage){
       const _this = this;
@@ -162,7 +168,8 @@ export default {
     }
   },
   created() {
-    this.page(1)
+    this.page(localStorage.getItem('currentPage')||1)
+    localStorage.removeItem('currentPage')
   }
 }
 </script>

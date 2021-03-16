@@ -34,8 +34,7 @@ export default {
     return {
       ruleForm: {
         userId: '311700',
-        password: '123456',
-        radio1:''
+        password: '123456'
       },
       rules: {
         username: [
@@ -81,7 +80,13 @@ export default {
 
                 case "教师": {
 
-                  _this.$router.push("/Teacher");
+                  _this.$router.push("/teacher");
+                  break;
+                }
+
+                case "管理员": {
+
+                  _this.$router.push("/administrator");
                   break;
                 }
               }

@@ -8,7 +8,7 @@
     </where>
 </select>
 <select id="comJobList" resultType="com.wyu.vo.ComJobList">
-    SELECT c_unit,c_userid,company_job.* FROM company_info,company_job
+    SELECT c_unit,c_name,c_phone,c_userid,company_job.* FROM company_info,company_job
     <where>
         company_info.c_userid = company_job.cj_cuserid AND company_job.cj_status = "已通过"
     </where>

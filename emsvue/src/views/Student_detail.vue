@@ -8,27 +8,30 @@
                     <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
                     <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
                   </div>
-                  <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                  <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm" >
+                    <el-form-item label="学号：" prop="" >
+                      <el-input readonly v-model="this.$store.getters.getUser.userId"></el-input>
+                    </el-form-item>
                     <el-form-item label="姓名：" prop="sname">
-                      <el-input v-model="ruleForm.sname"></el-input>
+                      <el-input readonly v-model="ruleForm.sname"></el-input>
                     </el-form-item>
                     <el-form-item label="专业：" prop="smajor">
-                      <el-input v-model="ruleForm.smajor"></el-input>
+                      <el-input readonly v-model="ruleForm.smajor"></el-input>
                     </el-form-item>
                     <el-form-item label="性别：" prop="ssex">
-                      <el-input  v-model="ruleForm.ssex"></el-input>
+                      <el-input readonly v-model="ruleForm.ssex"></el-input>
                     </el-form-item>
                     <el-form-item label="学制：" prop="ses">
-                      <el-input v-model="ruleForm.ses"></el-input>
+                      <el-input readonly v-model="ruleForm.ses"></el-input>
                     </el-form-item>
                     <el-form-item label="学部：" prop="scollege">
-                      <el-input v-model="ruleForm.scollege"></el-input>
+                      <el-input readonly v-model="ruleForm.scollege"></el-input>
                     </el-form-item>
                     <el-form-item label="班级：" prop="sclass">
-                      <el-input v-model="ruleForm.sclass"></el-input>
+                      <el-input readonly v-model="ruleForm.sclass"></el-input>
                     </el-form-item>
                     <el-form-item label="毕业日期：" prop="syog">
-                      <el-input  v-model="ruleForm.syog"></el-input >
+                      <el-input readonly v-model="ruleForm.syog"></el-input >
                     </el-form-item>
                   </el-form>
                 </el-main>
@@ -46,14 +49,6 @@ export default {
   data() {
     return {
       ruleForm: {
-        sname: '',
-        smajor: '',
-        ssex: '',
-        ses: '',
-        sclass: '',
-        scollege: '',
-        syog:'',
-        suserid:this.$store.getters.getUser.userId
       }
     };
   },
@@ -67,14 +62,15 @@ export default {
 
   },
   created() {
+    const _this = this
     const sid = this.$store.getters.getUser.userId
-    this.$axios.post("/student/studentinfo",{"suserid":sid},{
+    _this.$axios.post("/student/studentinfo",{"suserid":sid},{
       headers: {
         Authorization: localStorage.getItem('token')
       }
     }).then(res=>{
-      this.ruleForm = res.data.data
-      this.ruleForm.syog = res.data.data.sYog
+      _this.ruleForm = res.data.data
+      _this.ruleForm.syog = res.data.data.sYog
     })
   }
 

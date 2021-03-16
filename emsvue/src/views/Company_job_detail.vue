@@ -121,9 +121,15 @@ export default {
             }
           }).then(res => {
             if(res.data.code === 200){
-              alert("完善招聘信息成功！")
+
+              this.$notify({
+                title: '完善招聘信息成功！',
+                type: 'success'
+              })
             }else {
-              alert("完善失败！请再次尝试！")
+              this.$notify.error({
+                title: '完善失败！请再次尝试！'
+              })
             }
           })
         } else {

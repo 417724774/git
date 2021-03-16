@@ -11,16 +11,16 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
           <el-form-item label="姓名" prop="seName">
-            <el-input v-model="ruleForm.seName"></el-input>
+            <el-input readonly v-model="studentinfo.sname"></el-input>
           </el-form-item>
           <el-form-item label="性别" prop="seSex">
-            <el-select v-model="ruleForm.seSex" placeholder="选择性别">
-              <el-option label="男" value="男"></el-option>
-              <el-option label="女" value="女"></el-option>
-            </el-select>
+            <el-input readonly v-model="studentinfo.ssex"></el-input>
+          </el-form-item>
+          <el-form-item label="专业" prop="seMajor">
+            <el-input readonly v-model="ruleForm.seMajor = studentinfo.smajor"></el-input>
           </el-form-item>
           <el-form-item label="毕业院校" prop="seSchool">
-            <el-input v-model="ruleForm.seSchool"></el-input>
+            <el-input readonly v-model="ruleForm.seSchool = '五邑大学'" ></el-input>
           </el-form-item>
           <el-form-item label="目标岗位" prop="seIntention">
             <el-input  v-model="ruleForm.seIntention"></el-input >
@@ -70,31 +70,10 @@ export default {
   },
   data() {
     return {
-      ruleForm: {
-        seName:'',
-        seSex: '',
-        seEmail:'',
-        seLocation: '',
-        sePostcode: '',
-        seIntroduction:'',
-        seExprience: '',
-        seEducation: '',
-        seTrain: '',
-        seCerdificate:'',
-        seIntention:'',
-        seSchool:'',
-        seStuid:''
-      },
+      ruleForm: {},
+      studentinfo: {},
 
       rules: {
-        seName: [
-          { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 1, max: 11, message: '长度在 1 到 11 个字符', trigger: 'blur' }
-        ],
-        seSex: [
-          { required: true, message: '请选择性别', trigger: 'blur' },
-
-        ],
         seEmail: [
           { type:'email', required: true, message: '请输入邮箱', trigger: 'blur' }
         ],
@@ -117,8 +96,12 @@ export default {
         seIntention: [
           { required: true, message: '请输入目标岗位', trigger: 'blur' }
         ],
-        seSchool: [
-          { required: true, message: '请输入毕业院校', trigger: 'blur' }
+        sePhone: [
+          { required: true, message: '请输入联系电话', trigger: 'change' },
+          { min: 11, max: 11, message: '请输入 11 位手机号码', trigger: 'blur' }
+        ],
+        seTrain: [
+          { required: true, message: '请输入培训经历', trigger: 'blur' }
         ]
       }
     };
@@ -130,16 +113,21 @@ export default {
 
           const _this = this
           _this.ruleForm.seStuid = _this.$store.getters.getUser.userId
-          console.log(_this.ruleForm)
           this.$axios.post('/stuempinfo/stuemupdate',this.ruleForm,{
             headers: {
               Authorization: localStorage.getItem('token')
             }
           }).then(res => {
             if(res.data.code === 200){
-              alert("完善简历成功！")
+
+              this.$notify({
+                title: '完善简历成功！',
+                type: 'success'
+              })
             }else {
-              alert("完善失败！请再次尝试！")
+              this.$notify.error({
+                title: '完善失败！请再次尝试！'
+              })
             }
           })
         } else {
@@ -156,23 +144,36 @@ export default {
     },
     close(){
       this.$router.push('/student')
+    },
+    get(){
+      const sid = this.$store.getters.getUser.userId
+      const _this = this
+      _this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        //console.log(res.data.data)
+        if(res.data.code === 200){
+          _this.ruleForm = res.data.data
+        }else {
+          console.log(res.data.data)
+        }
+      })
+
+      _this.$axios.post("/student/studentinfo",{"suserid":sid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        _this.studentinfo = res.data.data
+      })
+
     }
 
   },
   created() {
-    const sid = this.$store.getters.getUser.userId
-    this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid},{
-      headers: {
-        Authorization: localStorage.getItem('token')
-      }
-    }).then(res=>{
-      //console.log(res.data.data)
-      if(res.data.code === 200){
-        this.ruleForm = res.data.data
-      }else {
-        console.log(res.data.data)
-      }
-    })
+    this.get()
   }
 }
 </script>

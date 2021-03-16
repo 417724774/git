@@ -71,9 +71,14 @@ export default {
               }
             }).then(res => {
               if(res.data.code === 200){
-                alert("登记成功！")
+                this.$notify({
+                  title: '登记成功！',
+                  type: 'success'
+                })
               }else {
-                alert("登记失败！请重新登记！")
+                this.$notify.error({
+                  title: '登记失败！请重新登记！'
+                })
               }
             })
 

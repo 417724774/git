@@ -102,33 +102,40 @@ export default {
     },
     delpolicy(data,data1){
       const _this = this
-      this.$axios.get('/teacher/policydelete?pid='+data,{
-        headers: {
-          Authorization: localStorage.getItem('token')
-        }
-      }).then(res=>{
-        if(res.data.code === 200){
-          alert("删除成功！")
-          // this.$router.go(0)
-          // _this.reload()
-        }else {
-          alert("删除失败！请重新尝试！")
-        }
+      if(confirm("是否确认删除？")){
+        this.$axios.get('/teacher/policydelete?pid='+data,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res=>{
+          if(res.data.code === 200){
 
-      }).finally(()=>{
-      // console.log(_this.tableData.length)
-        const index = _this.tableData.indexOf(data1)
-        _this.tableData.splice(index,1)
-        if(_this.tableData.length === 0&&_this.currentPage!==1){
-          _this.currentPage = _this.currentPage - 1
-          this.page(_this.currentPage)
-        }else {
-          _this.currentPage = _this.currentPage
-          this.page(_this.currentPage)
-        }
-        // console.log(_this.total)
-        // _this.total -= 1
-      })
+            this.$notify({
+              title: '删除成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '删除失败！请重新尝试！'
+            })
+          }
+
+        }).finally(()=>{
+          // console.log(_this.tableData.length)
+          const index = _this.tableData.indexOf(data1)
+          _this.tableData.splice(index,1)
+          if(_this.tableData.length === 0&&_this.currentPage!==1){
+            _this.currentPage = _this.currentPage - 1
+            this.page(_this.currentPage)
+          }else {
+            _this.currentPage = _this.currentPage
+            this.page(_this.currentPage)
+          }
+          // console.log(_this.total)
+          // _this.total -= 1
+        })
+      }
+
 
     },
     page(currentPage){

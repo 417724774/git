@@ -4,6 +4,8 @@ package com.wyu.controller;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.common.dto.LoginDto;
 import com.wyu.common.lang.Result;
 import com.wyu.entity.CompanyInfo;
@@ -26,9 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -159,6 +159,128 @@ public class UserController {
 
             return Result.fail("无数据");
 
+        }
+
+    }
+
+    @RequiresAuthentication
+    @PostMapping("/add")
+    public Result userAdd(@RequestBody User user){
+
+        user.setPassword(SecureUtil.md5(user.getPassword()));
+        Boolean res = userService.save(user);
+
+        if (res){
+
+            return Result.success(res);
+
+        }else {
+
+            return Result.fail("添加失败！");
+
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/userlist")
+    public Result userList(@RequestParam(defaultValue = "1L")Integer currentPage){
+
+        Page page = new Page(currentPage,10);
+        IPage res = userService.page(page,new QueryWrapper<User>());
+        if (res.getTotal() > 0){
+            return Result.success(res);
+        }else {
+            return Result.fail("查询失败！");
+        }
+
+    }
+
+    @RequiresAuthentication
+    @PostMapping("/delete")
+    public Result userDelete(@RequestBody List<User> list){
+        List<String> failList = new ArrayList<String>();
+        for (User user: list) {
+            Boolean respone = userService.removeById(user.getId());
+            if (!respone){
+                failList.add(user.getUserId());
+            }
+        }
+
+        if (failList.isEmpty()){
+
+            return Result.success("删除成功！");
+
+        }else {
+
+            return Result.fail("添加失败！");
+
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/userdetail")
+    public Result userDetail(@RequestParam Integer id){
+
+        User user = userService.getById(id);
+
+        if (user != null){
+            return Result.success(user);
+        }else {
+            return Result.fail("查询失败！");
+        }
+
+    }
+
+    @RequiresAuthentication
+    @PostMapping("/update")
+    public Result userUpdate(@RequestBody User user){
+
+        User user1 = userService.getById(user.getId());
+        if(!user1.getPassword().equals(user.getPassword())){
+            user.setPassword(SecureUtil.md5(user.getPassword()));
+        }
+        Boolean res = userService.updateById(user);
+
+        if (res){
+
+            return Result.success(res);
+
+        }else {
+
+            return Result.fail("修改失败！");
+
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchbyname")
+    public Result searchByName(@RequestParam String username,@RequestParam(defaultValue = "1L")Integer currentPage){
+
+        Page page = new Page(currentPage,10);
+        IPage res = userService.page(page,new QueryWrapper<User>().like("username",username));
+
+        if (res.getTotal() > 0){
+            return Result.success(res);
+        }else {
+            return Result.fail("无当前数据！");
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchbyuserid")
+    public Result searchByUserid(@RequestParam String userId,@RequestParam(defaultValue = "1L")Integer currentPage){
+
+        Page page = new Page(currentPage,10);
+        IPage res = userService.page(page,new QueryWrapper<User>().like("user_id",userId));
+
+        if (res.getTotal() > 0){
+            return Result.success(res);
+        }else {
+            return Result.fail("无当前数据！");
         }
 
     }

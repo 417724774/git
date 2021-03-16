@@ -9,103 +9,88 @@
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
         </div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" class="demo-ruleForm">
-
-          <el-form-item label="标题：" prop="ptitle">
-            <el-input style="width: 500px" v-model="ruleForm.ptitle"></el-input>
+          <span style="font-size: 28px;text-align: center">修改用户</span>
+          <el-form-item label="用户名：" prop="userId" style="margin-top: 50px">
+            <el-input v-model="ruleForm.userId"></el-input>
           </el-form-item>
-          <el-form-item label="发布时间：" prop="pdate">
-            <div class="block">
-              <el-date-picker
-                  v-model="ruleForm.pdate"
-                  type="date"
-                  placeholder="选择日期">
-              </el-date-picker>
-            </div>
+          <el-form-item label="密码：" prop="password">
+            <el-input placeholder="123456" v-model="ruleForm.password"></el-input>
           </el-form-item>
-          <el-form-item label="来源：" prop="psource">
-            <el-input style="width: 500px" v-model="ruleForm.psource"></el-input>
+          <el-form-item label="姓名：" prop="username">
+            <el-input v-model="ruleForm.username"></el-input>
           </el-form-item>
-          <el-form-item label="正文：" prop="pcontent">
-            <el-input autosize style="width: 500px" type="textarea" v-model="ruleForm.pcontent"></el-input>
+          <el-form-item label="身份：" prop="type">
+            <el-select v-model="ruleForm.type" placeholder="选择身份">
+              <el-option label="学生" value="学生"></el-option>
+              <el-option label="教师" value="教师"></el-option>
+              <el-option label="企业" value="企业"></el-option>
+              <el-option label="管理员" value="管理员"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
       </el-main>
     </el-container>
-
   </div>
 
 </template>
 
 <script>
 export default {
-  name: "Teacher_policy_add",
+  name: "Administrator_updateuser",
   components: {
   },
   data() {
     return {
-      disabledDate(time) {
-        return time.getTime() > Date.now()
-      },
       ruleForm: {
-        ptitle:'',
-        pdate:'',
-        psource:'',
-        pcontent:'',
-        pman: this.$store.getters.getUser.username
       },
-      rules: {
-        ptitle: [
-          { required: true, message: '请输入政策标题', trigger: 'blur' },
-          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+      rules:{
+        userId: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
-        pdate: [
-          { required: true, message: '请选择发布日期', trigger: 'blur' },
-
+        username: [
+          { required: true, message: '请输入姓名', trigger: 'blur' },
         ],
-        psource: [
-          { required: true, message: '请输入来源', trigger: 'blur' }
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
         ],
-        pcontent: [
-          { required: true, message: '请输入正文', trigger: 'blur' }
-        ]
-      },
-      currentPage: 1,
-      total: 0,
-      pageSize: 5
+        type: [
+          { required: true, message: '请先择身份', trigger: 'blur' },
+        ],
+      }
     };
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-
           const _this = this
-          _this.$axios.post('/teacher/policyadd',_this.ruleForm,{
+          _this.$axios.post('/user/update',_this.ruleForm,{
             headers: {
               Authorization: localStorage.getItem('token')
             }
-          }).then(res => {
+          }).then(res=>{
+
             if(res.data.code === 200){
 
               this.$notify({
-                title: '添加成功！',
+                title: '修改成功！',
                 type: 'success'
               })
+
             }else {
               this.$notify.error({
-                title: '添加失败！请再次尝试！'
+                title: '修改失败！'
               })
+
             }
+
           })
-        } else {
-          console.log('error submit!!');
-          return false;
         }
-      });
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -114,10 +99,26 @@ export default {
       this.$router.back()
     },
     close(){
-      this.$router.push('/teacher')
+      this.$router.push('/administrator')
+    },
+    get(){
+      const _this = this
+      const id = _this.$route.params.id
+      _this.$axios.get('/user/userdetail?id='+id,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.ruleForm = res.data.data
+        }else {
+          console.log('查询失败！')
+        }
+      })
     }
   },
   created() {
+    this.get()
   }
 }
 </script>

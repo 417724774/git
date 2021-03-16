@@ -29,7 +29,7 @@
                 <el-table-column width="200" property="smContent" label="正文"></el-table-column>
                 <el-table-column width="200" property="smPtime" label="时间"></el-table-column>
               </el-table>
-              <el-button @click="hasSend(ruleForm.seStuid)" style="margin-left: 10px;border: none;background: none;color: #6c6c6c;" class="el-button--mini" slot="reference">历史消息</el-button>
+              <el-button @click="hasSend()" style="margin-left: 10px;border: none;background: none;color: #6c6c6c;" class="el-button--mini" slot="reference">历史消息</el-button>
             </el-popover>
           </el-form-item>
         </el-form>
@@ -77,10 +77,16 @@ export default {
                 Authorization: localStorage.getItem('token')
               }
             }).then(res => {
-              if (res.data.code === 200) {
-                alert("发送成功！")
-              } else {
-                alert("发生失败！请再次尝试！")
+              if(res.data.code === 200){
+
+                this.$notify({
+                  title: '发送成功！',
+                  type: 'success'
+                })
+              }else {
+                this.$notify.error({
+                  title: '发送失败！请再次尝试！'
+                })
               }
             })
         }
@@ -95,10 +101,10 @@ export default {
     close(){
       this.$router.push('/teacher')
     },
-    hasSend(data){
+    hasSend(){
 
       const _this= this
-      const studentMessage = {smAccept: data,smManid: _this.$store.getters.getUser.userId}
+      const studentMessage = {smAccept: _this.$route.params.id,smManid: _this.$store.getters.getUser.userId}
       _this.$axios.post('/student/hassend',studentMessage,{
         headers: {
           Authorization: localStorage.getItem('token')
@@ -110,7 +116,7 @@ export default {
           _this.historyMsg = res.data.data
 
         }else {
-          console.log("无数据！")
+          console.log(res)
         }
       })
 

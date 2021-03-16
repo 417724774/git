@@ -66,7 +66,9 @@ export default {
         _this.ruleForm = res.data.data
 
       }else {
-        alert("查询失败！")
+        this.$notify.error({
+          title: '查询失败！'
+        })
       }
 
     })

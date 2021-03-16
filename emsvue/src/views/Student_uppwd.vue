@@ -65,9 +65,15 @@ export default {
               }
             }).then(res => {
               if(res.data.code === 200){
-                alert("修改密码成功！")
+
+                this.$notify({
+                  title: '修改密码成功！',
+                  type: 'success'
+                })
               }else {
-                alert("修改密码失败！请再次尝试！")
+                this.$notify.error({
+                  title: '修改密码失败！请再次尝试！'
+                })
               }
             })
           }

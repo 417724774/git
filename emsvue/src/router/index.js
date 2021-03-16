@@ -49,6 +49,10 @@ import Company_avatar from "../views/Company_avatar";
 import Teacher_avatar from "../views/Teacher_avatar";
 import Company_resume_send from "../views/Company_resume_send";
 import Teacher_student_send from "../views/Teacher_student_send";
+import Administrator from "../views/Administrator";
+import Administrator_adduser from "../views/Administrator_adduser";
+import Administrator_userlist from "../views/Administrator_userlist";
+import Administrator_updateuser from "../views/Administrator_updateuser";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -269,7 +273,8 @@ const routes = [
         path: '/teacher_avatar',
         name: 'Teacher_avatar',
         component: Teacher_avatar
-      },{
+      },
+      {
         path: '/teacher_student_send/:id',
         name: 'Teacher_student_send',
         component: Teacher_student_send
@@ -286,6 +291,28 @@ const routes = [
     path: '/company_register',
     name: 'Company_register',
     component: Company_register
+  },
+  {
+    path: '/administrator',
+    name: 'Administrator',
+    component: Administrator,
+    children: [
+      {
+        path: '/administrator_adduser',
+        name: 'Administrator_adduser',
+        component: Administrator_adduser
+      },
+      {
+        path: '/administrator_userlist',
+        name: 'Administrator_userlist',
+        component: Administrator_userlist
+      },
+      {
+        path: '/administrator_updateuser/:id',
+        name: 'Administrator_updateuser',
+        component: Administrator_updateuser
+      }
+    ]
   }
 ]
 

@@ -22,10 +22,16 @@
                 <span>{{ props.row.cjType }}</span>
               </el-form-item>
               <el-form-item label="基本要求" style="width: 30%">
-                <span>{{ props.row.cjDemand }}</span>
-              </el-form-item>
+              <span>{{ props.row.cjDemand }}</span>
+            </el-form-item>
               <el-form-item label="职位类型"style="width: 40%">
                 <span>{{ props.row.cjProperty }}</span>
+              </el-form-item>
+              <el-form-item label="人事姓名" style="width: 30%">
+                <span>{{ props.row.cname }}</span>
+              </el-form-item>
+              <el-form-item label="联系电话"style="width: 40%">
+                <span>{{ props.row.cphone }}</span>
               </el-form-item>
               <el-form-item label="工作地点" style="width: 30%">
                 <span>{{ props.row.cjAdress }}</span>
@@ -140,13 +146,16 @@ export default {
             Authorization: localStorage.getItem('token')
           }
         }).then(res => {
-          if (res.data.code === 200) {
-            // _this.reload()
-            alert("投递成功！")
+          if(res.data.code === 200){
             _this.filtedCpy.push(cuserid)
-            return;
-          } else {
-            alert("投递失败！请再次尝试！")
+            this.$notify({
+              title: '投递成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '投递失败！请再次尝试！'
+            })
           }
         })
       }

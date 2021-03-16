@@ -77,7 +77,6 @@ export default {
         ],
         cjDeadline: [
           { required: true, message: '请选择有效时间', trigger: 'blur' },
-
         ],
         cjAdress: [
           { required: true, message: '请输入工作地点', trigger: 'blur' }
@@ -117,9 +116,15 @@ export default {
             }
           }).then(res => {
             if(res.data.code === 200){
-              alert("添加成功！")
+
+              this.$notify({
+                title: '添加成功！',
+                type: 'success'
+              })
             }else {
-              alert("添加失败！请再次尝试！")
+              this.$notify.error({
+                title: '添加失败！请再次尝试！'
+              })
             }
           })
         } else {

@@ -156,13 +156,17 @@ export default {
             Authorization: localStorage.getItem('token')
           }
         }).then(res => {
-          if (res.data.code === 200) {
-
-            alert("操作成功！")
+          if(res.data.code === 200){
             localStorage.setItem("currentPage",_this.currentPage)
             _this.$router.replace( "/test");
-          } else {
-            alert("操作失败！请再次尝试！")
+            this.$notify({
+              title: '操作成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '操作失败！请再次尝试！'
+            })
           }
         })
 

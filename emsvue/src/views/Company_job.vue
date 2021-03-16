@@ -95,32 +95,37 @@ export default {
     },
     deljob(data,data1){
       const _this = this
-      this.$axios.get('/company/jobdelete?cjid='+data,{
-        headers: {
-          Authorization: localStorage.getItem('token')
-        }
-      }).then(res=>{
-        if(res.data.code === 200){
-          alert("删除成功！")
-          // this.$router.go(0)
-          // this.reload()
-        }else {
-          alert("删除失败！请重新尝试！")
-        }
+      if(confirm("是否确认删除？")){
+        this.$axios.get('/company/jobdelete?cjid='+data,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res=>{
+          if(res.data.code === 200){
 
-      }).finally(()=>{
+            this.$notify({
+              title: '删除成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '删除失败！请重新尝试！'
+            })
+          }
 
-        const index = _this.tableData.indexOf(data1)
-        _this.tableData.splice(index,1)
-        if(_this.tableData.length === 0&&_this.currentPage!==1){
-          _this.currentPage = _this.currentPage - 1
-          this.page(_this.currentPage)
-        }else {
-          _this.currentPage = _this.currentPage
-          this.page(_this.currentPage)
-        }
+        }).finally(()=>{
 
-      })
+          const index = _this.tableData.indexOf(data1)
+          _this.tableData.splice(index,1)
+          if(_this.tableData.length === 0&&_this.currentPage!==1){
+            _this.currentPage = _this.currentPage - 1
+            this.page(_this.currentPage)
+          }else {
+            _this.currentPage = _this.currentPage
+            this.page(_this.currentPage)
+          }
+        })
+      }
     },
     page(currentPage){
       const _this = this;

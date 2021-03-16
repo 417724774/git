@@ -36,8 +36,17 @@
                       <el-input type="textarea" readonly autosize v-model="job"></el-input >
                     </el-form-item>
                   </el-form>
-                    <el-button v-if="dis" style="background-color: #49e363;border: none" type="info" round align="center" @click="po(ruleForm.cuserid)"><el-icon class="el-icon-s-promotion" ></el-icon>{{filter(ruleForm.cuserid)}}</el-button>
-                    <el-button v-if="!dis" style="border: none" type="info" round align="center" @click="po(ruleForm.cuserid)"><el-icon class="el-icon-s-promotion" ></el-icon>{{filter(ruleForm.cuserid)}}</el-button>
+                    <div v-if="dis1">
+                      <el-button v-if="dis" style="background-color: #49e363;border: none" type="info" round align="center" @click="po(ruleForm.cuserid)">
+                        <el-icon class="el-icon-s-promotion" ></el-icon>
+                        {{filter(ruleForm.cuserid)}}
+                      </el-button>
+                      <el-button v-if="!dis" style="border: none" type="info" round align="center" @click="po(ruleForm.cuserid)">
+                        <el-icon class="el-icon-s-promotion" ></el-icon>
+                        {{filter(ruleForm.cuserid)}}
+                      </el-button>
+                    </div>
+
                   </div>
                 </el-main>
               </el-container>
@@ -57,6 +66,7 @@ export default {
       filtedCpy:[],
       resumeexist:'',
       dis:'',
+      dis1:true,
       job:''
     };
   },
@@ -97,12 +107,16 @@ export default {
         const _this= this
         this.$axios.post('/company_remsg/save', date).then(res => {
           if (res.data.code === 200) {
-            // _this.reload()
-            alert("投递成功！")
+              this.$notify({
+                title: '投递成功！',
+                type: 'success'
+              })
             _this.filtedCpy.push(cuserid)
             return;
           } else {
-            alert("投递失败！请再次尝试！")
+            this.$notify.error({
+              title: '投递失败！'
+            })
           }
         })
       }
@@ -150,6 +164,7 @@ export default {
         if(res.data.data !== ''){
           _this.job = res.data.data
         }else {
+          _this.dis1 = false
           _this.job = '无'
         }
 

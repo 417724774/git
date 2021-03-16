@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.common.lang.Result;
 import com.wyu.entity.*;
 import com.wyu.service.CompanyJobService;
+import com.wyu.service.CompanyRemsgService;
 import com.wyu.service.JionService;
 import com.wyu.service.TeacherJobfairService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -35,6 +36,9 @@ public class CompanyJobController {
 
     @Autowired
     JionService jionService;
+
+    @Autowired
+    CompanyRemsgService companyRemsgService;
 
     @RequiresAuthentication
     @GetMapping("/joblist")
@@ -103,6 +107,8 @@ public class CompanyJobController {
     public Result jobDelete(@RequestParam Integer cjid) {
 
         Boolean res = companyJobService.removeById(cjid);
+
+        Boolean res1 = companyRemsgService.remove(new QueryWrapper<CompanyRemsg>().eq("cr_cjid",cjid));
         if(res){
             return Result.success(res);
         }else {

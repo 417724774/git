@@ -52,7 +52,6 @@ public class StuempInfoController {
     @RequiresAuthentication
     @PostMapping("/stuemupdate")
     public Result stuemupdate(@RequestBody StuempInfo stures) {
-        System.out.println(stures);
         Boolean res = stuempInfoService.saveOrUpdate(stures,new UpdateWrapper<StuempInfo>().eq("se_stuid",stures.getSeStuid()));
         if(res){
             return Result.success(res);

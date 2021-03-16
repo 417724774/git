@@ -99,9 +99,15 @@ export default {
             }
           }).then(res => {
             if(res.data.code === 200){
-              alert("添加成功！")
+
+              this.$notify({
+                title: '添加成功！',
+                type: 'success'
+              })
             }else {
-              alert("完善失败！请再次尝试！")
+              this.$notify.error({
+                title: '添加失败！请再次尝试！'
+              })
             }
           })
         } else {

@@ -77,10 +77,16 @@ export default {
               }
             }).then(res => {
 
-              if (res.data.code === 200) {
-                alert("发送成功！")
-              } else {
-                alert("发生失败！请再次尝试！")
+              if(res.data.code === 200){
+
+                this.$notify({
+                  title: '发送成功！',
+                  type: 'success'
+                })
+              }else {
+                this.$notify.error({
+                  title: '发生失败！请再次尝试！'
+                })
               }
 
             })
@@ -94,10 +100,16 @@ export default {
               }
             }).then(res => {
 
-              if (res.data.code === 200) {
-                alert("发送成功！")
-              } else {
-                alert("发生失败！请再次尝试！")
+              if(res.data.code === 200){
+
+                this.$notify({
+                  title: '发送成功！',
+                  type: 'success'
+                })
+              }else {
+                this.$notify.error({
+                  title: '发生失败！请再次尝试！'
+                })
               }
             })
           }
@@ -109,10 +121,16 @@ export default {
               }
             }).then(res => {
 
-              if (res.data.code === 200) {
-                alert("发送成功！")
-              } else {
-                alert("发生失败！请再次尝试！")
+              if(res.data.code === 200){
+
+                this.$notify({
+                  title: '发送成功！',
+                  type: 'success'
+                })
+              }else {
+                this.$notify.error({
+                  title: '发生失败！请再次尝试！'
+                })
               }
             })
           }

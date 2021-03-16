@@ -49,7 +49,10 @@ export default {
       let self = this
       let resp = response
       if (resp.code === 200) {
-          alert('上传头像成功！')
+          this.$notify({
+            title: '上传头像成功！',
+            type: 'success'
+          })
           const userInfo = this.$store.getters.getUser
           userInfo.avatar = resp.url
           this.$store.commit("SET_USERINFO",userInfo)

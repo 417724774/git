@@ -19,6 +19,10 @@ public class ComJobList implements Serializable {
 
     private String cUnit;
 
+    private String cName;
+
+    private String cPhone;
+
     private String cUserid;
 
     private String cjType;

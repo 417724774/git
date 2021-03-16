@@ -128,13 +128,17 @@ export default {
             Authorization: localStorage.getItem('token')
           }
         }).then(res => {
-          if (res.data.code === 200) {
-            // _this.reload()
-            alert("参与成功！")
+          if(res.data.code === 200){
             _this.filtedCpy.push(cjId)
             return;
-          } else {
-            alert("参与失败！请再次尝试！")
+            this.$notify({
+              title: '参与成功！',
+              type: 'success'
+            })
+          }else {
+            this.$notify.error({
+              title: '参与失败！请再次尝试！'
+            })
           }
         })
       }
