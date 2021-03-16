@@ -62,7 +62,7 @@ public class TeacherMessageController {
 
     @RequiresAuthentication
     @GetMapping("/messagedetail")
-    public Result messageAdd(@RequestParam Integer tmid){
+    public Result messageDetail(@RequestParam Integer tmid){
 
         TeacherMessage res = teacherMessageService.getById(tmid);
 

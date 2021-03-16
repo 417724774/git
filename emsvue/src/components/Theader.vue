@@ -8,7 +8,7 @@
     <div class="header-right">
       <div class="avator1">
         <el-link :underline="false">
-          <el-avatar title="头像" class="avator" @click.native="avatar" :src="avatarUrl"></el-avatar>
+          <el-avatar title="头像" class="avator" @click.native="avatar" :src="user.avatarUrl" :key="user.avatarUrl"></el-avatar>
         </el-link>
 <!--        <el-link class="username" v-if="dis" style="color: #ffffff" href="">{{ user.name }}</el-link>-->
         <el-dropdown class="dropdown" >
@@ -39,10 +39,10 @@ export default {
     return {
       user:{
         username:'',
-        avator:'',
+        avatarUrl: ''
       },
-      persondis:false,
-      avatarUrl: this.$store.getters.getUser.avatar
+      persondis:false
+
     }
   },
   methods:{
@@ -70,7 +70,7 @@ export default {
     created(){
       if(this.$store.getters.getUser.username !== null){
         this.user.username = this.$store.getters.getUser.username
-        this.user.avator = this.$store.getters.getUser.avator
+        this.user.avatarUrl = this.$store.getters.getUser.avatar
       }
       // if(this.timer){
       //   clearInterval(this.timer)

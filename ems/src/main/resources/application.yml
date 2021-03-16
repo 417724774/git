@@ -9,5 +9,5 @@ wyu:
     header: Authorization
   file:
     staticAccessPath: /local/**
-    uploadAvatar: /home/ems/img/
-  paiUrl: http://47.119.144.160:8080/local/
+    uploadAvatar: D://img/
+  paiUrl: http://localhost:8080/local/

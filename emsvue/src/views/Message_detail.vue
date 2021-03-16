@@ -80,7 +80,11 @@ export default {
   created() {
     const _this = this
     const tmid = _this.$route.params.tmid
-    _this.$axios.get('/teacher/messagedetail?tmid='+tmid).then(res=>{
+    _this.$axios.get('/teacher/messagedetail?tmid='+tmid,{
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(res=>{
 
       if(res.data.code === 200){
         _this.ruleForm = res.data.data
@@ -91,7 +95,11 @@ export default {
 
     }).then(()=>{
 
-      _this.$axios.get('teacher/messagelogs').then(res=>{
+      _this.$axios.get('teacher/messagelogs',{
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      }).then(res=>{
 
         _this.list = res.data.data
 

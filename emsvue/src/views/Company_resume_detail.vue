@@ -50,7 +50,21 @@
 
             <el-input readonly autosize type="textarea" style="width: 700px" v-model="ruleForm.seTrain"></el-input >
           </el-form-item>
-
+          <el-button style="background-color: #49e363;border: none;margin-bottom: 10px" type="info" round align="center" @click="send(ruleForm.seStuid)">
+            <el-icon class="el-icon-s-promotion" ></el-icon>发送消息
+          </el-button>
+          <el-popover
+              placement="top"
+              width="auto"
+              trigger="click"
+          >
+            <el-table :data="this.historyMsg">
+              <el-table-column width="200" property="smTitle" label="标题"></el-table-column>
+              <el-table-column width="200" property="smContent" label="正文"></el-table-column>
+              <el-table-column width="200" property="smPtime" label="时间"></el-table-column>
+            </el-table>
+            <el-button @click="hasSend(ruleForm.seStuid)" style="margin-left: 10px;border: none;background: none;color: #6c6c6c;" class="el-button--mini" slot="reference">历史消息</el-button>
+          </el-popover>
         </el-form>
       </el-main>
     </el-container>
@@ -66,8 +80,8 @@ export default {
   },
   data() {
     return {
-      ruleForm: {
-      }
+      ruleForm: {},
+      historyMsg:[]
     };
   },
   methods: {
@@ -76,18 +90,43 @@ export default {
     },
     close(){
       this.$router.push('/company')
-    }
+    },
+    send(data){
 
+      this.$router.push('/company_resume_send/'+data)
+
+    },
+    hasSend(data){
+
+      const _this= this
+      const studentMessage = {smAccept: data,smManid: _this.$store.getters.getUser.userId}
+      _this.$axios.post('/student/hassend',studentMessage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+
+        if(res.data.code === 200){
+
+          _this.historyMsg = res.data.data
+
+        }else {
+          console.log("无数据！")
+        }
+      })
+
+    }
   },
   created() {
     const sid = this.$route.params.id
-    this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid},{
+    const _this = this
+    _this.$axios.post("/stuempinfo/studentresume",{"seStuid":sid},{
       headers: {
         Authorization: localStorage.getItem('token')
       }
     }).then(res=>{
       //console.log(res.data.data)
-      this.ruleForm = res.data.data
+      _this.ruleForm = res.data.data
     })
   }
 }
@@ -114,7 +153,7 @@ body > .el-container {
 }
 .demo-ruleForm{
   max-width: 500px;
-  margin-left: 32%;
+  margin: 0 auto;
   margin-top: 30px;
   clear: both;
 }

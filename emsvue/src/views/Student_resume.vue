@@ -198,7 +198,7 @@ body > .el-container {
 }
 .demo-ruleForm{
   max-width: 500px;
-  margin-left: 32%;
+  margin: 0 auto;
   margin-top: 30px;
 }
 

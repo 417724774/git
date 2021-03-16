@@ -2,7 +2,7 @@ import axios from 'axios'
 import Element from "element-ui";
 import store from "./store";
 import router from "./router";
-axios.defaults.baseURL='http://47.119.144.160:8080'
+axios.defaults.baseURL='http://localhost:8080'
 axios.interceptors.request.use(config => {
   // 可以统一设置请求头
   return config

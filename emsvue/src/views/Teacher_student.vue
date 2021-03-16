@@ -30,10 +30,11 @@
         <el-table-column
             prop=""
             label="操作"
-            width="100"
-            align="center">
+            width="auto"
+            align="right">
           <template slot-scope="scope" >
-            <router-link tag="el-button" :to="{ name:'Teacher_student_detail',params:{id:scope.row.suserid} }">查看</router-link>
+            <router-link tag="el-button" class="el-button--mini" :to="{ name:'Teacher_student_detail',params:{id:scope.row.suserid} }">查看</router-link>
+            <router-link tag="el-button" class="el-button--mini" :to="{ name:'Teacher_student_send',params:{id:scope.row.suserid} }">通知</router-link>
           </template>
         </el-table-column>
       </el-table>

@@ -13,7 +13,11 @@ export default {
   },
   mounted() {
     const _this = this
-    _this.$axios.get('/teacher/countstuwork').then(res=>{
+    _this.$axios.get('/teacher/countstuwork',{
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(res=>{
       _this.piedata = res.data.data
     }).finally(()=>{
       this.drawLine(_this.piedata);

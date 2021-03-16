@@ -47,6 +47,8 @@ import Teacher_jobfair_notification from "../views/Teacher_jobfair_notification"
 import Student_avatar from "../views/Student_avatar";
 import Company_avatar from "../views/Company_avatar";
 import Teacher_avatar from "../views/Teacher_avatar";
+import Company_resume_send from "../views/Company_resume_send";
+import Teacher_student_send from "../views/Teacher_student_send";
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location){
@@ -151,6 +153,10 @@ const routes = [
         path: '/company_resume_detail/:id',
         name: 'Company_resume_detail',
         component: Company_resume_detail
+      },{
+        path: '/company_resume_send/:id',
+        name: 'Company_resume_send',
+        component: Company_resume_send
       },{
         path: '/company_jion',
         name: 'Company_jion',
@@ -263,6 +269,10 @@ const routes = [
         path: '/teacher_avatar',
         name: 'Teacher_avatar',
         component: Teacher_avatar
+      },{
+        path: '/teacher_student_send/:id',
+        name: 'Teacher_student_send',
+        component: Teacher_student_send
       }
     ]
   },

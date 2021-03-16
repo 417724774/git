@@ -49,6 +49,9 @@ public class UserController {
     @Value("${wyu.paiUrl}")
     private String paiUrl;
 
+    @Value("${wyu.file.uploadAvatar}")
+    private String avatarPath;
+
     @RequiresAuthentication
     @GetMapping("/index")
     public Object index(){
@@ -81,9 +84,7 @@ public class UserController {
     @RequiresAuthentication
     @GetMapping("/logout")
     public Result logout(){
-        System.out.println("退出前");
         SecurityUtils.getSubject().logout();
-        System.out.println("退出后");
         return Result.success(null);
     }
 
@@ -100,11 +101,11 @@ public class UserController {
         } else {
             String fileName = file.getOriginalFilename();  // 文件名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            String filePath = "/home/ems/img/";//这个path就是你要存在服务器上的
+            String filePath = avatarPath;//这个path就是你要存在服务器上的
             fileName = UUID.randomUUID() + suffixName; // 新文件名
             File dest = new File(filePath + fileName);
             //删除上一次头像
-            if(!avatar.equals("null")&&avatar != null){
+            if(!avatar.equals("null")&&!avatar.equals("")){
 
                File del = new File(filePath+avatar.substring(avatar.lastIndexOf("/")));
                FileSystemUtils.deleteRecursively(del);

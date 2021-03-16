@@ -11,7 +11,7 @@
     <div style="margin-top: 50px">
       <el-upload
           class="upload-demo"
-          action="http://47.119.144.160:8080/user/materialPicture"
+          action="http://localhost:8080/user/materialPicture"
           :limit="1"
           :headers="headers"
           :before-upload="beforeUpload"

@@ -8,7 +8,7 @@
     <div class="header-right">
       <div class="avator1">
         <el-link :underline="false">
-          <el-avatar title="头像" class="avator" @click.native="avatar" :src="avatarUrl"></el-avatar>
+          <el-avatar title="头像" class="avator" @click.native="avatar" :src="user.avatarUrl" :key="user.avatarUrl"></el-avatar>
         </el-link>
 <!--        <el-link class="username" v-if="dis" style="color: #ffffff" href="">{{ user.name }}</el-link>-->
 
@@ -43,11 +43,10 @@ export default {
     return {
       user:{
         username:'',
-        avator:'',
+        avatarUrl: ''
       },
       persondis:false,
-      Hidden: true,
-      avatarUrl: this.$store.getters.getUser.avatar
+      Hidden: true
     }
   },
   methods:{
@@ -73,13 +72,17 @@ export default {
 
     },
     avatar(){
-      this.$router.push('/teacher_avatar')
+      this.$router.push('/company_avatar')
     },
     existNoRead(){
 
       const _this = this
       const tnaccept = _this.$store.getters.getUser.userId
-      _this.$axios.get('/company/isexistnoread?tnaccept='+tnaccept).then(res=>{
+      _this.$axios.get('/company/isexistnoread?tnaccept='+tnaccept,{
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      }).then(res=>{
 
         if(res.data.code === 200){
 
@@ -102,7 +105,7 @@ export default {
     created(){
       if(this.$store.getters.getUser.username !== null){
         this.user.username = this.$store.getters.getUser.username
-        this.user.avator = this.$store.getters.getUser.avator
+        this.user.avatarUrl = this.$store.getters.getUser.avatar
       }
       this.existNoRead()
     }

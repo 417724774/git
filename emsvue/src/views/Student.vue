@@ -1,11 +1,52 @@
 <template>
 
   <div>
-    <Sheader v-on:choose="choose">
+    <Sheader v-on:choose="choose" v-on:msg="msg">
     </Sheader>
     <el-container>
       <Saside v-on:choose="choose"></Saside>
       <el-container class="containor">
+        <el-drawer
+            title="消息(0)"
+            :visible.sync="drawer"
+            style="position: absolute;text-align: center"
+            z-index="18"
+            :direction="direction"
+            :size="350"
+        >
+          <template>
+            <el-tabs :stretch="true" active-name="activeName" @tab-click="handleClick">
+              <el-tab-pane label="未读" name="未读"></el-tab-pane>
+              <el-tab-pane label="已读" name="已读"></el-tab-pane>
+            </el-tabs>
+          </template>
+          <el-table
+              :data="tableData" :show-header="false" >
+            <el-table-column type="expand">
+              <template #default="props">
+                <el-form label-position="center" inline class="demo-table-expand">
+                  <el-form-item label="" style="width: 100%">
+                    <span>{{ props.row.smMan }}：</span>
+                  </el-form-item>
+                  <el-form-item label="" style="width: 100%" >
+                    {{ props.row.smContent }}
+                  </el-form-item>
+                </el-form>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="smTitle" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
+                prop="smPtime" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column>
+              <template #default="props">
+                <el-link v-show="dis" type="info" @click="changeStatus(props.row.smId)">标为已读...</el-link>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-drawer>
         <Logs></Logs>
         <el-main style="height: 682px">
           <div id="app">
@@ -32,11 +73,13 @@ export default {
   },
   data(){
     return {
-      blogs:["生活就像海洋，只有意志坚强的人才能到达彼岸",
-        "最值得学习的博客项目eblog",
-        "博客项目eblog讲解视频上线啦，长达17个小时！！",
-        "真正理解Mysql的四种隔离级别@"],
-      isRouterAlive:true
+      blogs:[],
+      isRouterAlive:true,
+      drawer: false,
+      direction: 'rtl',
+      tableData: [],
+      activeName:'未读',
+      dis:true
 
     }
   },
@@ -46,7 +89,69 @@ export default {
   methods: {
     choose(data){
       this.$router.push('/'+data)
+    },
+    msg(){
+      this.getNoRead()
+      this.drawer = true
+    },
+    changeStatus(data){
+
+      const _this = this
+      _this.$axios.post('/student/changemessagestatus',{smId:data,smStatus:'已读'},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+
+        if(res.data.code === 200)
+          this.getNoRead()
+      })
+
+    },
+    handleClick(tab) {
+      if(tab.name == '未读'){
+        this.getNoRead()
+      }else{
+        this.dis = false
+        this.getRead()
+      }
+    },
+    getRead(){
+
+      const _this = this
+      _this.$axios.get('/student/read?smaccept='+_this.$store.getters.getUser.userId,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+
+        if(res.data.code === 200){
+
+          _this.tableData = res.data.data
+          return
+        }
+
+      })
+
+    },
+    getNoRead(){
+      const _this = this
+      _this.$axios.get('/student/noread?smaccept='+_this.$store.getters.getUser.userId,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+
+        if(res.data.code === 200){
+
+          _this.tableData = res.data.data
+        }
+
+      })
     }
+  },
+  created() {
+    this.getNoRead()
   }
 }
 </script>
@@ -60,9 +165,6 @@ export default {
   padding: unset;
   margin-top: 16px;
 }
-body > .el-container {
-  margin-bottom: 40px;
-}
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
   line-height: 260px;
@@ -72,6 +174,8 @@ body > .el-container {
 }
 .containor{
   background: #E9EEF3;
+  overflow: hidden;
+  position: relative;
 }
 .footer{
   background-color: #B3C0D1;

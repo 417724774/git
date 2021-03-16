@@ -26,7 +26,10 @@
             <el-table-column type="expand">
               <template #default="props">
                 <el-form label-position="left" inline class="demo-table-expand">
-                  <el-form-item label="">
+                  <el-form-item label="" style="width: 100%">
+                    <span>{{ props.row.tnMan }}：</span>
+                  </el-form-item>
+                  <el-form-item label="" style="width: 100%">
                     <span>{{ props.row.tnContent }}</span>
                   </el-form-item>
                 </el-form>
@@ -97,6 +100,7 @@ export default {
       })
     },
     msg(){
+      this.getNoRead()
       this.drawer = true
     },
     changeStatus(data){
