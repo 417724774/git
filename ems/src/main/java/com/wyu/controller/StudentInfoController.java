@@ -3,6 +3,8 @@ package com.wyu.controller;
 
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wyu.common.dto.LoginDto;
 import com.wyu.common.lang.Result;
@@ -68,6 +70,51 @@ public class StudentInfoController {
             return Result.success(res);
         }else {
             return Result.fail(res.toString());
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchbysname")
+    public Result searchByName(@RequestParam String sname,@RequestParam(defaultValue = "1L")Integer currentPage){
+
+        Page page = new Page(currentPage,10);
+        IPage res = studentInfoService.page(page,new QueryWrapper<StudentInfo>().like("s_name",sname));
+
+        if (res.getTotal() > 0){
+            return Result.success(res);
+        }else {
+            return Result.fail("无当前数据！");
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchbysuserid")
+    public Result searchByswStuid(@RequestParam String suserid,@RequestParam(defaultValue = "1L")Integer currentPage){
+
+        Page page = new Page(currentPage,10);
+        IPage res = studentInfoService.page(page,new QueryWrapper<StudentInfo>().like("s_userid",suserid));
+
+        if (res.getTotal() > 0){
+            return Result.success(res);
+        }else {
+            return Result.fail("无当前数据！");
+        }
+
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchbysmajor")
+    public Result searchByJmajor(@RequestParam String smajor,@RequestParam(defaultValue = "1L")Integer currentPage){
+
+        Page page = new Page(currentPage,10);
+        IPage res = studentInfoService.page(page,new QueryWrapper<StudentInfo>().like("s_major",smajor));
+
+        if (res.getTotal() > 0){
+            return Result.success(res);
+        }else {
+            return Result.fail("无当前数据！");
         }
 
     }

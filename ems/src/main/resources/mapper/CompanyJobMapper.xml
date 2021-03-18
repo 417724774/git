@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wyu.mapper.CompanyJobMapper">
-
+    <select id="searchJobBycunit" resultType="com.wyu.vo.ComJobList">
+        SELECT c_unit,c_userid,company_job.* FROM company_info,company_job
+        <where>
+            company_info.c_userid = company_job.cj_cuserid AND c_unit LIKE "%"#{cunit}"%"
+        </where>
+    </select>
+    <select id="searchJobBycuserid" resultType="com.wyu.vo.ComJobList">
+        SELECT c_unit,c_userid,company_job.* FROM company_info,company_job
+        <where>
+            company_info.c_userid = company_job.cj_cuserid AND c_userid LIKE "%"#{cuserid}"%"
+        </where>
+    </select>
+    <select id="searchJobAllBycjtype" resultType="com.wyu.vo.ComJobList">
+        SELECT c_unit,c_userid,company_job.* FROM company_info,company_job
+        <where>
+            company_info.c_userid = company_job.cj_cuserid AND cj_status = "已通过" AND cj_type LIKE "%"#{cjtype}"%"
+        </where>
+    </select>
 </mapper>

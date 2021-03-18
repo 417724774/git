@@ -66,13 +66,13 @@ public class TeacherNotificationController {
             hasjionId.add(item.getJCuserid());
         }
 
-        List<CompanyInfo> nojion = companyInfoService.list(new QueryWrapper<CompanyInfo>().select("c_userid").notIn("c_userid",hasjionId));
+        List<CompanyInfo> nojion = companyInfoService.list(new QueryWrapper<CompanyInfo>().select("c_userid").eq("c_status","正常").notIn("c_userid",hasjionId));
 
-//        for (CompanyInfo item : nojion) {
-//            res = teacherNotificationService.save(teacherNotification.setTnAccept(item.getCUserid()).setTnPtime(new Date()));
-//            if (!res)
-//                return Result.fail(res.toString());
-//        }
+        for (CompanyInfo item : nojion) {
+            res = teacherNotificationService.save(teacherNotification.setTnAccept(item.getCUserid()).setTnPtime(new Date()));
+            if (!res)
+                return Result.fail(res.toString());
+        }
         return Result.success(res);
     }
 
@@ -82,7 +82,7 @@ public class TeacherNotificationController {
 
         Boolean res = new Boolean(true);
 
-        List<CompanyInfo> nojion = companyInfoService.list(new QueryWrapper<CompanyInfo>().select("c_userid"));
+        List<CompanyInfo> nojion = companyInfoService.list(new QueryWrapper<CompanyInfo>().select("c_userid").eq("c_status","正常"));
         for (CompanyInfo item : nojion) {
             res = teacherNotificationService.save(teacherNotification.setTnAccept(item.getCUserid()).setTnPtime(new Date()));
             if (!res)

@@ -8,4 +8,19 @@
     </where>
 
 </select>
+    <select id="stuWorkSearchBySname" resultType="com.wyu.vo.stuWorkList">
+        SELECT student_work.*,s_name FROM student_work,student_info
+        <where>
+            student_info.s_userid = student_work.sw_stuid AND s_name LIKE "%"#{sname}"%"
+        </where>
+
+    </select>
+
+    <select id="stuWorkSearchByswStuid" resultType="com.wyu.vo.stuWorkList">
+        SELECT student_work.*,s_name FROM student_work,student_info
+        <where>
+            student_info.s_userid = student_work.sw_stuid AND sw_stuid LIKE "%"#{swStuid}"%"
+        </where>
+
+    </select>
 </mapper>

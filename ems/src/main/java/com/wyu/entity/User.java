@@ -36,4 +36,6 @@ public class User implements Serializable {
     private String type;
 
     private String avatar;
+
+    private String status;
 }

@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.common.lang.Result;
 import com.wyu.entity.CompanyJob;
 import com.wyu.entity.CompanyRemsg;
+import com.wyu.entity.Jion;
 import com.wyu.entity.TeacherJobfair;
+import com.wyu.service.JionService;
 import com.wyu.service.TeacherJobfairService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class TeacherJobfairController {
     @Autowired
     TeacherJobfairService teacherJobfairService;
 
+    @Autowired
+    JionService jionService;
+
     @RequiresAuthentication
     @GetMapping("/jobfairlist")
     public Result jobFairList(@RequestParam(defaultValue = "1") Integer currentPage) {
@@ -45,6 +50,8 @@ public class TeacherJobfairController {
     public Result jobFairDelete(@RequestParam Integer jfid) {
 
         Boolean res = teacherJobfairService.removeById(jfid);
+        if(res)
+            jionService.remove(new QueryWrapper<Jion>().eq("j_tjid",jfid));
         if(res){
             return Result.success(res);
         }else {
@@ -101,6 +108,30 @@ public class TeacherJobfairController {
         List<TeacherJobfair> res = teacherJobfairService.list(new QueryWrapper<TeacherJobfair>());
         if(res.size() >= 1){
             return Result.success(res);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchjfbyjfman")
+    public Result searchJfByjfman(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String jfman) {
+        Page page = new Page(currentPage,5);
+        IPage pageData = teacherJobfairService.page(page,new QueryWrapper<TeacherJobfair>().like("jf_man",jfman));
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchjfbyjftitle")
+    public Result searchJfByjftitle(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String jftitle) {
+        Page page = new Page(currentPage,5);
+        IPage pageData = teacherJobfairService.page(page,new QueryWrapper<TeacherJobfair>().like("jf_title",jftitle));
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
         }else {
             return Result.fail("数据不存在！");
         }

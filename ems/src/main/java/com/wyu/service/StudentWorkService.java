@@ -1,10 +1,10 @@
 package com.wyu.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.entity.StudentWork;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Param;
+import com.wyu.vo.stuWorkList;
+
 
 /**
  * <p>
@@ -12,5 +12,9 @@ import org.apache.ibatis.annotations.Param;
  * </p>
  */
 public interface StudentWorkService extends IService<StudentWork> {
-    IPage<StudentWork> stuWorkList(@Param("page") Page page);
+    IPage<stuWorkList> stuWorkList(IPage<stuWorkList> page);
+
+    IPage<stuWorkList> stuWorkSearchBySname(IPage<stuWorkList> page,String sname);
+
+    IPage<stuWorkList> stuWorkSearchByswStuid( IPage<stuWorkList> page, String swStuid);
 }

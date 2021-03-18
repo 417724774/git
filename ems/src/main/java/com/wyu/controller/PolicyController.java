@@ -174,4 +174,30 @@ public class PolicyController {
 
     }
 
+    @RequiresAuthentication
+    @GetMapping("/policy/searchbypman")
+    public Result searchBypman (@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String pman){
+        Page page = new Page(currentPage,10);
+        IPage pageData = policyService.page(page,new QueryWrapper<Policy>().like("p_man",pman));
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/policy/searchbyptitle")
+    public Result searchByptitle (@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String ptitle){
+        Page page = new Page(currentPage,10);
+        IPage pageData = policyService.page(page,new QueryWrapper<Policy>().like("p_title",ptitle));
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
 }

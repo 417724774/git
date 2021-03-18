@@ -60,7 +60,7 @@ public class JionController {
             res.add(item.getJCuserid());
         }
 
-        List<CompanyInfo> list1 = companyInfoService.list(new QueryWrapper<CompanyInfo>().eq("c_status","已审核"));
+        List<CompanyInfo> list1 = companyInfoService.list(new QueryWrapper<CompanyInfo>().eq("c_status","正常"));
 
         if(!list.isEmpty()){
 

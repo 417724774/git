@@ -131,9 +131,10 @@ export default {
         if (valid) {
 
           const _this = this
-          this.$axios.post('/company/register',this.ruleForm).then(res => {
+          _this.$axios.post('/company/register',this.ruleForm).then(res => {
             if(res.data.code === 200){
-              alert("申请注册成功！请等待审核通过方可登录！")
+              alert("申请注册成功！请等待邮件通知审核结果后方登录！")
+              _this.send()
               //跳转
               _this.$router.push("/login")
             }else {
@@ -151,6 +152,17 @@ export default {
     },
     back(){
       this.$router.push("/login")
+    },
+    send() {
+      const _this = this
+      _this.$axios.post('/company/sendemail',_this.ruleForm).then(res=>{
+        if (res.data.code === 200){
+          _this.$notify({
+            title: '发送邮件成功！',
+            type: 'success'
+          })
+        }
+      })
     }
 
   }

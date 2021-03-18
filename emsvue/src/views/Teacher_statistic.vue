@@ -10,6 +10,27 @@
           <Tpie></Tpie>
         </div>
         <div style="width: 60%;max-height: 100%;float: right">
+          <div style="margin: 10px;clear: both">
+            <span >学号：</span>
+            <el-input
+                placeholder="请输入学号搜索"
+                prefix-icon="el-icon-search"
+                style="width: 25%"
+                @change="searchBy('swstuid?swStuid=')"
+                clearable
+                v-model="swStuid">
+            </el-input>
+            <span style="margin-left: 100px">姓名：</span>
+            <el-input
+                placeholder="请输入姓名搜索"
+                prefix-icon="el-icon-search"
+                style="width: 25%"
+                @change="searchBy('sname?sname=')"
+                clearable
+                v-model="sname">
+            </el-input>
+
+          </div>
           <template style="width: auto;">
             <el-table
                 :data="tableData"
@@ -54,7 +75,7 @@
                 :current-page="currentPage"
                 :page-size="pageSize"
                 :total="total"
-                @current-change=page
+                @current-change=meName
             >
             </el-pagination>
           </template>
@@ -75,7 +96,10 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 10,
+      sname:'',
+      swStuid:'',
+      methodName:''
     }
 
   },
@@ -98,6 +122,46 @@ export default {
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
 
+      })
+    },
+    meName(currentPage){
+      this.currentPage = currentPage
+      if(this.methodName === 'sname'){
+        this.searchBy('sname?sname=')
+      }
+      if(this.methodName === 'swStuid'){
+        this.searchBy('swstuid?swStuid=')
+      }
+      else {
+        this.page(currentPage)
+      }
+    },
+    searchBy(data){
+      const _this = this
+      let url = ''
+      console.log(data)
+      if(data === 'sname?sname='){
+        url = _this.sname
+        this.methodName = 'sname'
+      }else {
+        url = _this.swStuid
+        this.methodName = 'swStuid'
+      }
+      _this.$axios.get('/studentwork/searchby'+data+url+'&currentPage='+_this.currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.tableData = res.data.data.records
+          _this.currentPage = res.data.data.current
+          _this.total = res.data.data.total
+          _this.pageSize = res.data.data.size
+        }else {
+          _this.$notify.error({
+            title: res.data.msg
+          })
+        }
       })
     }
   },

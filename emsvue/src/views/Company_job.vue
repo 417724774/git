@@ -9,6 +9,17 @@
         <el-button align="center" class="back" type="primary" size="mini" icon="el-icon-plus" @click="add" style=" background-color: #6c6c6c"></el-button>
         <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
       </div>
+      <div style="margin: 10px;text-align: left;clear: both">
+        <span >职位类型：</span>
+        <el-input
+            placeholder="请输入职位类型搜索"
+            prefix-icon="el-icon-search"
+            style="width: 20%"
+            @change="searchBy('cjtype?cjtype=')"
+            clearable
+            v-model="cjtype">
+        </el-input>
+      </div>
       <el-table
           row-key="date"
           ref="filterTable"
@@ -53,7 +64,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           :total="total"
-          @current-change=page
+          @current-change=meName
       >
       </el-pagination>
     </template>
@@ -73,7 +84,9 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 5,
+      cjtype:'',
+      methodName:''
     }
   },
   methods: {
@@ -119,10 +132,10 @@ export default {
           _this.tableData.splice(index,1)
           if(_this.tableData.length === 0&&_this.currentPage!==1){
             _this.currentPage = _this.currentPage - 1
-            this.page(_this.currentPage)
+            this.meName(_this.currentPage)
           }else {
             _this.currentPage = _this.currentPage
-            this.page(_this.currentPage)
+            this.meName(_this.currentPage)
           }
         })
       }
@@ -139,6 +152,40 @@ export default {
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
+      })
+    },
+    meName(currentPage){
+      this.currentPage = currentPage
+      if(this.methodName === 'cjtype'){
+        this.searchBy('cjtype?cjtype=')
+      }
+      else {
+        this.page(currentPage)
+      }
+    },
+    searchBy(data){
+      const _this = this
+      const id = _this.$store.getters.getUser.userId
+      let url = ''
+      if(data === 'cjtype?cjtype='){
+        url = _this.cjtype
+        this.methodName = 'cjtype'
+      }
+      _this.$axios.get('/company/searchjobby'+data+url+'&currentPage='+_this.currentPage+"&id="+id,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.tableData = res.data.data.records
+          _this.currentPage = res.data.data.current
+          _this.total = res.data.data.total
+          _this.pageSize = res.data.data.size
+        }else {
+          _this.$notify.error({
+            title: res.data.msg
+          })
+        }
       })
     }
   },

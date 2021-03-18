@@ -5,13 +5,37 @@
         <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back" style="background-color: #6c6c6c;float: left;margin-left: 5px"></el-button>
         <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
       </div>
+    <div style="margin: 10px;text-align: left;clear: both">
+      <span >学号：</span>
+      <el-input
+          placeholder="请输入学号搜索"
+          prefix-icon="el-icon-search"
+          style="width: 20%"
+          @change="searchBy('suserid?suserid=')"
+          clearable
+          v-model="suserid">
+      </el-input>
+      <span style="margin-left: 100px">姓名：</span>
+      <el-input
+          placeholder="请输入姓名搜索"
+          prefix-icon="el-icon-search"
+          style="width: 20%"
+          @change="searchBy('sname?sname=')"
+          clearable
+          v-model="sname">
+      </el-input>
+    </div>
       <el-table
           row-key="date"
           ref="filterTable"
           :data="tableData"
           style="width: auto;
-                  clear: both;
                  margin: 10px">
+        <el-table-column
+            prop="suserid"
+            label="学号"
+            width="auto">
+        </el-table-column>
         <el-table-column
             prop="sname"
             label="姓名"
@@ -44,7 +68,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           :total="total"
-          @current-change=page
+          @current-change=meName
       >
       </el-pagination>
 
@@ -62,7 +86,10 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 10,
+      sname:'',
+      suserid:'',
+      methodName:''
     }
   },
   methods: {
@@ -84,6 +111,46 @@ export default {
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
+      })
+    },
+    meName(currentPage){
+      this.currentPage = currentPage
+      if(this.methodName === 'sname'){
+        this.searchBy('sname?sname=')
+      }
+      if(this.methodName === 'suserid'){
+        this.searchBy('suserid?suserid=')
+      }
+      else {
+        this.page(currentPage)
+      }
+    },
+    searchBy(data){
+      const _this = this
+      let url = ''
+      if(data === 'sname?sname='){
+        url = _this.sname
+        this.methodName = 'sname'
+      }else {
+        url = _this.suserid
+        this.methodName = 'suserid'
+      }
+      console.log(data+url)
+      _this.$axios.get('/student/searchby'+data+url+'&currentPage='+_this.currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.tableData = res.data.data.records
+          _this.currentPage = res.data.data.current
+          _this.total = res.data.data.total
+          _this.pageSize = res.data.data.size
+        }else {
+          _this.$notify.error({
+            title: res.data.msg
+          })
+        }
       })
     }
   },

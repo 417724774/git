@@ -64,10 +64,16 @@ public class UserController {
 
 
         User user = userService.getOne(new QueryWrapper<User>().eq("user_id",loginDto.getUserId()));
-        Assert.notNull(user,"用户不存在");
+        if(user == null){
+            return Result.fail("用户不存在");
+        }
 
         if(!user.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))){
             return Result.fail("用户名或密码不正确");
+        }
+
+        if(!user.getStatus().equals("正常")){
+            return Result.fail("用户已被冻结，请联系管理员咨询");
         }
 
         String jwt = jwtUtils.generateToken(user.getId());
@@ -168,6 +174,7 @@ public class UserController {
     public Result userAdd(@RequestBody User user){
 
         user.setPassword(SecureUtil.md5(user.getPassword()));
+        user.setStatus("正常");
         Boolean res = userService.save(user);
 
         if (res){

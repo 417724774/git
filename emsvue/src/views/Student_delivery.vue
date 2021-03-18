@@ -7,6 +7,17 @@
       <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
     </div>
     <template>
+      <div style="margin: 10px;text-align: left;clear: both">
+        <span >职位类型：</span>
+        <el-input
+            placeholder="请输入职位类型搜索"
+            prefix-icon="el-icon-search"
+            style="width: 20%"
+            @change="searchBy('cjtype?cjtype=')"
+            clearable
+            v-model="cjtype">
+        </el-input>
+      </div>
       <el-table
           :data="tableData"
           style="width: auto;
@@ -70,7 +81,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           :total="total"
-          @current-change=page
+          @current-change=meName
       >
       </el-pagination>
     </template>
@@ -89,7 +100,9 @@ export default {
       total: 0,
       pageSize: 5,
       filtedCpy:[],
-      resumeexist:''
+      resumeexist:'',
+      cjtype:'',
+      methodName:''
 
     }
   },
@@ -185,6 +198,39 @@ export default {
         })
       })
 
+    },
+    meName(currentPage){
+      this.currentPage = currentPage
+      if(this.methodName === 'cjtype'){
+        this.searchBy('cjtype?cjtype=')
+      }
+      else {
+        this.page(currentPage)
+      }
+    },
+    searchBy(data){
+      const _this = this
+      let url = ''
+      if(data === 'cjtype?cjtype='){
+        url = _this.cjtype
+        this.methodName = 'cjtype'
+      }
+      _this.$axios.get('/company/searchjoballby'+data+url+'&currentPage='+_this.currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.tableData = res.data.data.records
+          _this.currentPage = res.data.data.current
+          _this.total = res.data.data.total
+          _this.pageSize = res.data.data.size
+        }else {
+          _this.$notify.error({
+            title: res.data.msg
+          })
+        }
+      })
     }
   },
   created() {

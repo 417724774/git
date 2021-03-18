@@ -9,6 +9,26 @@
         <el-button align="center" class="back" type="primary" size="mini" icon="el-icon-plus" @click="add" style="background-color: #6c6c6c;margin-left: 5px"></el-button>
         <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
       </div>
+      <div style="margin: 10px;text-align: left;clear: both">
+        <span >负责人：</span>
+        <el-input
+            placeholder="请输入负责人搜索"
+            prefix-icon="el-icon-search"
+            style="width: 20%"
+            @change="searchBy('jfman?jfman=')"
+            clearable
+            v-model="jfman">
+        </el-input>
+        <span style="margin-left: 100px">标题：</span>
+        <el-input
+            placeholder="请输入标题搜索"
+            prefix-icon="el-icon-search"
+            style="width: 20%"
+            @change="searchBy('jftitle?jftitle=')"
+            clearable
+            v-model="jftitle">
+        </el-input>
+      </div>
       <el-table
           row-key="date"
           ref="filterTable"
@@ -23,6 +43,11 @@
             width="180"
             column-key="date"
         >
+        </el-table-column>
+        <el-table-column
+            prop="jfMan"
+            label="负责人"
+            width="100">
         </el-table-column>
         <el-table-column
             prop="jfTitle"
@@ -58,7 +83,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           :total="total"
-          @current-change=page
+          @current-change=meName
       >
       </el-pagination>
     </template>
@@ -81,7 +106,10 @@ export default {
       pageSize: 5,
       dis:'',
       filtedjf:[],
-      status:[]
+      status:[],
+      jfman:'',
+      jftitle:'',
+      methodName:''
     }
   },
   methods: {
@@ -118,6 +146,9 @@ export default {
         }).then(res=>{
           if(res.data.code === 200){
             localStorage.setItem("currentPage",_this.currentPage)
+            localStorage.setItem("methodName",_this.methodName)
+            localStorage.setItem("jfman",_this.jfman)
+            localStorage.setItem("jftitle",_this.jftitle)
             _this.$router.replace( "/test");
             this.$notify({
               title: '删除成功！',
@@ -143,17 +174,6 @@ export default {
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
-
-        const tuserid = _this.$store.getters.getUser.userId
-        _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:tuserid},{
-          headers: {
-            Authorization: localStorage.getItem('token')
-          }
-        }).then(res=>{
-          if(res.data.data !== null)
-            this.filtedjf = res.data.data
-        })
-
       })
     },
     jion(data){
@@ -165,11 +185,69 @@ export default {
         if(res.data.code === 200)
           this.status = res.data.data
       })
+    },
+    get(){
+      const _this = this
+      const tuserid = _this.$store.getters.getUser.userId
+      _this.$axios.post('/teacher/jobfairfilter',{jfTuserid:tuserid},{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.data !== null)
+          this.filtedjf = res.data.data
+      })
+    },
+    meName(currentPage){
+      this.currentPage = currentPage
+      if(this.methodName === 'jfman'){
+        this.searchBy('jfman?jfman=')
+      }
+      if(this.methodName === 'jftitle'){
+        this.searchBy('jftitle?jftitle=')
+      }
+      else {
+        this.page(currentPage)
+      }
+    },
+    searchBy(data){
+      const _this = this
+      let url = ''
+      if(data === 'jfman?jfman='){
+        url = _this.jfman
+        _this.methodName = 'jfman'
+      }else {
+        url = _this.jftitle
+        _this.methodName = 'jftitle'
+      }
+      _this.$axios.get('/teacher/searchjfby'+data+url+'&currentPage='+_this.currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.tableData = res.data.data.records
+          _this.currentPage = res.data.data.current
+          _this.total = res.data.data.total
+          _this.pageSize = res.data.data.size
+        }else {
+          _this.$notify.error({
+            title: res.data.msg
+          })
+        }
+      })
     }
   },
   created() {
-    this.page(localStorage.getItem('currentPage')||1)
+    this.methodName = localStorage.getItem('methodName')
+    this.jftitle = localStorage.getItem('jftitle')
+    this.jfman = localStorage.getItem('jfman')
+    this.meName(Number(localStorage.getItem('currentPage'))||1)
+    this.get()
     localStorage.removeItem('currentPage')
+    localStorage.removeItem('methodName')
+    localStorage.removeItem('jftitle')
+    localStorage.removeItem('jfman')
   }
 }
 </script>

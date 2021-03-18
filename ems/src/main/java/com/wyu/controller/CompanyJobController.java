@@ -11,6 +11,7 @@ import com.wyu.service.CompanyJobService;
 import com.wyu.service.CompanyRemsgService;
 import com.wyu.service.JionService;
 import com.wyu.service.TeacherJobfairService;
+import com.wyu.vo.ComJobList;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -153,6 +154,66 @@ public class CompanyJobController {
             return Result.success(res);
         }else {
             return Result.fail("操作失败！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchjobbycunit")
+    public Result searchJobBycunit(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String cunit){
+
+        Page page = new Page(currentPage,5);
+
+        IPage pageData = companyJobService.searchJobBycunit(page,cunit);
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchjobbycuserid")
+    public Result searchJobBycuserid(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String cuserid){
+
+        Page page = new Page(currentPage,5);
+
+        IPage pageData = companyJobService.searchJobBycuserid(page,cuserid);
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchjobbycjtype")
+    public Result searchJobBycjtype(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String cjtype,@RequestParam Integer id){
+
+        Page page = new Page(currentPage,5);
+
+        IPage pageData = companyJobService.page(page,new QueryWrapper<CompanyJob>().eq("cj_cuserid",id).like("cj_type",cjtype));
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchjoballbycjtype")
+    public Result searchJobAllBycjtype(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String cjtype){
+
+        Page page = new Page(currentPage,5);
+
+        IPage pageData = companyJobService.searchJobAllBycjtype(page,cjtype);
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
         }
     }
 

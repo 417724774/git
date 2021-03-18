@@ -9,6 +9,26 @@
         <el-button align="center" class="back" type="primary" size="mini" icon="el-icon-plus" @click="add" style=" background-color: #6c6c6c"></el-button>
         <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px"></el-button>
       </div>
+      <div style="margin: 10px;text-align: left;clear: both">
+        <span >发布人：</span>
+        <el-input
+            placeholder="请输入发布人搜索"
+            prefix-icon="el-icon-search"
+            style="width: 20%"
+            @change="searchBy('tmman?tmman=')"
+            clearable
+            v-model="tmman">
+        </el-input>
+        <span style="margin-left: 100px">标题：</span>
+        <el-input
+            placeholder="请输入标题搜索"
+            prefix-icon="el-icon-search"
+            style="width: 20%"
+            @change="searchBy('tmtitle?tmtitle=')"
+            clearable
+            v-model="tmtitle">
+        </el-input>
+      </div>
       <el-table
           row-key="date"
           ref="filterTable"
@@ -57,7 +77,7 @@
           :current-page="currentPage"
           :page-size="pageSize"
           :total="total"
-          @current-change=page
+          @current-change=meName
       >
       </el-pagination>
     </template>
@@ -78,7 +98,10 @@ export default {
       currentPage:1,
       total: 0,
       pageSize: 5,
-      dis:''
+      dis:'',
+      tmman:'',
+      tmtitle:'',
+      methodName:''
     }
   },
   methods: {
@@ -130,10 +153,10 @@ export default {
           _this.tableData.splice(index,1)
           if(_this.tableData.length === 0&&_this.currentPage!==1){
             _this.currentPage = _this.currentPage - 1
-            _this.page(_this.currentPage)
+            _this.meName(_this.currentPage)
           }else {
             _this.currentPage = _this.currentPage
-            _this.page(_this.currentPage)
+            _this.meName(_this.currentPage)
           }
           // console.log(_this.total)
           // _this.total -= 1
@@ -153,6 +176,45 @@ export default {
         _this.currentPage = res.data.data.current
         _this.total = res.data.data.total
         _this.pageSize = res.data.data.size
+      })
+    },
+    meName(currentPage){
+      this.currentPage = currentPage
+      if(this.methodName === 'tmmam'){
+        this.searchBy('tmman?tmman=')
+      }
+      if(this.methodName === 'tmtitle'){
+        this.searchBy('tmtitle?tmtitle=')
+      }
+      else {
+        this.page(currentPage)
+      }
+    },
+    searchBy(data){
+      const _this = this
+      let url = ''
+      if(data === 'tmman?tmman='){
+        url = _this.tmman
+        this.methodName = 'tmman'
+      }else {
+        url = _this.tmtitle
+        this.methodName = 'tmtitle'
+      }
+      _this.$axios.get('/teacher/searchmsgby'+data+url+'&currentPage='+_this.currentPage,{
+        headers: {
+          Authorization: localStorage.getItem('token')
+        }
+      }).then(res=>{
+        if(res.data.code === 200){
+          _this.tableData = res.data.data.records
+          _this.currentPage = res.data.data.current
+          _this.total = res.data.data.total
+          _this.pageSize = res.data.data.size
+        }else {
+          _this.$notify.error({
+            title: res.data.msg
+          })
+        }
       })
     }
   },

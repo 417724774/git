@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wyu.common.lang.Result;
+import com.wyu.entity.Policy;
 import com.wyu.entity.TeacherMessage;
 import com.wyu.service.TeacherMessageService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -101,5 +102,31 @@ public class TeacherMessageController {
             return Result.fail("无数据！");
         }
 
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchmsgbytmman")
+    public Result searchBypman (@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String tmman){
+        Page page = new Page(currentPage,10);
+        IPage pageData = teacherMessageService.page(page,new QueryWrapper<TeacherMessage>().like("tm_man",tmman));
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/searchmsgbytmtitle")
+    public Result searchByptitle (@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam String tmtitle){
+        Page page = new Page(currentPage,10);
+        IPage pageData = teacherMessageService.page(page,new QueryWrapper<TeacherMessage>().like("tm_title",tmtitle));
+
+        if(pageData.getTotal() >= 1){
+            return Result.success(pageData);
+        }else {
+            return Result.fail("数据不存在！");
+        }
     }
 }
