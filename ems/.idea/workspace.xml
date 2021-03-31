@@ -6,6 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="42fda78c-7d22-4170-b3df-74c4df467b07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/ListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/ListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StuempInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StuempInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/StuempInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/StuempInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/ListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/ListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/StuempInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/StuempInfoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/components/Caside.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/components/Caside.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/components/Saside.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/components/Saside.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/components/Taside.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/components/Taside.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Student_resume.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Student_resume.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/src/main/java/com/jeesite/modules/student/entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/src/main/java/com/jeesite/modules/student/entity/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/src/main/java/com/jeesite/modules/student/web/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/src/main/java/com/jeesite/modules/student/web/StudentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,6 +294,8 @@
       <workItem from="1616485769294" duration="269000" />
       <workItem from="1616669338700" duration="25000" />
       <workItem from="1616689379982" duration="816000" />
+      <workItem from="1616743278433" duration="4141000" />
+      <workItem from="1617159061279" duration="17665000" />
     </task>
     <servers />
   </component>

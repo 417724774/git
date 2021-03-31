@@ -101,8 +101,6 @@ public class StudentController extends BaseController {
 				try {
 					studentService.insert(student);
 					successNum++;
-				} catch (ConstraintViolationException ex) {
-					failureMsg.append("学生ID： "+student.getStudentId()+" 导入失败："+ex.getMessage());
 				}catch (Exception ex) {
 					failureMsg.append("学生ID： "+student.getStudentId()+" 导入失败："+ex.getMessage());
 				}

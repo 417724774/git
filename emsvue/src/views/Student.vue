@@ -7,7 +7,7 @@
       <Saside v-on:choose="choose"></Saside>
       <el-container class="containor">
         <el-drawer
-            title="消息(0)"
+            :title="title()"
             :visible.sync="drawer"
             style="position: absolute;text-align: center"
             z-index="18"
@@ -79,8 +79,8 @@ export default {
       direction: 'rtl',
       tableData: [],
       activeName:'未读',
-      dis:true
-
+      dis:true,
+      noRead:''
     }
   },
   computed:{
@@ -111,6 +111,7 @@ export default {
     handleClick(tab) {
       if(tab.name == '未读'){
         this.getNoRead()
+        this.dis = true
       }else{
         this.dis = false
         this.getRead()
@@ -141,13 +142,15 @@ export default {
           Authorization: localStorage.getItem('token')
         }
       }).then(res=>{
-
         if(res.data.code === 200){
-
           _this.tableData = res.data.data
+          _this.noRead = _this.tableData.length
         }
 
       })
+    },
+    title(){
+      return '新消息（'+this.noRead+'）'
     }
   },
   created() {

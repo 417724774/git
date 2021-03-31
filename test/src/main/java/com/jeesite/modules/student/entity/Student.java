@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
  * @author test
  * @version 2021-03-25
  */
+
 @Table(name="student", alias="a", label="student信息", columns={
 		@Column(name="student_id", attrName="studentId", label="id", isPK=true),
 		@Column(name="student_name", attrName="studentName", label="姓名", queryType=QueryType.LIKE),
@@ -28,9 +29,26 @@ import javax.validation.constraints.NotNull;
 public class Student extends DataEntity<Student> {
 	
 	private static final long serialVersionUID = 1L;
+
+
+	/**
+	 * id
+	 */
 	private String studentId;		// id
+
+	/**
+	 * 姓名
+	 */
 	private String studentName;		// 姓名
+
+	/**
+	 * 性别
+	 */
 	private String sex;		// 性别
+
+	/**
+	 * student_number
+	 */
 	private Long studentNumber;		// student_number
 	
 	public Student() {

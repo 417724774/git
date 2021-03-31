@@ -1,6 +1,6 @@
 <template>
-  <el-aside width="200px">
-    <el-col :span="12">
+  <el-aside width="11%">
+    <el-col :span="12" style="width: 100%">
       <el-menu
           :uniqueOpened="true"
           default-active="2"
@@ -65,7 +65,8 @@ export default {
   max-width: 100%;
 }
 .el-menu-vertical-demo{
-  width: 199px;
+  width: 99%;
+  border: none;
   height: auto;
   text-align: left;
 }

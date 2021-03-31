@@ -126,12 +126,6 @@ public class UserController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            Picture materialPicture = new Picture();
-//            materialPicture.setImgTitle(imgTitle);
-//            String filename = apiUrl + fileName;
-//            materialPicture.setPicture_url(filename);
-
-
             String fileUrl = paiUrl +  fileName;
 
             User user = new User().setAvatar(fileUrl);

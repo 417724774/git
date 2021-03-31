@@ -55,7 +55,7 @@ public class ListController {
     public Result companyList(@RequestParam(defaultValue = "1") Integer currentPage){
 
         Page page = new Page(currentPage,5);
-        IPage pageData = companyInfoService.page(page,new QueryWrapper<CompanyInfo>().eq("c_status","已审核"));
+        IPage pageData = companyInfoService.page(page,new QueryWrapper<CompanyInfo>().eq("c_status","正常"));
 
         if(pageData.getTotal() >= 1){
             return Result.success(pageData);

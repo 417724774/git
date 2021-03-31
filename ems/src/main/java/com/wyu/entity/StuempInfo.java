@@ -56,5 +56,7 @@ public class StuempInfo implements Serializable {
 
     private String seSchool;
 
+    private String sePicture;
+
 
 }
