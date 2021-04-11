@@ -60,6 +60,21 @@
               <el-input readonly autosize type="textarea" style="max-width: 100%;margin-bottom: 20px" v-model="ruleForm.seIntroduction"></el-input >
               <div style="border-bottom:5px solid #266f76;width: 98%"></div>
             </el-form-item>
+            <el-button style="background-color: #49e363;border: none;margin-bottom: 10px" type="info" round align="center" @click="send(ruleForm.seStuid)">
+              <el-icon class="el-icon-s-promotion" ></el-icon>发送消息
+            </el-button>
+            <el-popover
+                placement="top"
+                width="auto"
+                trigger="click"
+            >
+              <el-table :data="this.historyMsg">
+                <el-table-column width="200" property="smTitle" label="标题"></el-table-column>
+                <el-table-column width="200" property="smContent" label="正文"></el-table-column>
+                <el-table-column width="200" property="smPtime" label="时间"></el-table-column>
+              </el-table>
+              <el-button @click="hasSend(ruleForm.seStuid)" style="margin-left: 10px;border: none;background: none;color: #6c6c6c;" class="el-button--mini" slot="reference">历史消息</el-button>
+            </el-popover>
           </el-form>
         </div>
       </el-main>
