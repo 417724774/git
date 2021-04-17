@@ -9,8 +9,8 @@
           <el-button class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;float: right;margin-right: 5px;margin-bottom: 10px"></el-button>
         </div>
         <div class="ruleFrom" style="border: 2px solid #cecbcb;width: 100%">
-          <div style="float: right;height: 10px;margin: 20px" title="照片">
-            <img v-if="this.ruleForm.sePicture" :src="this.ruleForm.sePicture" class="avatar">
+          <div style="float: right;height: 175px;margin: 20px" title="照片">
+            <img v-if="this.ruleForm.sePicture" :src="this.ruleForm.sePicture" class="avatar" style="height: 100%;width: 150px">
           </div>
           <el-form :model="ruleForm" ref="ruleForm" label-width="20px" class="demo-ruleForm">
             <el-form-item prop="seName" style="text-align: left;width: 70%">
@@ -138,6 +138,7 @@ export default {
     }).then(res=>{
       //console.log(res.data.data)
       _this.ruleForm = res.data.data
+      _this.ruleForm.sePicture = _this.ruleForm.sePicture+"?"+new Date().getTime()
     })
   }
 }

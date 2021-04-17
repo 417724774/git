@@ -186,7 +186,7 @@ public class CompanyInfoController {
         }else {
             companyInfo.setCStatus("已冻结");
             Boolean res = companyInfoService.updateById(companyInfo);
-            Boolean res1 = userService.updateById(new User().setStatus("已冻结").setUserId(companyInfo.getCUserid()));
+            Boolean res1 = userService.update(new User().setStatus("已冻结"),new QueryWrapper<User>().eq("user_id",companyInfo.getCUserid()));
             if(res&&res1)
                 return Result.success(res);
             else
