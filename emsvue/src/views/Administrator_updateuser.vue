@@ -14,7 +14,7 @@
             <el-input v-model="ruleForm.userId"></el-input>
           </el-form-item>
           <el-form-item label="密码：" prop="password">
-            <el-input placeholder="123456" v-model="ruleForm.password"></el-input>
+            <el-input type="password" placeholder="123456" v-model="ruleForm.password"></el-input>
           </el-form-item>
           <el-form-item label="姓名：" prop="username">
             <el-input v-model="ruleForm.username"></el-input>

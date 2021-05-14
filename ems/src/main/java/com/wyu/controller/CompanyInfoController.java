@@ -45,6 +45,7 @@ public class CompanyInfoController {
         if (get == null){
 
             companyInfo.setCStatus("未审核");
+            companyInfo.setCPassword(SecureUtil.md5(companyInfo.getCPassword()));
             Boolean res = companyInfoService.save(companyInfo);
 
             if(res){
@@ -93,9 +94,9 @@ public class CompanyInfoController {
     public Result companyDelete(@RequestBody CompanyInfo companyInfo) {
         Boolean res = companyInfoService.removeById(companyInfo.getCUserid());
         if(res){
-            String to = "q417724774@163.com";
-            String subject = "五邑大学毕业生就业管理系统企业用户注册结果";
-            String content = "尊敬的 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 很抱歉的告诉您，由于您的注册填写资料未能通过校方审核，企业用户注册失败，请前往系统重新进行填写资料注册！http://localhost:8081/company_register";
+            String to = companyInfo.getCEmail();
+            String subject = "五邑大学毕业生就业管理信息系统企业用户注册结果";
+            String content = "尊敬的 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 很抱歉的告诉您，由于您的注册填写资料未能通过校方审核，企业用户注册失败！您可前往五邑大学毕业生就业管理信息系统 http://localhost:8081/company_register重新进行填写资料注册！";
             iMailService.sendSimpleMail(to,subject,content);
             return Result.success(res);
         }else {
@@ -165,6 +166,11 @@ public class CompanyInfoController {
                                   .setType("企业")
                                   .setStatus("正常");
             Boolean res1 = userService.save(user);
+
+            String to = companyInfo.getCEmail();
+            String subject = "五邑大学毕业生就业管理信息系统企业用户注册结果";
+            String content = "尊敬的 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 恭喜您！您的注册资料已经通过校方审核，企业用户注册成功！您现在已可使用所注册用户名、密码登录五邑大学毕业生就业管理信息系统！http://localhost:8081/";
+            iMailService.sendSimpleMail(to,subject,content);
 
             if(res&&res1)
                 return Result.success(res);
@@ -245,7 +251,7 @@ public class CompanyInfoController {
 
         String to = "1021530563@qq.com";
         String subject = "您有一份新注册确认，请前往认证！";
-        String content = "新企业 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 请求注册用户，请前往系统认证！http://localhost:8081/";
+        String content = "新企业 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 请求注册企业用户，请尽快前往五邑大学毕业生就业管理信息系统认证！http://localhost:8081/";
         iMailService.sendSimpleMail(to,subject,content);
 
         return Result.success("发送成功！");

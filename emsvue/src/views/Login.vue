@@ -6,13 +6,23 @@
         <img class="hlogo" src="../assets/logo.png" alt="WYU UNIVERSITY!">
       </el-header>
       <el-main>
-        <h1 class="h1">毕业生就业管理系统</h1>
+        <h1 class="h1">毕业生就业管理信息系统</h1>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="userId">
             <el-input v-model="ruleForm.userId"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input type="password" v-model="ruleForm.password"></el-input>
+          </el-form-item>
+          <el-form-item >
+            <el-input v-model="ruleForm.code" placeholder="- - - -" prop="code">
+              <template slot="prepend">验证码</template>
+              <template slot="append">
+                <div class="login-code" @click="refreshCode">
+                  <Identify :identifyCode="identifyCode"></Identify>
+                </div>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
@@ -28,28 +38,53 @@
 </template>
 
 <script>
+import Identify from "../components/Identify";
 export default {
+  components:{Identify},
   name: "Login",
   data() {
     return {
       ruleForm: {
         userId: '311700',
-        password: '123456'
+        password: '123456',
+        code:''
       },
       rules: {
-        username: [
+        userId: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'change' }
+        ],
+        code: [
+          { required: true, message: "请输入验证码", trigger: "blur" }
         ]
       },
-      dis:true
+      dis:true,
+      identifyCodes: '1234567890abcdefghijklmnopqrstuvwxyz',
+      identifyCode: ''
     };
   },
   methods: {
+    refreshCode () {
+      this.identifyCode = ''
+      this.makeCode(this.identifyCodes, 4)
+    },
+    makeCode (o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
+      }
+    },
+    randomNum (min, max) {
+      return Math.floor(Math.random() * (max - min) + min)
+    },
     submitForm(formName) {
+      if (this.ruleForm.code.toLowerCase() !== this.identifyCode.toLowerCase()) {
+        this.$message.error('请填写正确验证码')
+        this.refreshCode()
+        return
+      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
 
@@ -105,6 +140,11 @@ export default {
       this.$refs[formName].resetFields();
     }
 
+  },
+  mounted() {
+    // 初始化验证码
+    this.identifyCode = ''
+    this.makeCode(this.identifyCodes, 4)
   }
 }
 </script>
@@ -154,7 +194,8 @@ body > .el-container {
 }
 
 .hlogo{
-  height: 100%;
+  margin-top: 10px;
+  height: 80%;
 
 }
 

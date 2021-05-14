@@ -30,7 +30,11 @@ public class StudentMessageController {
     @GetMapping("/noread")
     public Result noRead(@RequestParam String smaccept){
 
-        List<StudentMessage> res = studentMessageService.list(new QueryWrapper<StudentMessage>().eq("sm_accept",smaccept).eq("sm_status","未读").orderByDesc("sm_id"));
+        List<StudentMessage> res = studentMessageService.list(
+                new QueryWrapper<StudentMessage>()
+                        .eq("sm_accept",smaccept)
+                        .eq("sm_status","未读")
+                        .orderByDesc("sm_id"));
 
         return Result.success(res);
 
@@ -40,7 +44,11 @@ public class StudentMessageController {
     @GetMapping("/read")
     public Result read(@RequestParam String smaccept){
 
-        List<StudentMessage> res = studentMessageService.list(new QueryWrapper<StudentMessage>().eq("sm_accept",smaccept).eq("sm_status","已读").orderByDesc("sm_id"));
+        List<StudentMessage> res = studentMessageService.list(
+                new QueryWrapper<StudentMessage>()
+                        .eq("sm_accept",smaccept)
+                        .eq("sm_status","已读")
+                        .orderByDesc("sm_id"));
 
         return Result.success(res);
 

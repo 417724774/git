@@ -15,15 +15,15 @@
           <el-form-item label="提醒：" prop="man">
             <el-select v-model="ruleForm.man" placeholder="请选择">
               <el-option v-if="dis" label="已参与公司" value="1"></el-option>
-              <el-option label="未参与公司" value="2"></el-option>
-              <el-option v-if="dis" label="全部公司" value="3"></el-option>
+              <el-option v-if="dis" label="未参与公司" value="2"></el-option>
+              <el-option label="全部公司" value="3"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="正文：" prop="tnContent">
             <el-input autosize type="textarea" v-model="ruleForm.tnContent"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">发送</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>

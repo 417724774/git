@@ -55,7 +55,7 @@ public class CompanyInfo implements Serializable {
     @NotBlank(message = "公司简介不能为空")
     private String cIntroduction;
 
-    @NotBlank(message = "公司简介不能为空")
+    @NotBlank(message = "公司地址不能为空")
     private String cAddress;
 
     @NotBlank(message = "邮箱不能为空")

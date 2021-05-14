@@ -7,8 +7,25 @@
     <list default="true" id="42fda78c-7d22-4170-b3df-74c4df467b07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/CompanyInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/CompanyInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StudentMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/controller/StudentMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wyu/entity/CompanyInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wyu/entity/CompanyInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/CompanyInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/CompanyInfoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/controller/StudentMessageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/controller/StudentMessageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/wyu/entity/CompanyInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/wyu/entity/CompanyInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/assets/headerbackground.png" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/assets/headerbackground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/assets/headerlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/assets/headerlogo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Administrator_updateuser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Administrator_updateuser.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_job_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_job_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_send.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Company_resume_send.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Message_detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Message_detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../emsvue/src/views/Teacher_jobfair_notification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../emsvue/src/views/Teacher_jobfair_notification.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,6 +306,18 @@
       <workItem from="1618130951291" duration="4347000" />
       <workItem from="1618371546584" duration="6000" />
       <workItem from="1618664919021" duration="2206000" />
+      <workItem from="1619838935928" duration="1909000" />
+      <workItem from="1619920313262" duration="733000" />
+      <workItem from="1620007641392" duration="2707000" />
+      <workItem from="1620110978948" duration="1223000" />
+      <workItem from="1620263251514" duration="1814000" />
+      <workItem from="1620311731979" duration="1236000" />
+      <workItem from="1620398444242" duration="3175000" />
+      <workItem from="1620480028513" duration="847000" />
+      <workItem from="1620536370807" duration="4686000" />
+      <workItem from="1620650254479" duration="7077000" />
+      <workItem from="1620708867588" duration="9104000" />
+      <workItem from="1620785723388" duration="1923000" />
     </task>
     <servers />
   </component>

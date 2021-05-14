@@ -54,8 +54,18 @@
           <el-form-item label="公司简介" prop="cintroduction">
             <el-input type="textarea" autosize v-model="ruleForm.cintroduction"></el-input>
           </el-form-item>
+          <el-form-item >
+            <el-input v-model="ruleForm.code" placeholder="- - - -" prop="code">
+              <template slot="prepend">验证码</template>
+              <template slot="append">
+                <div class="login-code" @click="refreshCode">
+                  <Identify :identifyCode="identifyCode"></Identify>
+                </div>
+              </template>
+            </el-input>
+          </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">申请注册</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -67,7 +77,9 @@
 </template>
 
 <script>
+import Identify from "../components/Identify";
 export default {
+  components:{Identify},
   name: "Login",
   data() {
     return {
@@ -83,7 +95,8 @@ export default {
         cintroduction: '',
         cemail:'',
         crtime:this.$store.getters.getDate,
-        cadress:''
+        cadress:'',
+        code:''
       },
       rules: {
         cuserid: [
@@ -121,12 +134,34 @@ export default {
         ],
         cadress: [
           {  required: true, message: '请填写公司地址', trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: "请输入验证码", trigger: "blur" }
         ]
-      }
+      },
+      identifyCodes: '1234567890abcdefghijklmnopqrstuvwxyz',
+      identifyCode: ''
     };
   },
   methods: {
+    refreshCode () {
+      this.identifyCode = ''
+      this.makeCode(this.identifyCodes, 4)
+    },
+    makeCode (o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
+      }
+    },
+    randomNum (min, max) {
+      return Math.floor(Math.random() * (max - min) + min)
+    },
     submitForm(formName) {
+      if (this.ruleForm.code.toLowerCase() !== this.identifyCode.toLowerCase()) {
+        this.$message.error('请填写正确验证码')
+        this.refreshCode()
+        return
+      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
 
@@ -165,6 +200,11 @@ export default {
       })
     }
 
+  },
+  mounted() {
+    // 初始化验证码
+    this.identifyCode = ''
+    this.makeCode(this.identifyCodes, 4)
   }
 }
 </script>

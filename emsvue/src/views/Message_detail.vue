@@ -8,7 +8,7 @@
           <el-button align="center" class="back" type="primary" size="mini" icon="el-icon-close" @click="close" style="background-color: #6c6c6c;margin-right: 5px"></el-button>
         </div>
         <el-form :model="ruleForm" ref="ruleForm" label-width="110px" class="demo-ruleForm">
-          <el-form-item label="职位性质：" prop="tmType">
+          <el-form-item label="类别：" prop="tmType">
             <el-input readonly v-model="ruleForm.tmType"></el-input>
           </el-form-item>
           <el-form-item label="发布时间：" prop="tmPtime">
