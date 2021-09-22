@@ -12,7 +12,8 @@
             <div style="border-bottom:2px solid red;">
               <p>{{detail.pDate}} 来源：{{detail.psource}}</p>
             </div>
-            <h2>{{detail.pcontent}}</h2>
+
+            <el-input v-model="detail.pcontent" readonly autosize type="textarea" style="border-style: none;font-size: 20px;" ></el-input>
             <p>{{detail.pman}}  提交于  {{detail.pUpdate}}</p>
           </el-card>
         </el-timeline-item>
@@ -53,5 +54,12 @@ export default {
 <style scoped>
 .ptitle{
   font-size: 30px;
+}
+.block>>>.el-input__inner {
+  border: 0;
+}
+.block>>>.el-textarea__inner {
+  border: 0;
+  resize: none;/* 这个是去掉 textarea 下面拉伸的那个标志，如下图 */
 }
 </style>

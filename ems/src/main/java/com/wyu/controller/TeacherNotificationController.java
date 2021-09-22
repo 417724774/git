@@ -42,7 +42,8 @@ public class TeacherNotificationController {
 
         Boolean res = new Boolean(true);
 
-        List<Jion> hasJion = jionService.list(new QueryWrapper<Jion>().select("j_cuserid").eq("j_tjid",teacherNotification.getTnJfid()));
+        List<Jion> hasJion = jionService.list(new QueryWrapper<Jion>().select("j_cuserid")
+                .eq("j_tjid",teacherNotification.getTnJfid()));
 
         for (Jion item : hasJion) {
             res = teacherNotificationService.save(teacherNotification.setTnAccept(item.getJCuserid()).setTnPtime(new Date()));

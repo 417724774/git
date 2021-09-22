@@ -6,7 +6,7 @@
     <el-container>
       <Taside v-on:choose="choose"></Taside>
       <el-container class="containor">
-        <Logs></Logs>
+        <tLogs></tLogs>
         <el-main style="height: 682px">
           <div id="app">
             <router-view v-if="isRouterAlive"></router-view>
@@ -25,7 +25,7 @@
 <script>
 import Theader from "../components/Theader";
 import Taside from "../components/Taside";
-import Logs from "../components/Logs";
+import tLogs from "../components/tLogs";
 export default {
   name: "Teacher",
   provide (){
@@ -33,7 +33,7 @@ export default {
       reload:this.reload
     }
   },
-  components: { Theader,Taside,Logs
+  components: { Theader,Taside,tLogs
   },
   data(){
     return {

@@ -33,7 +33,8 @@ public class TeacherMessageController {
 
         Page page = new Page(currentPage,5);
 
-        IPage<TeacherMessage> res = teacherMessageService.page(page,new QueryWrapper<TeacherMessage>().orderByDesc("tm_id"));
+        IPage<TeacherMessage> res = teacherMessageService.page(page,new QueryWrapper<TeacherMessage>()
+                .orderByDesc("tm_id"));
 
         if (res.getTotal()>=0){
             return Result.success(res);

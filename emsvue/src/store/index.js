@@ -4,7 +4,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    userInfo: JSON.parse(sessionStorage.getItem("userInfo"))
+    userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
+    userType:''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -15,6 +16,10 @@ export default new Vuex.Store({
       state.userInfo = userInfo
       sessionStorage.setItem("userInfo", JSON.stringify(userInfo))
     },
+      SET_USERTYPE:(state,userType)=>{
+      state.userType = userType
+        sessionStorage.setItem("userType", userType)
+      },
     REMOVE_INFO: (state) => {
       localStorage.setItem("token", '')
       sessionStorage.setItem("userInfo", JSON.stringify(''))
@@ -24,6 +29,9 @@ export default new Vuex.Store({
   getters: {
     getUser: state => {
       return state.userInfo
+    },
+    getUserType: state => {
+      return state.userType
     },
     getDate:state => {
       const nowDate = new Date();

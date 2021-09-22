@@ -190,6 +190,8 @@ export default {
         if (valid) {
 
           const _this = this
+          _this.ruleForm.seName = _this.$store.getters.getUser.username
+          _this.ruleForm.seSex = _this.studentinfo.ssex
           _this.ruleForm.seStuid = _this.$store.getters.getUser.userId
           _this.ruleForm.sePicture = _this.imageUrl
           this.$axios.post('/stuempinfo/stuemupdate',this.ruleForm,{

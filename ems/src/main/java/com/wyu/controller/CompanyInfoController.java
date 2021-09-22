@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,6 +47,8 @@ public class CompanyInfoController {
 
             companyInfo.setCStatus("未审核");
             companyInfo.setCPassword(SecureUtil.md5(companyInfo.getCPassword()));
+            companyInfo.setCUpdate(new Date());
+            companyInfo.setCSalary(0);
             Boolean res = companyInfoService.save(companyInfo);
 
             if(res){
@@ -81,6 +84,8 @@ public class CompanyInfoController {
     @PostMapping("/companyupper")
     public Result companyUpper(@RequestBody CompanyInfo companyInfo) {
         Boolean res = companyInfoService.updateById(companyInfo);
+        Boolean res1 = userService.update(new User().setUsername(companyInfo.getCName()),
+                new QueryWrapper<User>().eq("user_id",companyInfo.getCUserid()));
         if(res){
             return Result.success(res);
         }else {
@@ -96,7 +101,7 @@ public class CompanyInfoController {
         if(res){
             String to = companyInfo.getCEmail();
             String subject = "五邑大学毕业生就业管理信息系统企业用户注册结果";
-            String content = "尊敬的 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 很抱歉的告诉您，由于您的注册填写资料未能通过校方审核，企业用户注册失败！您可前往五邑大学毕业生就业管理信息系统 http://localhost:8081/company_register重新进行填写资料注册！";
+            String content = "尊敬的 "+companyInfo.getCUnit()+"---"+companyInfo.getCName()+" 很抱歉的告诉您，由于您的注册填写资料未能通过校方审核，企业用户注册失败！您可前往五邑大学毕业生就业管理信息系统重新进行填写资料注册！http://localhost:8081/company_register";
             iMailService.sendSimpleMail(to,subject,content);
             return Result.success(res);
         }else {

@@ -8,7 +8,7 @@
       <Caside v-on:choose="choose"></Caside>
       <el-container class="containor">
         <el-drawer
-            title="title()"
+            :title="title()"
             :visible.sync="drawer"
             style="position: absolute;text-align: center"
             z-index="18"
@@ -48,7 +48,7 @@
             </el-table-column>
           </el-table>
         </el-drawer>
-        <Logs></Logs>
+        <cLogs></cLogs>
         <el-main style="height: 682px">
           <div id="app">
             <router-view v-if="isRouterAlive"></router-view>
@@ -66,7 +66,7 @@
 <script>
 import Cheader from "../components/Cheader";
 import Caside from "../components/Caside";
-import Logs from "../components/Logs";
+import cLogs from "../components/cLogs";
 export default {
   name: "Company",
   provide (){
@@ -74,7 +74,7 @@ export default {
       reload:this.reload
     }
   },
-  components: { Cheader,Caside,Logs
+  components: { Cheader,Caside,cLogs
   },
   data(){
     return {

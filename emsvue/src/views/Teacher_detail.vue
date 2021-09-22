@@ -52,11 +52,11 @@ export default {
       },
 
       rules: {
-        sname: [
+        tname: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
           { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
         ],
-        ssex: [
+        tsex: [
           { required: true, message: '请输入性别', trigger: 'blur' }
         ]
       }
@@ -73,6 +73,9 @@ export default {
             }
           }).then(res => {
             if(res.data.code === 200){
+              const userInfo = _this.$store.getters.getUser
+              userInfo['username'] = _this.ruleForm.tname
+              _this.$store.commit("SET_USERINFO",userInfo)
               this.$notify({
                 title: '修改个人信息成功！',
                 type: 'success'

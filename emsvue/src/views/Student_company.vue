@@ -37,7 +37,7 @@
                  clear: both">
         <el-table-column
             prop="cUpdate"
-            label="发布日期"
+            label="注册日期"
             sortable
             width="180"
             column-key="date"

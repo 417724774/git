@@ -116,7 +116,7 @@ const routes = [
       component: Student_register
     },{
         path: '/message_detail/:tmid',
-        name: 'Message_detail',
+        name: 'student_Message_detail',
         component: Message_detail
     },{
         path: '/student_avatar',
@@ -180,7 +180,7 @@ const routes = [
       },
       {
         path: '/message_detail/:tmid',
-        name: 'Message_detail',
+        name: 'company_Message_detail',
         component: Message_detail
       },
       {
@@ -266,7 +266,7 @@ const routes = [
       },
       {
         path: '/message_detai/:tmidl',
-        name: 'Message_detail',
+        name: 'teacher_Message_detail',
         component: Message_detail
       },
       {

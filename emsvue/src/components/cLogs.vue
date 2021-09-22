@@ -7,14 +7,14 @@
   <el-carousel height="70px" style="width: 100%;" :interval="5000">
     <el-carousel-item v-for="item in blogs.length" :key="item" >
 <!--      <h2  @click="choose(blogs[item-1].tmId)"></h2>-->
-      <h1 align="center"><router-link style="font-size: 28px" tag="el-link" class="ptitle" :to="{ name:'student_Message_detail',params:{tmid:blogs[item-1].tmId} }" >{{blogs[item-1].tmType}}：“{{blogs[item-1].tmTitle}}”······························{{blogs[item-1].tmPtime}}</router-link></h1>
+      <h1 align="center"><router-link style="font-size: 28px" tag="el-link" class="ptitle" :to="{ name:'company_Message_detail',params:{tmid:blogs[item-1].tmId} }" >{{blogs[item-1].tmType}}：“{{blogs[item-1].tmTitle}}”······························{{blogs[item-1].tmPtime}}</router-link></h1>
     </el-carousel-item>
   </el-carousel>
 </template>
 
 <script>
 export default {
-  name: "Logs",
+  name: "cLogs",
   data() {
     return {
       blogs: [],

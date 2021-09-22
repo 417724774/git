@@ -151,12 +151,13 @@ export default {
     //   return "未审核"
     // },
     filter(data){
-      for (const dataKey in this.filtedCpy) {
-          if( data === this.filtedCpy[dataKey]){
-            return true
-          }else
-            return  false
+      let res = false
+      for (let i = 0;i<this.filtedCpy.length;i++) {
+          if( data === this.filtedCpy[i]){
+            res = true
+          }
       }
+      return res
     },
     del(data){
       const _this= this
@@ -201,7 +202,11 @@ export default {
           }
         }).then(res => {
           if(res.data.code === 200){
-            _this.meName(_this.currentPage)
+            localStorage.setItem("currentPage",_this.currentPage)
+            localStorage.setItem("methodName",_this.methodName)
+            localStorage.setItem("cname",_this.cname)
+            localStorage.setItem("cuserid",_this.cuserid)
+            _this.$router.replace( "/test");
             _this.$notify({
               title: '操作成功！',
               type: 'success'
@@ -265,8 +270,15 @@ export default {
     }
   },
   created() {
-    this.page(this.currentPage)
+    this.methodName = localStorage.getItem('methodName')
+    this.cuserid = localStorage.getItem('cuserid')
+    this.cunit = localStorage.getItem('cunit')
+    this.meName(Number(localStorage.getItem('currentPage'))||1)
     this.get()
+    localStorage.removeItem('currentPage')
+    localStorage.removeItem('methodName')
+    localStorage.removeItem('cuserid')
+    localStorage.removeItem('cunit')
 
   }
 }

@@ -105,7 +105,11 @@ export default {
           crTime: new Date().getTime()
         }
         const _this= this
-        this.$axios.post('/company_remsg/save', date).then(res => {
+        this.$axios.post('/company_remsg/save', date,{
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }).then(res => {
           if (res.data.code === 200) {
               this.$notify({
                 title: '投递成功！',

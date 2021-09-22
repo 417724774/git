@@ -9,7 +9,7 @@
         <el-button class="back" type="primary" size="mini" icon="el-icon-back" @click="back">返回登录</el-button>
       </div>
       <el-main>
-        <h1 class="h1">毕业生就业管理系统</h1>
+        <h1 class="h1">企业注册</h1>
 
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
           <el-form-item label="用户名" prop="cuserid">
@@ -36,8 +36,8 @@
           <el-form-item label="公司名称" prop="cunit">
             <el-input v-model="ruleForm.cunit"></el-input>
           </el-form-item>
-          <el-form-item label="公司地址" prop="cadress">
-            <el-input v-model="ruleForm.cadress"></el-input>
+          <el-form-item label="公司地址" prop="caddress">
+            <el-input v-model="ruleForm.caddress"></el-input>
           </el-form-item>
           <el-form-item label="公司性质" prop="cproperty">
             <el-input v-model="ruleForm.cproperty"></el-input>
@@ -95,7 +95,7 @@ export default {
         cintroduction: '',
         cemail:'',
         crtime:this.$store.getters.getDate,
-        cadress:'',
+        caddress:'',
         code:''
       },
       rules: {
@@ -132,7 +132,7 @@ export default {
         cemail: [
           { type:'email', required: true, message: '请填写邮箱', trigger: 'blur' }
         ],
-        cadress: [
+        caddress: [
           {  required: true, message: '请填写公司地址', trigger: 'blur' }
         ],
         code: [

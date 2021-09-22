@@ -104,17 +104,19 @@ export default {
               //跳转
               switch (res.data.data.type) {
                 case "学生": {
+                  _this.$store.commit("SET_USERTYPE",'student')
                   _this.$router.push("/student");
                   break;
                 }
 
                 case "企业": {
+                  _this.$store.commit("SET_USERTYPE",'company')
                   _this.$router.push("/company");
                   break;
                 }
 
                 case "教师": {
-
+                  _this.$store.commit("SET_USERTYPE",'teacher')
                   _this.$router.push("/teacher");
                   break;
                 }

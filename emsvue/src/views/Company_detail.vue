@@ -80,6 +80,9 @@ export default {
             }
           }).then(res => {
             if(res.data.code === 200){
+              const userInfo = _this.$store.getters.getUser
+              userInfo['username'] = _this.ruleForm.cname
+              _this.$store.commit("SET_USERINFO",userInfo)
               this.$notify({
                 title: '修改个人信息成功！',
                 type: 'success'

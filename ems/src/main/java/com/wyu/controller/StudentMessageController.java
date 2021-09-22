@@ -68,8 +68,8 @@ public class StudentMessageController {
     @GetMapping("/isexistnoread")
     public Result isExistNoRead(@RequestParam String smaccept){
 
-        int res = studentMessageService.count(new QueryWrapper<StudentMessage>().eq("sm_accept",smaccept).eq("sm_status","未读"));
-
+        int res = studentMessageService.count(new QueryWrapper<StudentMessage>()
+                .eq("sm_accept",smaccept).eq("sm_status","未读"));
         return Result.success(res);
 
     }
